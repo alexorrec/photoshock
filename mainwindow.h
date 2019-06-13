@@ -25,16 +25,27 @@ public:
 
     void updateUi(cv::Mat& img);
 
+protected:
+    void closeEvent(QCloseEvent *event);
+
 private slots:
     void on_open_btn_clicked();
 
-    void on_contrast_slider_actionTriggered(int action);
+    void on_contrast_slider_actionTriggered();
 
-    void on_exposure_slider_actionTriggered(int action);
+    void on_exposure_slider_actionTriggered();
 
     void on_grayscale_btn_clicked();
 
-    void on_red_slider_actionTriggered(int action);
+    void on_red_slider_actionTriggered();
+
+    void on_green_slider_actionTriggered();
+
+    void on_blue_slider_actionTriggered();
+
+    void on_reset_brn_clicked();
+
+    void on_saturation_slider_actionTriggered();
 
 private:
     Ui::MainWindow *ui;

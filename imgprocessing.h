@@ -7,17 +7,14 @@
 #include <opencv2/imgcodecs.hpp>
 
 
+
 class ImgProcessing
 {
 public:
     ImgProcessing();
 
-    void brightness(cv::Mat& img, int value);
-    void gain_red(cv::Mat& img, int value);
-    void gain_green(cv::Mat& img, int value);
-    void gain_blue(cv::Mat& img, int value);
-    void contrast(cv::Mat& img, int value);
-    void saturation(cv::Mat& img, int value);
+    void processMaster(cv::Mat& img, cv::Mat& tmp, int brightness, int red, int green, int blue, float contrast);
+    void saturation(cv::Mat& img, cv::Mat& tmp, int value);
     void black_n_white(cv::Mat& img);
 };
 

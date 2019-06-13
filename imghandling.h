@@ -17,14 +17,15 @@ public:
     cv::Mat img;
     cv::Mat tmp;
 
-    int old_brightness = 0;
-    int old_red = 0;
+    int exposure_val = 0;
+    int red_val = 0;
+    int green_val = 0;
+    int blue_val = 0;
+    float contrast_val = 0;
 
     void imgLoad(QString& path);
     void imgSave();
     void emptySheet();
-    void storeValueB(int value);
-    void storeValueR(int value);
 };
 
 #endif // IMGHANDLING_H

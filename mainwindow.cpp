@@ -33,46 +33,72 @@ void MainWindow::updateUi(cv::Mat& img){
     ui->img_lbl->setPixmap(QPixmap::fromImage(qimg).scaled(ui->img_lbl->width(), ui->img_lbl->height(), Qt::IgnoreAspectRatio));
 }
 
+void MainWindow::closeEvent(QCloseEvent *event){
+    cerr<<"wish to save?"<<endl;
+}
 void MainWindow::on_open_btn_clicked(){
 
-    QString path = QFileDialog::getOpenFileName(nullptr, QObject::tr("Open File"), "", QObject::tr(".JPG (*.jpg , *.jpeg) ;; .PNG (*.png) ;; .TIFF (*.tiff)"));
+    QString path = QFileDialog::getOpenFileName(nullptr, QObject::tr("Open File"), "", QObject::tr(".JPG (*.jpg , *.jpeg) ;; .PNG (*.png) ;; .TIFF (*.tiff , *.tif)"));
 
     input.imgLoad(path);
 
     updateUi(input.img);
 }
 
-void MainWindow::on_contrast_slider_actionTriggered(int action){
+void MainWindow::on_contrast_slider_actionTriggered(){
 
-    compute.contrast(input.img, ui->contrast_slider->value());
-    updateUi(input.img);
+    input.contrast_val = ui->contrast_slider->value();
+    compute.processMaster(input.img, input.tmp, input.exposure_val, input.red_val, input.green_val, input.blue_val, input.contrast_val);
+    updateUi(input.tmp);
 }
 
-void MainWindow::on_exposure_slider_actionTriggered(int action)
-{
-    int value = ui->exposure_slider->value() - input.old_brightness;
+void MainWindow::on_exposure_slider_actionTriggered(){
 
-
-    compute.brightness(input.img, value);
-
-    input.storeValueB(ui->exposure_slider->value());
-
-    updateUi(input.img);
+    input.exposure_val = ui->exposure_slider->value();
+    compute.processMaster(input.img, input.tmp, input.exposure_val, input.red_val, input.green_val, input.blue_val, input.contrast_val);
+    updateUi(input.tmp);
 }
 
-void MainWindow::on_grayscale_btn_clicked()
-{
+void MainWindow::on_grayscale_btn_clicked(){
+
     compute.black_n_white(input.img);
     updateUi(input.img);
 }
 
-void MainWindow::on_red_slider_actionTriggered(int action)
-{
-    int value = ui->red_slider->value() - input.old_red;
+void MainWindow::on_red_slider_actionTriggered(){
 
-    compute.gain_red(input.img, value);
+    input.red_val = ui->red_slider->value();
 
-    input.storeValueR(ui->red_slider->value());
+    compute.processMaster(input.img, input.tmp, input.exposure_val, input.red_val, input.green_val, input.blue_val, input.contrast_val);
 
+    updateUi(input.tmp);
+}
+
+void MainWindow::on_green_slider_actionTriggered(){
+
+    input.green_val = ui->green_slider->value();
+
+    compute.processMaster(input.img, input.tmp, input.exposure_val, input.red_val, input.green_val, input.blue_val, input.contrast_val);
+
+    updateUi(input.tmp);
+}
+
+void MainWindow::on_blue_slider_actionTriggered(){
+
+    input.blue_val = ui->blue_slider->value();
+
+    compute.processMaster(input.img, input.tmp, input.exposure_val, input.red_val, input.green_val, input.blue_val, input.contrast_val);
+
+    updateUi(input.tmp);
+}
+
+void MainWindow::on_reset_brn_clicked(){
+    input.tmp = input.img.clone();
+    updateUi(input.tmp);
+}
+
+void MainWindow::on_saturation_slider_actionTriggered(){
+
+    compute.saturation(input.img, input.tmp, ui->saturation_slider->value());
     updateUi(input.img);
 }

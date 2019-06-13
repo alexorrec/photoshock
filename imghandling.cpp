@@ -21,13 +21,7 @@ void ImgHandling::imgLoad(QString& path){
 
     img = cv::imread(imagePath);
 
+    tmp = cv::Mat::zeros(img.rows, img.cols, img.type()); //matrice di 0, dimensioni di img
+
     cvtColor(img, img, CV_BGR2RGB);
-}
-
-void ImgHandling::storeValueB(int value){
-    ImgHandling::old_brightness = value;
-}
-
-void ImgHandling::storeValueR(int value){
-    ImgHandling::old_red = value;
 }

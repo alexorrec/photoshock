@@ -51,24 +51,24 @@ public:
     QSlider *saturation_slider;
     QPushButton *reset_brn;
     QWidget *Kernel;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_4;
     QSlider *horizontalSlider_2;
     QLabel *label_5;
     QSlider *gaussian_slider;
-    QWidget *widget1;
+    QWidget *layoutWidget1;
     QHBoxLayout *horizontalLayout;
     QPushButton *sepia_btn;
     QPushButton *grayscale_btn;
     QWidget *Paint;
-    QWidget *widget2;
+    QWidget *layoutWidget2;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *open_btn;
     QPushButton *save_btn;
     QSpacerItem *horizontalSpacer;
     QPushButton *new_btn;
-    QWidget *widget3;
+    QWidget *layoutWidget3;
     QHBoxLayout *horizontalLayout_3;
     QLabel *textZoom;
     QSlider *zoom_slider;
@@ -172,6 +172,7 @@ public:
         contrast_slider->setObjectName(QString::fromUtf8("contrast_slider"));
         contrast_slider->setMinimum(-100);
         contrast_slider->setMaximum(100);
+        contrast_slider->setValue(0);
         contrast_slider->setOrientation(Qt::Horizontal);
         contrast_slider->setTickPosition(QSlider::TicksAbove);
 
@@ -199,50 +200,50 @@ public:
         tabWidget->addTab(Editing, QString());
         Kernel = new QWidget();
         Kernel->setObjectName(QString::fromUtf8("Kernel"));
-        widget = new QWidget(Kernel);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(10, 10, 231, 131));
-        verticalLayout_2 = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(Kernel);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 10, 231, 131));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget);
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setContentsMargins(11, 11, 11, 11);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        label_4 = new QLabel(widget);
+        label_4 = new QLabel(layoutWidget);
         label_4->setObjectName(QString::fromUtf8("label_4"));
 
         verticalLayout_2->addWidget(label_4);
 
-        horizontalSlider_2 = new QSlider(widget);
+        horizontalSlider_2 = new QSlider(layoutWidget);
         horizontalSlider_2->setObjectName(QString::fromUtf8("horizontalSlider_2"));
         horizontalSlider_2->setOrientation(Qt::Horizontal);
 
         verticalLayout_2->addWidget(horizontalSlider_2);
 
-        label_5 = new QLabel(widget);
+        label_5 = new QLabel(layoutWidget);
         label_5->setObjectName(QString::fromUtf8("label_5"));
 
         verticalLayout_2->addWidget(label_5, 0, Qt::AlignLeft);
 
-        gaussian_slider = new QSlider(widget);
+        gaussian_slider = new QSlider(layoutWidget);
         gaussian_slider->setObjectName(QString::fromUtf8("gaussian_slider"));
         gaussian_slider->setOrientation(Qt::Horizontal);
 
         verticalLayout_2->addWidget(gaussian_slider);
 
-        widget1 = new QWidget(Kernel);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        widget1->setGeometry(QRect(10, 420, 221, 51));
-        horizontalLayout = new QHBoxLayout(widget1);
+        layoutWidget1 = new QWidget(Kernel);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 420, 221, 51));
+        horizontalLayout = new QHBoxLayout(layoutWidget1);
         horizontalLayout->setSpacing(6);
         horizontalLayout->setContentsMargins(11, 11, 11, 11);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        sepia_btn = new QPushButton(widget1);
+        sepia_btn = new QPushButton(layoutWidget1);
         sepia_btn->setObjectName(QString::fromUtf8("sepia_btn"));
 
         horizontalLayout->addWidget(sepia_btn);
 
-        grayscale_btn = new QPushButton(widget1);
+        grayscale_btn = new QPushButton(layoutWidget1);
         grayscale_btn->setObjectName(QString::fromUtf8("grayscale_btn"));
 
         horizontalLayout->addWidget(grayscale_btn);
@@ -251,21 +252,21 @@ public:
         Paint = new QWidget();
         Paint->setObjectName(QString::fromUtf8("Paint"));
         tabWidget->addTab(Paint, QString());
-        widget2 = new QWidget(centralWidget);
-        widget2->setObjectName(QString::fromUtf8("widget2"));
-        widget2->setGeometry(QRect(0, 0, 331, 26));
-        horizontalLayout_2 = new QHBoxLayout(widget2);
+        layoutWidget2 = new QWidget(centralWidget);
+        layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(0, 0, 331, 26));
+        horizontalLayout_2 = new QHBoxLayout(layoutWidget2);
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        open_btn = new QPushButton(widget2);
+        open_btn = new QPushButton(layoutWidget2);
         open_btn->setObjectName(QString::fromUtf8("open_btn"));
         open_btn->setMinimumSize(QSize(80, 24));
 
         horizontalLayout_2->addWidget(open_btn);
 
-        save_btn = new QPushButton(widget2);
+        save_btn = new QPushButton(layoutWidget2);
         save_btn->setObjectName(QString::fromUtf8("save_btn"));
 
         horizontalLayout_2->addWidget(save_btn);
@@ -274,25 +275,25 @@ public:
 
         horizontalLayout_2->addItem(horizontalSpacer);
 
-        new_btn = new QPushButton(widget2);
+        new_btn = new QPushButton(layoutWidget2);
         new_btn->setObjectName(QString::fromUtf8("new_btn"));
 
         horizontalLayout_2->addWidget(new_btn);
 
-        widget3 = new QWidget(centralWidget);
-        widget3->setObjectName(QString::fromUtf8("widget3"));
-        widget3->setGeometry(QRect(570, 0, 171, 30));
-        horizontalLayout_3 = new QHBoxLayout(widget3);
+        layoutWidget3 = new QWidget(centralWidget);
+        layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(570, 0, 171, 30));
+        horizontalLayout_3 = new QHBoxLayout(layoutWidget3);
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
-        textZoom = new QLabel(widget3);
+        textZoom = new QLabel(layoutWidget3);
         textZoom->setObjectName(QString::fromUtf8("textZoom"));
 
         horizontalLayout_3->addWidget(textZoom);
 
-        zoom_slider = new QSlider(widget3);
+        zoom_slider = new QSlider(layoutWidget3);
         zoom_slider->setObjectName(QString::fromUtf8("zoom_slider"));
         zoom_slider->setOrientation(Qt::Horizontal);
 

@@ -9,6 +9,20 @@ ImgProcessing::ImgProcessing()
 
 }
 
+void ImgProcessing::processMaster(cv::Mat& img, cv::Mat& tmp, int brightness, int red, int green, int blue, float contrast){
+
+    for(int i = 0; i < img.rows; i++)
+        for(int j = 0; j < img.cols; j++)
+            for(int k = 0; k < 3; k++){
+                if(k == 0)  //_R
+                    tmp.at<cv::Vec3b>(i,j)[k] = cv::saturate_cast<uchar>((img.at<cv::Vec3b>(i,j)[k] + brightness + red )*(259 * (contrast + 255) / (255 * (259 - contrast))));
+                if(k == 1)  //_G
+                    tmp.at<cv::Vec3b>(i,j)[k] = cv::saturate_cast<uchar>((img.at<cv::Vec3b>(i,j)[k] + brightness + green )*(259 * (contrast + 255) / (255 * (259 - contrast))));
+                if(k == 2)  //_B
+                    tmp.at<cv::Vec3b>(i,j)[k] = cv::saturate_cast<uchar>((img.at<cv::Vec3b>(i,j)[k] + brightness + blue )*(259 * (contrast + 255) / (255 * (259 - contrast))));
+            }            
+}
+
 void ImgProcessing::black_n_white(cv::Mat& img){
 
     for(int i = 0; i < img.rows; i++)
@@ -19,29 +33,14 @@ void ImgProcessing::black_n_white(cv::Mat& img){
 
 }
 
-void ImgProcessing::brightness(cv::Mat& img, int value){
+void ImgProcessing::saturation(cv::Mat &img, cv::Mat &tmp, int value){
+
+    cv::cvtColor(img, tmp, CV_RGB2HSV);
 
     for(int i = 0; i < img.rows; i++)
         for(int j = 0; j < img.cols; j++)
-            for(int k = 0; k < 3; k++)
-                img.at<cv::Vec3b>(i,j)[k] = cv::saturate_cast<uchar>(img.at<cv::Vec3b>(i,j)[k] + value);
+            tmp.at<cv::Vec3b>(i,j)[1] = tmp.at<cv::Vec3b>(i,j)[1] + 0,5;
 
+    cv::cvtColor(tmp, img, CV_HSV2RGB);
 }
 
-void ImgProcessing::gain_red(cv::Mat &img, int value){
-
-    for(int i = 0; i < img.rows; i++)
-        for(int j = 0; j < img.cols; j++)
-            img.at<cv::Vec3b>(i,j)[0] = cv::saturate_cast<uchar>(img.at<cv::Vec3b>(i,j)[0] + value);
-
-}
-
-void ImgProcessing::contrast(cv::Mat& img, int value){
-
-    //non corretto
-    for(int i = 0; i < img.rows; i++)
-        for(int j = 0; j < img.cols; j++)
-            for(int k = 0; k < 3; k++)
-                img.at<cv::Vec3b>(i,j)[k] = cv::saturate_cast<uchar>(value*img.at<cv::Vec3b>(i,j)[k]);
-
-}
