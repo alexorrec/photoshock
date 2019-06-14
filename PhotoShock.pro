@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ZeroPane
+TARGET = PhotoShock
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -25,17 +25,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        geometrical_process.cpp \
+        hsl_dlg.cpp \
         imghandling.cpp \
         imgprocessing.cpp \
         main.cpp \
         mainwindow.cpp
 
 HEADERS += \
+        geometrical_process.h \
+        hsl_dlg.h \
         imghandling.h \
         imgprocessing.h \
         mainwindow.h
 
 FORMS += \
+        geometrical_process.ui \
+        hsl_dlg.ui \
         mainwindow.ui
 
 LIBS += /usr/local/lib/libopencv_core.3.4.6.dylib

@@ -5,6 +5,7 @@
 #include <QImage>
 #include <QLabel>
 #include <QPixmap>
+#include <QMessageBox>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include "ui_mainwindow.h"
@@ -30,31 +31,28 @@ protected:
 
 private slots:
     void on_open_btn_clicked();
+    void on_save_btn_clicked();
+    void on_reset_btn_clicked();
 
-    void on_contrast_slider_actionTriggered();
+    void on_exposure_slider_valueChanged();
+    void on_contrast_slider_valueChanged();
 
-    void on_exposure_slider_actionTriggered();
+    void on_red_slider_valueChanged();
+    void on_green_slider_valueChanged();
+    void on_blue_slider_valueChanged();
 
     void on_grayscale_btn_clicked();
+    void on_HSL_btn_clicked();
 
-    void on_red_slider_actionTriggered();
 
-    void on_green_slider_actionTriggered();
-
-    void on_blue_slider_actionTriggered();
-
-    void on_reset_brn_clicked();
-
-    void on_saturation_slider_actionTriggered();
+    void on_geometry_btn_clicked();
 
 private:
     Ui::MainWindow *ui;
 
-
-    ImgHandling input;
-
+    ImgHandling handling;
     ImgProcessing compute;
-
+    QMessageBox message;
 };
 
 

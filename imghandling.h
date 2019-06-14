@@ -21,10 +21,14 @@ public:
     int red_val = 0;
     int green_val = 0;
     int blue_val = 0;
-    float contrast_val = 0;
+    double contrast_val = 0;
+
+    int hue = 0;
+    int luminance = 0;
+    int saturation = 0;
 
     void imgLoad(QString& path);
-    void imgSave();
+    void imgSave(QString& path, cv::Mat& img);
     void emptySheet();
 };
 
