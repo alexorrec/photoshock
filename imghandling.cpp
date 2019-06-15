@@ -15,7 +15,7 @@ ImgHandling::ImgHandling(){
 
 }
 
-void ImgHandling::imgLoad(QString& path){
+void ImgHandling::imgLoad(cv::Mat& img, cv::Mat& tmp, QString& path){
 
     const std::string imagePath(path.toStdString());
 

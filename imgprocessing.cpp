@@ -4,6 +4,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 #include <math.h>
+#include <iostream>
 
 ImgProcessing::ImgProcessing()
 {
@@ -24,20 +25,19 @@ void ImgProcessing::processMaster(cv::Mat& img, cv::Mat& tmp, int brightness, in
             }            
 }
 
-void ImgProcessing::black_n_white(cv::Mat& img){
+void ImgProcessing::black_n_white(cv::Mat& img, cv::Mat& tmp){
 
     for(int i = 0; i < img.rows; i++)
         for(int j = 0; j < img.cols; j++)
             for(int k = 0; k < 3; k++)
-                for(int m = 0; m < 3; m++)
-                    img.at<cv::Vec3b>(i,j)[k] += ((img.at<cv::Vec3b>(i,j)[m])/3);
-
+                for (int m = 0; m < 3; m++)
+                    tmp.at<cv::Vec3b>(i,j)[k] += ((img.at<cv::Vec3b>(i,j)[m])*0.33f);
 }
 
-void ImgProcessing::processHLS(cv::Mat &img, cv::Mat &tmp, int hue, int luminance, int saturation){
+void ImgProcessing::processHLS(cv::Mat& img, cv::Mat& tmp, int hue, int luminance, int saturation){
 
-    //cv::cvtColor(img, img, CV_RGB2HSV);
-    //cv::cvtColor(tmp, tmp, CV_RGB2HSV);
+    cv::cvtColor(img, img, CV_RGB2HLS);
+    cv::cvtColor(tmp, tmp, CV_RGB2HLS);
 
     for(int i = 0; i < img.rows; i++)
         for(int j = 0; j < img.cols; j++)
@@ -45,33 +45,11 @@ void ImgProcessing::processHLS(cv::Mat &img, cv::Mat &tmp, int hue, int luminanc
                 if(k == 0)  //_H
                     tmp.at<cv::Vec3b>(i,j)[k] = cv::saturate_cast<uchar>(img.at<cv::Vec3b>(i,j)[k] + hue);
                 if(k == 1)  //_L
-                    tmp.at<cv::Vec3b>(i,j)[k] = cv::saturate_cast<uchar>(img.at<cv::Vec3b>(i,j)[k] + saturation);
-                if(k == 2)  //_S
                     tmp.at<cv::Vec3b>(i,j)[k] = cv::saturate_cast<uchar>(img.at<cv::Vec3b>(i,j)[k] + luminance);
+                if(k == 2)  //_S
+                    tmp.at<cv::Vec3b>(i,j)[k] = cv::saturate_cast<uchar>(img.at<cv::Vec3b>(i,j)[k] + saturation);
             }
 
-    //cv::cvtColor(img, img, CV_HSV2RGB);
-    //cv::cvtColor(tmp, tmp, CV_HSV2RGB);
-}
-
-void ImgProcessing::rotate(cv::Mat &img, cv::Mat &tmp, int angle){
-
-    float rads = angle*3.1415926/180.0;
-    float cs = cos(-rads);
-    float ss = sin(-rads);
-
-    float xcenter = (float)(img.cols)/2.0;
-    float ycenter = (float)(img.rows)/2.0;
-
-    for(int i = 0; i < img.rows; i++)
-        for(int j = 0; j < img.cols; j++){
-
-            int rorig = ycenter + ((float)(i)-ycenter)*cs - ((float)(j)-xcenter)*ss;
-            int corig = xcenter + ((float)(i)-ycenter)*ss + ((float)(j)-xcenter)*cs;
-            int pixel = 0;
-            if (rorig >= 0 && rorig < img.rows && corig >= 0 && corig < img.cols) {
-                     tmp.at<cv::Vec3b>(i ,j) = img.at<cv::Vec3b>(rorig, corig);
-                  }else tmp.at<cv::Vec3b>(i ,j) = 0;
-        }
-
+    cv::cvtColor(img, img, CV_HLS2RGB);
+    cv::cvtColor(tmp, tmp, CV_HLS2RGB);
 }

@@ -25,23 +25,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        geometrical_process.cpp \
-        hsl_dlg.cpp \
+        imgdistortions.cpp \
         imghandling.cpp \
         imgprocessing.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        masterph.cpp
 
 HEADERS += \
-        geometrical_process.h \
-        hsl_dlg.h \
+    imgdistortions.h \
         imghandling.h \
         imgprocessing.h \
-        mainwindow.h
+        mainwindow.h \ \
+    masterph.h
 
 FORMS += \
-        geometrical_process.ui \
-        hsl_dlg.ui \
         mainwindow.ui
 
 LIBS += /usr/local/lib/libopencv_core.3.4.6.dylib

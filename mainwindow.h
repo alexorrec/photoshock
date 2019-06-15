@@ -6,11 +6,15 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QMessageBox>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
 #include "ui_mainwindow.h"
+#include "masterph.h"
 #include "imghandling.h"
 #include "imgprocessing.h"
+#include "imgdistortions.h"
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgcodecs.hpp>
 
 namespace Ui {
 class MainWindow;
@@ -23,6 +27,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+
 
     void updateUi(cv::Mat& img);
 
@@ -42,16 +48,27 @@ private slots:
     void on_blue_slider_valueChanged();
 
     void on_grayscale_btn_clicked();
-    void on_HSL_btn_clicked();
+
+    void on_rotate_slider_valueChanged();
+    void on_flipV_btn_clicked();
+    void on_flipH_btn_clicked();
+
+    void on_hue_slider_valueChanged();
+    void on_saturation_slider_valueChanged();
+    void on_luminance_slider_valueChanged();
+
+    void on_hsl_btn_clicked();
 
 
-    void on_geometry_btn_clicked();
+    void on_ok_btn_clicked();
 
 private:
-    Ui::MainWindow *ui;
 
+    Ui::MainWindow *ui;
+    MasterPH master;
     ImgHandling handling;
     ImgProcessing compute;
+    ImgDistortions distort;
     QMessageBox message;
 };
 

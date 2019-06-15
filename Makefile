@@ -52,22 +52,18 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = geometrical_process.cpp \
-		hsl_dlg.cpp \
+SOURCES       = imgdistortions.cpp \
 		imghandling.cpp \
 		imgprocessing.cpp \
 		main.cpp \
-		mainwindow.cpp moc_geometrical_process.cpp \
-		moc_hsl_dlg.cpp \
-		moc_mainwindow.cpp
-OBJECTS       = geometrical_process.o \
-		hsl_dlg.o \
+		mainwindow.cpp \
+		masterph.cpp moc_mainwindow.cpp
+OBJECTS       = imgdistortions.o \
 		imghandling.o \
 		imgprocessing.o \
 		main.o \
 		mainwindow.o \
-		moc_geometrical_process.o \
-		moc_hsl_dlg.o \
+		masterph.o \
 		moc_mainwindow.o
 DIST          = ../../Qt/5.12.3/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.12.3/clang_64/mkspecs/qdevice.pri \
@@ -242,16 +238,17 @@ DIST          = ../../Qt/5.12.3/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.12.3/clang_64/mkspecs/features/exceptions.prf \
 		../../Qt/5.12.3/clang_64/mkspecs/features/yacc.prf \
 		../../Qt/5.12.3/clang_64/mkspecs/features/lex.prf \
-		PhotoShock.pro geometrical_process.h \
-		hsl_dlg.h \
+		PhotoShock.pro imgdistortions.h \
 		imghandling.h \
 		imgprocessing.h \
-		mainwindow.h geometrical_process.cpp \
-		hsl_dlg.cpp \
+		mainwindow.h \
+		/ \
+		masterph.h imgdistortions.cpp \
 		imghandling.cpp \
 		imgprocessing.cpp \
 		main.cpp \
-		mainwindow.cpp
+		mainwindow.cpp \
+		masterph.cpp
 QMAKE_TARGET  = PhotoShock
 DESTDIR       = 
 TARGET        = PhotoShock.app/Contents/MacOS/PhotoShock
@@ -270,7 +267,7 @@ include /Users/alessandrocerro/Qt/5.12.3/clang_64/mkspecs/features/mac/sdk.mk
 first: all
 ####### Build rules
 
-PhotoShock.app/Contents/MacOS/PhotoShock: ui_geometrical_process.h ui_hsl_dlg.h ui_mainwindow.h $(OBJECTS)  
+PhotoShock.app/Contents/MacOS/PhotoShock: ui_mainwindow.h $(OBJECTS)  
 	@test -d PhotoShock.app/Contents/MacOS/ || mkdir -p PhotoShock.app/Contents/MacOS/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -659,9 +656,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt/5.12.3/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents geometrical_process.h hsl_dlg.h imghandling.h imgprocessing.h mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents geometrical_process.cpp hsl_dlg.cpp imghandling.cpp imgprocessing.cpp main.cpp mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents geometrical_process.ui hsl_dlg.ui mainwindow.ui $(DISTDIR)/
+	$(COPY_FILE) --parents imgdistortions.h imghandling.h imgprocessing.h mainwindow.h / masterph.h $(DISTDIR)/
+	$(COPY_FILE) --parents imgdistortions.cpp imghandling.cpp imgprocessing.cpp main.cpp mainwindow.cpp masterph.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -701,80 +698,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: ../../Qt/5.12.3/clang_64/mkspecs/features/data/dummy.cpp
 	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -mmacosx-version-min=10.12 -Wall -W -dM -E -o moc_predefs.h ../../Qt/5.12.3/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_geometrical_process.cpp moc_hsl_dlg.cpp moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_geometrical_process.cpp moc_hsl_dlg.cpp moc_mainwindow.cpp
-moc_geometrical_process.cpp: geometrical_process.h \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QDialog \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
-		moc_predefs.h \
-		../../Qt/5.12.3/clang_64/bin/moc
-	/Users/alessandrocerro/Qt/5.12.3/clang_64/bin/moc $(DEFINES) --include /Users/alessandrocerro/Desktop/PhotoShock/moc_predefs.h -I/Users/alessandrocerro/Qt/5.12.3/clang_64/mkspecs/macx-clang -I/Users/alessandrocerro/Desktop/PhotoShock -I/usr/local/include/opencv -I/usr/local/include -I/Users/alessandrocerro/Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers -I/Users/alessandrocerro/Qt/5.12.3/clang_64/lib/QtGui.framework/Headers -I/Users/alessandrocerro/Qt/5.12.3/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include -F/Users/alessandrocerro/Qt/5.12.3/clang_64/lib geometrical_process.h -o moc_geometrical_process.cpp
-
-moc_hsl_dlg.cpp: hsl_dlg.h \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QDialog \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
-		mainwindow.h \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/QImage \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qimage.h \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QLabel \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/QPixmap \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
-		/usr/local/include/opencv2/highgui/highgui.hpp \
-		/usr/local/include/opencv2/highgui.hpp \
-		/usr/local/include/opencv2/core.hpp \
-		/usr/local/include/opencv2/core/cvdef.h \
-		/usr/local/include/opencv2/core/hal/interface.h \
-		/usr/local/include/opencv2/core/cv_cpu_dispatch.h \
-		/usr/local/include/opencv2/core/cv_cpu_helper.h \
-		/usr/local/include/opencv2/core/fast_math.hpp \
-		/usr/local/include/opencv2/core/version.hpp \
-		/usr/local/include/opencv2/core/base.hpp \
-		/usr/local/include/opencv2/opencv_modules.hpp \
-		/usr/local/include/opencv2/core/cvstd.hpp \
-		/usr/local/include/opencv2/core/ptr.inl.hpp \
-		/usr/local/include/opencv2/core/neon_utils.hpp \
-		/usr/local/include/opencv2/core/vsx_utils.hpp \
-		/usr/local/include/opencv2/core/check.hpp \
-		/usr/local/include/opencv2/core/traits.hpp \
-		/usr/local/include/opencv2/core/matx.hpp \
-		/usr/local/include/opencv2/core/saturate.hpp \
-		/usr/local/include/opencv2/core/types.hpp \
-		/usr/local/include/opencv2/core/mat.hpp \
-		/usr/local/include/opencv2/core/bufferpool.hpp \
-		/usr/local/include/opencv2/core/mat.inl.hpp \
-		/usr/local/include/opencv2/core/persistence.hpp \
-		/usr/local/include/opencv2/core/operations.hpp \
-		/usr/local/include/opencv2/core/cvstd.inl.hpp \
-		/usr/local/include/opencv2/core/utility.hpp \
-		/usr/local/include/opencv2/core/core_c.h \
-		/usr/local/include/opencv2/core/types_c.h \
-		/usr/local/include/opencv2/core/optim.hpp \
-		/usr/local/include/opencv2/core/ovx.hpp \
-		/usr/local/include/opencv2/imgcodecs.hpp \
-		/usr/local/include/opencv2/videoio.hpp \
-		/usr/local/include/opencv2/highgui/highgui_c.h \
-		/usr/local/include/opencv2/imgproc/imgproc_c.h \
-		/usr/local/include/opencv2/imgproc/types_c.h \
-		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
-		/usr/local/include/opencv2/videoio/videoio_c.h \
-		/usr/local/include/opencv2/imgproc/imgproc.hpp \
-		/usr/local/include/opencv2/imgproc.hpp \
-		ui_mainwindow.h \
-		imghandling.h \
-		/usr/local/include/opencv2/core/core.hpp \
-		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/QString \
-		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/qstring.h \
-		imgprocessing.h \
-		moc_predefs.h \
-		../../Qt/5.12.3/clang_64/bin/moc
-	/Users/alessandrocerro/Qt/5.12.3/clang_64/bin/moc $(DEFINES) --include /Users/alessandrocerro/Desktop/PhotoShock/moc_predefs.h -I/Users/alessandrocerro/Qt/5.12.3/clang_64/mkspecs/macx-clang -I/Users/alessandrocerro/Desktop/PhotoShock -I/usr/local/include/opencv -I/usr/local/include -I/Users/alessandrocerro/Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers -I/Users/alessandrocerro/Qt/5.12.3/clang_64/lib/QtGui.framework/Headers -I/Users/alessandrocerro/Qt/5.12.3/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include -F/Users/alessandrocerro/Qt/5.12.3/clang_64/lib hsl_dlg.h -o moc_hsl_dlg.cpp
-
+	-$(DEL_FILE) moc_mainwindow.cpp
 moc_mainwindow.cpp: mainwindow.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
@@ -786,8 +712,9 @@ moc_mainwindow.cpp: mainwindow.h \
 		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
-		/usr/local/include/opencv2/highgui/highgui.hpp \
-		/usr/local/include/opencv2/highgui.hpp \
+		ui_mainwindow.h \
+		masterph.h \
+		/usr/local/include/opencv2/core/core.hpp \
 		/usr/local/include/opencv2/core.hpp \
 		/usr/local/include/opencv2/core/cvdef.h \
 		/usr/local/include/opencv2/core/hal/interface.h \
@@ -817,6 +744,8 @@ moc_mainwindow.cpp: mainwindow.h \
 		/usr/local/include/opencv2/core/types_c.h \
 		/usr/local/include/opencv2/core/optim.hpp \
 		/usr/local/include/opencv2/core/ovx.hpp \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
 		/usr/local/include/opencv2/imgcodecs.hpp \
 		/usr/local/include/opencv2/videoio.hpp \
 		/usr/local/include/opencv2/highgui/highgui_c.h \
@@ -826,12 +755,11 @@ moc_mainwindow.cpp: mainwindow.h \
 		/usr/local/include/opencv2/videoio/videoio_c.h \
 		/usr/local/include/opencv2/imgproc/imgproc.hpp \
 		/usr/local/include/opencv2/imgproc.hpp \
-		ui_mainwindow.h \
 		imghandling.h \
-		/usr/local/include/opencv2/core/core.hpp \
 		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/QString \
 		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		imgprocessing.h \
+		imgdistortions.h \
 		moc_predefs.h \
 		../../Qt/5.12.3/clang_64/bin/moc
 	/Users/alessandrocerro/Qt/5.12.3/clang_64/bin/moc $(DEFINES) --include /Users/alessandrocerro/Desktop/PhotoShock/moc_predefs.h -I/Users/alessandrocerro/Qt/5.12.3/clang_64/mkspecs/macx-clang -I/Users/alessandrocerro/Desktop/PhotoShock -I/usr/local/include/opencv -I/usr/local/include -I/Users/alessandrocerro/Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers -I/Users/alessandrocerro/Qt/5.12.3/clang_64/lib/QtGui.framework/Headers -I/Users/alessandrocerro/Qt/5.12.3/clang_64/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include -F/Users/alessandrocerro/Qt/5.12.3/clang_64/lib mainwindow.h -o moc_mainwindow.cpp
@@ -840,17 +768,9 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_geometrical_process.h ui_hsl_dlg.h ui_mainwindow.h
+compiler_uic_make_all: ui_mainwindow.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_geometrical_process.h ui_hsl_dlg.h ui_mainwindow.h
-ui_geometrical_process.h: geometrical_process.ui \
-		../../Qt/5.12.3/clang_64/bin/uic
-	/Users/alessandrocerro/Qt/5.12.3/clang_64/bin/uic geometrical_process.ui -o ui_geometrical_process.h
-
-ui_hsl_dlg.h: hsl_dlg.ui \
-		../../Qt/5.12.3/clang_64/bin/uic
-	/Users/alessandrocerro/Qt/5.12.3/clang_64/bin/uic hsl_dlg.ui -o ui_hsl_dlg.h
-
+	-$(DEL_FILE) ui_mainwindow.h
 ui_mainwindow.h: mainwindow.ui \
 		../../Qt/5.12.3/clang_64/bin/uic
 	/Users/alessandrocerro/Qt/5.12.3/clang_64/bin/uic mainwindow.ui -o ui_mainwindow.h
@@ -867,28 +787,8 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-geometrical_process.o: geometrical_process.cpp geometrical_process.h \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QDialog \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
-		ui_geometrical_process.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o geometrical_process.o geometrical_process.cpp
-
-hsl_dlg.o: hsl_dlg.cpp hsl_dlg.h \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QDialog \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
-		mainwindow.h \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/QImage \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qimage.h \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QLabel \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/QPixmap \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
-		/usr/local/include/opencv2/highgui/highgui.hpp \
-		/usr/local/include/opencv2/highgui.hpp \
+imgdistortions.o: imgdistortions.cpp imgdistortions.h \
+		/usr/local/include/opencv2/core/core.hpp \
 		/usr/local/include/opencv2/core.hpp \
 		/usr/local/include/opencv2/core/cvdef.h \
 		/usr/local/include/opencv2/core/hal/interface.h \
@@ -918,6 +818,8 @@ hsl_dlg.o: hsl_dlg.cpp hsl_dlg.h \
 		/usr/local/include/opencv2/core/types_c.h \
 		/usr/local/include/opencv2/core/optim.hpp \
 		/usr/local/include/opencv2/core/ovx.hpp \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
 		/usr/local/include/opencv2/imgcodecs.hpp \
 		/usr/local/include/opencv2/videoio.hpp \
 		/usr/local/include/opencv2/highgui/highgui_c.h \
@@ -926,15 +828,8 @@ hsl_dlg.o: hsl_dlg.cpp hsl_dlg.h \
 		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
 		/usr/local/include/opencv2/videoio/videoio_c.h \
 		/usr/local/include/opencv2/imgproc/imgproc.hpp \
-		/usr/local/include/opencv2/imgproc.hpp \
-		ui_mainwindow.h \
-		imghandling.h \
-		/usr/local/include/opencv2/core/core.hpp \
-		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/QString \
-		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/qstring.h \
-		imgprocessing.h \
-		ui_hsl_dlg.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o hsl_dlg.o hsl_dlg.cpp
+		/usr/local/include/opencv2/imgproc.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o imgdistortions.o imgdistortions.cpp
 
 imghandling.o: imghandling.cpp imghandling.h \
 		/usr/local/include/opencv2/core/core.hpp \
@@ -1136,8 +1031,9 @@ main.o: main.cpp mainwindow.h \
 		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
-		/usr/local/include/opencv2/highgui/highgui.hpp \
-		/usr/local/include/opencv2/highgui.hpp \
+		ui_mainwindow.h \
+		masterph.h \
+		/usr/local/include/opencv2/core/core.hpp \
 		/usr/local/include/opencv2/core.hpp \
 		/usr/local/include/opencv2/core/cvdef.h \
 		/usr/local/include/opencv2/core/hal/interface.h \
@@ -1167,6 +1063,8 @@ main.o: main.cpp mainwindow.h \
 		/usr/local/include/opencv2/core/types_c.h \
 		/usr/local/include/opencv2/core/optim.hpp \
 		/usr/local/include/opencv2/core/ovx.hpp \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
 		/usr/local/include/opencv2/imgcodecs.hpp \
 		/usr/local/include/opencv2/videoio.hpp \
 		/usr/local/include/opencv2/highgui/highgui_c.h \
@@ -1176,12 +1074,11 @@ main.o: main.cpp mainwindow.h \
 		/usr/local/include/opencv2/videoio/videoio_c.h \
 		/usr/local/include/opencv2/imgproc/imgproc.hpp \
 		/usr/local/include/opencv2/imgproc.hpp \
-		ui_mainwindow.h \
 		imghandling.h \
-		/usr/local/include/opencv2/core/core.hpp \
 		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/QString \
 		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		imgprocessing.h \
+		imgdistortions.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
@@ -1197,8 +1094,9 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
-		/usr/local/include/opencv2/highgui/highgui.hpp \
-		/usr/local/include/opencv2/highgui.hpp \
+		ui_mainwindow.h \
+		masterph.h \
+		/usr/local/include/opencv2/core/core.hpp \
 		/usr/local/include/opencv2/core.hpp \
 		/usr/local/include/opencv2/core/cvdef.h \
 		/usr/local/include/opencv2/core/hal/interface.h \
@@ -1228,6 +1126,8 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/local/include/opencv2/core/types_c.h \
 		/usr/local/include/opencv2/core/optim.hpp \
 		/usr/local/include/opencv2/core/ovx.hpp \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
 		/usr/local/include/opencv2/imgcodecs.hpp \
 		/usr/local/include/opencv2/videoio.hpp \
 		/usr/local/include/opencv2/highgui/highgui_c.h \
@@ -1237,24 +1137,64 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/local/include/opencv2/videoio/videoio_c.h \
 		/usr/local/include/opencv2/imgproc/imgproc.hpp \
 		/usr/local/include/opencv2/imgproc.hpp \
-		ui_mainwindow.h \
 		imghandling.h \
-		/usr/local/include/opencv2/core/core.hpp \
 		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/QString \
 		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		imgprocessing.h \
+		imgdistortions.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
-		hsl_dlg.h \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QDialog \
-		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qdialog.h
+		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
-moc_geometrical_process.o: moc_geometrical_process.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_geometrical_process.o moc_geometrical_process.cpp
-
-moc_hsl_dlg.o: moc_hsl_dlg.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_hsl_dlg.o moc_hsl_dlg.cpp
+masterph.o: masterph.cpp masterph.h \
+		/usr/local/include/opencv2/core/core.hpp \
+		/usr/local/include/opencv2/core.hpp \
+		/usr/local/include/opencv2/core/cvdef.h \
+		/usr/local/include/opencv2/core/hal/interface.h \
+		/usr/local/include/opencv2/core/cv_cpu_dispatch.h \
+		/usr/local/include/opencv2/core/cv_cpu_helper.h \
+		/usr/local/include/opencv2/core/fast_math.hpp \
+		/usr/local/include/opencv2/core/version.hpp \
+		/usr/local/include/opencv2/core/base.hpp \
+		/usr/local/include/opencv2/opencv_modules.hpp \
+		/usr/local/include/opencv2/core/cvstd.hpp \
+		/usr/local/include/opencv2/core/ptr.inl.hpp \
+		/usr/local/include/opencv2/core/neon_utils.hpp \
+		/usr/local/include/opencv2/core/vsx_utils.hpp \
+		/usr/local/include/opencv2/core/check.hpp \
+		/usr/local/include/opencv2/core/traits.hpp \
+		/usr/local/include/opencv2/core/matx.hpp \
+		/usr/local/include/opencv2/core/saturate.hpp \
+		/usr/local/include/opencv2/core/types.hpp \
+		/usr/local/include/opencv2/core/mat.hpp \
+		/usr/local/include/opencv2/core/bufferpool.hpp \
+		/usr/local/include/opencv2/core/mat.inl.hpp \
+		/usr/local/include/opencv2/core/persistence.hpp \
+		/usr/local/include/opencv2/core/operations.hpp \
+		/usr/local/include/opencv2/core/cvstd.inl.hpp \
+		/usr/local/include/opencv2/core/utility.hpp \
+		/usr/local/include/opencv2/core/core_c.h \
+		/usr/local/include/opencv2/core/types_c.h \
+		/usr/local/include/opencv2/core/optim.hpp \
+		/usr/local/include/opencv2/core/ovx.hpp \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
+		/usr/local/include/opencv2/imgcodecs.hpp \
+		/usr/local/include/opencv2/videoio.hpp \
+		/usr/local/include/opencv2/highgui/highgui_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc_c.h \
+		/usr/local/include/opencv2/imgproc/types_c.h \
+		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/usr/local/include/opencv2/videoio/videoio_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc.hpp \
+		/usr/local/include/opencv2/imgproc.hpp \
+		imghandling.h \
+		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/QString \
+		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/qstring.h \
+		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/QImage \
+		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qimage.h \
+		imgprocessing.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o masterph.o masterph.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
