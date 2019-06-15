@@ -236,3 +236,8 @@ void MainWindow::on_ok_btn_clicked(){
     ui->contrast_slider->setEnabled(true);
     ui->contrast_spin->setEnabled(true);
 }
+
+void MainWindow::on_tabWidget_currentChanged()
+{
+    master.img = master.tmp.clone();
+}

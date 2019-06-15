@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>663</height>
+    <width>1008</width>
+    <height>711</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="QLabel" name="img_lbl">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>701</width>
-      <height>571</height>
+      <x>9</x>
+      <y>29</y>
+      <width>741</width>
+      <height>641</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -39,10 +39,10 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>10</y>
-      <width>231</width>
-      <height>611</height>
+      <x>750</x>
+      <y>140</y>
+      <width>251</width>
+      <height>531</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -52,7 +52,7 @@
      </sizepolicy>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="Editing">
      <attribute name="title">
@@ -109,13 +109,29 @@
           </property>
          </widget>
         </item>
-        <item row="19" column="0" colspan="2">
-         <widget class="QPushButton" name="reset_btn">
+        <item row="8" column="1">
+         <widget class="QSpinBox" name="exposure_spin">
           <property name="enabled">
            <bool>false</bool>
           </property>
-          <property name="text">
-           <string>Reset</string>
+          <property name="minimum">
+           <number>-100</number>
+          </property>
+          <property name="maximum">
+           <number>100</number>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QSpinBox" name="blue_spin">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimum">
+           <number>-100</number>
+          </property>
+          <property name="maximum">
+           <number>100</number>
           </property>
          </widget>
         </item>
@@ -135,6 +151,19 @@
           </property>
           <property name="tickPosition">
            <enum>QSlider::TicksAbove</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QSpinBox" name="red_spin">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimum">
+           <number>-100</number>
+          </property>
+          <property name="maximum">
+           <number>100</number>
           </property>
          </widget>
         </item>
@@ -176,6 +205,13 @@
           </property>
          </widget>
         </item>
+        <item row="18" column="1">
+         <widget class="QSpinBox" name="luminance_spin">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="0">
          <widget class="QLabel" name="textWb">
           <property name="text">
@@ -187,6 +223,26 @@
          <widget class="QLabel" name="label_6">
           <property name="text">
            <string>Luminance</string>
+          </property>
+         </widget>
+        </item>
+        <item row="16" column="1">
+         <widget class="QSpinBox" name="saturation_spin">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="1">
+         <widget class="QSpinBox" name="contrast_spin">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimum">
+           <number>-100</number>
+          </property>
+          <property name="maximum">
+           <number>100</number>
           </property>
          </widget>
         </item>
@@ -262,6 +318,13 @@
           </property>
          </widget>
         </item>
+        <item row="14" column="1">
+         <widget class="QSpinBox" name="hue_spin">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
         <item row="11" column="0">
          <spacer name="verticalSpacer">
           <property name="orientation">
@@ -308,20 +371,6 @@
           </property>
          </widget>
         </item>
-        <item row="15" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Saturation</string>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="0">
-         <widget class="QLabel" name="textExposure">
-          <property name="text">
-           <string>Exposure</string>
-          </property>
-         </widget>
-        </item>
         <item row="4" column="1">
          <widget class="QSpinBox" name="green_spin">
           <property name="enabled">
@@ -335,76 +384,17 @@
           </property>
          </widget>
         </item>
-        <item row="14" column="1">
-         <widget class="QSpinBox" name="hue_spin">
-          <property name="enabled">
-           <bool>false</bool>
+        <item row="15" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Saturation</string>
           </property>
          </widget>
         </item>
-        <item row="8" column="1">
-         <widget class="QSpinBox" name="exposure_spin">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="minimum">
-           <number>-100</number>
-          </property>
-          <property name="maximum">
-           <number>100</number>
-          </property>
-         </widget>
-        </item>
-        <item row="18" column="1">
-         <widget class="QSpinBox" name="luminance_spin">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="1">
-         <widget class="QSpinBox" name="contrast_spin">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="minimum">
-           <number>-100</number>
-          </property>
-          <property name="maximum">
-           <number>100</number>
-          </property>
-         </widget>
-        </item>
-        <item row="16" column="1">
-         <widget class="QSpinBox" name="saturation_spin">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QSpinBox" name="red_spin">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="minimum">
-           <number>-100</number>
-          </property>
-          <property name="maximum">
-           <number>100</number>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="1">
-         <widget class="QSpinBox" name="blue_spin">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="minimum">
-           <number>-100</number>
-          </property>
-          <property name="maximum">
-           <number>100</number>
+        <item row="7" column="0">
+         <widget class="QLabel" name="textExposure">
+          <property name="text">
+           <string>Exposure</string>
           </property>
          </widget>
         </item>
@@ -729,6 +719,22 @@
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="reset_btn">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>0</y>
+      <width>207</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Revert all changes</string>
+    </property>
    </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">

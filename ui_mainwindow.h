@@ -551,7 +551,7 @@ public:
         QObject::connect(scale_slider, SIGNAL(valueChanged(int)), spinBox_5, SLOT(setValue(int)));
         QObject::connect(spinBox_5, SIGNAL(valueChanged(int)), scale_slider, SLOT(setValue(int)));
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -561,7 +561,7 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
         textGreen->setText(QApplication::translate("MainWindow", "Green", nullptr));
-        reset_btn->setText(QApplication::translate("MainWindow", "Reset", nullptr));
+        reset_btn->setText(QApplication::translate("MainWindow", "Revert all changes", nullptr));
         textWb->setText(QApplication::translate("MainWindow", "WhiteBalance:", nullptr));
         label_6->setText(QApplication::translate("MainWindow", "Luminance", nullptr));
         ok_btn->setText(QApplication::translate("MainWindow", "Ok", nullptr));

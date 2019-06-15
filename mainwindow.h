@@ -58,9 +58,9 @@ private slots:
     void on_luminance_slider_valueChanged();
 
     void on_hsl_btn_clicked();
-
-
     void on_ok_btn_clicked();
+
+    void on_tabWidget_currentChanged();
 
 private:
 
