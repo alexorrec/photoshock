@@ -1,5 +1,5 @@
 #include "imgdistortions.h"
-#include <math.h>
+#include <cmath>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
@@ -7,9 +7,7 @@
 #include <opencv2/imgcodecs.hpp>
 
 ImgDistortions::ImgDistortions()
-{
-
-}
+= default;
 
 void ImgDistortions::rotate(cv::Mat& img, cv::Mat& tmp, int angle){
 

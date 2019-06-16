@@ -101,7 +101,7 @@ public:
     QHBoxLayout *ignore;
     QLabel *textZoom;
     QSlider *zoom_slider;
-    QWidget *widget;
+    QWidget *layoutWidget3;
     QVBoxLayout *verticalLayout;
     QLabel *r_hist;
     QLabel *g_hist;
@@ -521,25 +521,25 @@ public:
 
         ignore->addWidget(zoom_slider);
 
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(750, 0, 301, 221));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget3 = new QWidget(centralWidget);
+        layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(750, 0, 301, 221));
+        verticalLayout = new QVBoxLayout(layoutWidget3);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        r_hist = new QLabel(widget);
+        r_hist = new QLabel(layoutWidget3);
         r_hist->setObjectName(QString::fromUtf8("r_hist"));
 
         verticalLayout->addWidget(r_hist);
 
-        g_hist = new QLabel(widget);
+        g_hist = new QLabel(layoutWidget3);
         g_hist->setObjectName(QString::fromUtf8("g_hist"));
 
         verticalLayout->addWidget(g_hist);
 
-        b_hist = new QLabel(widget);
+        b_hist = new QLabel(layoutWidget3);
         b_hist->setObjectName(QString::fromUtf8("b_hist"));
 
         verticalLayout->addWidget(b_hist);
@@ -576,7 +576,7 @@ public:
         QObject::connect(scale_slider, SIGNAL(valueChanged(int)), spinBox_5, SLOT(setValue(int)));
         QObject::connect(spinBox_5, SIGNAL(valueChanged(int)), scale_slider, SLOT(setValue(int)));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

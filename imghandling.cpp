@@ -6,14 +6,13 @@
 #include <iostream>
 #include <QWidget>
 #include <QObject>
+#include <QMessageBox>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/opencv.hpp>
 
-ImgHandling::ImgHandling(){
-
-}
+ImgHandling::ImgHandling()= default;
 
 void ImgHandling::imgLoad(cv::Mat& img, cv::Mat& tmp, QString& path){
 
@@ -29,16 +28,13 @@ void ImgHandling::imgLoad(cv::Mat& img, cv::Mat& tmp, QString& path){
 
 void ImgHandling::imgSave(QString& path, cv::Mat& img){
 
-    const std::string imagePath(path.toStdString());
-
-    //cvSaveImage(imagePath, tmp, 0);
-
     QImage qimg((const uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
     qimg.bits();
 
-    qimg.save(path);
-
-
+    if(!qimg.isNull())
+        qimg.save(path);
+    else
+        QMessageBox::critical(nullptr, "Errore","Impossibile salvare il file");
 }
 
 void ImgHandling::calculateHist(cv::Mat& img, cv::Mat& hist_Mat, int color){

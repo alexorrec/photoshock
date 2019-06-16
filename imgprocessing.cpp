@@ -3,13 +3,11 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
-#include <math.h>
+#include <cmath>
 #include <iostream>
 
 ImgProcessing::ImgProcessing()
-{
-
-}
+= default;
 
 void ImgProcessing::processMaster(cv::Mat& img, cv::Mat& tmp, int brightness, int red, int green, int blue, double contrast){
 

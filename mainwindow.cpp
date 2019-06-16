@@ -46,47 +46,51 @@ void MainWindow::updateHist(cv::Mat& img){
     updateUi(master.hist_Mat_b, ui->b_hist);
 }
 
-void MainWindow::closeEvent(QCloseEvent *event){
+void MainWindow::closeEvent(QCloseEvent * /*event*/){
 
-    // implementare possibilità di salvataggio
-    message.critical(nullptr, "Error","Wish to save?:");
-    message.setFixedSize(500,200);
+    QMessageBox::critical(nullptr, "Error","Wish to save?:");
 }
 
 void MainWindow::on_open_btn_clicked(){
 
     QString path = QFileDialog::getOpenFileName(nullptr, QObject::tr("Open File"), "", QObject::tr(".JPG (*.jpg , *.jpeg) ;; .PNG (*.png) ;; .TIFF (*.tiff , *.tif)"));
 
-    handling.imgLoad(master.img, master.tmp, path);
+    if(!path.isEmpty()){
 
-    updateUi(master.img, ui->img_lbl);
-    updateHist(master.img);
+        handling.imgLoad(master.img, master.tmp, path);
 
-    ui->red_slider->setEnabled(true);
-    ui->red_spin->setEnabled(true);
+        updateUi(master.img, ui->img_lbl);
+        updateHist(master.img);
 
-    ui->green_slider->setEnabled(true);
-    ui->green_spin->setEnabled(true);
+        ui->red_slider->setEnabled(true);
+        ui->red_spin->setEnabled(true);
 
-    ui->blue_slider->setEnabled(true);
-    ui->blue_spin->setEnabled(true);
+        ui->green_slider->setEnabled(true);
+        ui->green_spin->setEnabled(true);
 
-    ui->exposure_slider->setEnabled(true);
-    ui->exposure_spin->setEnabled(true);
+        ui->blue_slider->setEnabled(true);
+        ui->blue_spin->setEnabled(true);
 
-    ui->contrast_slider->setEnabled(true);
-    ui->contrast_spin->setEnabled(true);
+        ui->exposure_slider->setEnabled(true);
+        ui->exposure_spin->setEnabled(true);
 
-    ui->reset_btn->setEnabled(true);
-    ui->hsl_btn->setEnabled(true);
+        ui->contrast_slider->setEnabled(true);
+        ui->contrast_spin->setEnabled(true);
 
+        ui->reset_btn->setEnabled(true);
+        ui->hsl_btn->setEnabled(true);
+        ui->save_btn->setEnabled(true);
+
+    }
 }
 
 void MainWindow::on_save_btn_clicked(){
 
-    QString path = QFileDialog::getSaveFileName(nullptr, QObject::tr("Save File"), "", QObject::tr(".JPG (*.jpg , *.jpeg) ;; .PNG (*.png) ;; .TIFF (*.tiff , *.tif)"));
+    QString path = QFileDialog::getSaveFileName(this, QObject::tr("Save File"), "", QObject::tr(".JPG (*.jpg , *.jpeg) ;; .PNG (*.png) ;; .TIFF (*.tiff , *.tif)"));
 
-    handling.imgSave(path, master.tmp);
+    if(!path.isEmpty())
+        handling.imgSave(path, master.tmp);
+    else std::cout<<"test annullo in salvataggio"<<std::endl;
 
 }
 

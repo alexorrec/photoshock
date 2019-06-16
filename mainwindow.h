@@ -25,14 +25,14 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() override;
 
     void updateUi(cv::Mat& img, QLabel* label);
 
     void updateHist(cv::Mat& img);
 
 protected:
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
 
 private slots:
     void on_open_btn_clicked();
@@ -70,7 +70,6 @@ private:
     ImgHandling handling;
     ImgProcessing compute;
     ImgDistortions distort;
-    QMessageBox message;
 };
 
 
