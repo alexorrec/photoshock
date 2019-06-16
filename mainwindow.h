@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QImage>
 #include <QLabel>
-#include <QPixmap>
 #include <QMessageBox>
 #include "ui_mainwindow.h"
 #include "masterph.h"
@@ -28,9 +27,9 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void updateUi(cv::Mat& img, QLabel* label);
 
-
-    void updateUi(cv::Mat& img);
+    void updateHist(cv::Mat& img);
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -47,8 +46,6 @@ private slots:
     void on_green_slider_valueChanged();
     void on_blue_slider_valueChanged();
 
-    void on_grayscale_btn_clicked();
-
     void on_rotate_slider_valueChanged();
     void on_flipV_btn_clicked();
     void on_flipH_btn_clicked();
@@ -61,6 +58,10 @@ private slots:
     void on_ok_btn_clicked();
 
     void on_tabWidget_currentChanged();
+
+    void on_black_and_white_clicked();
+
+    void on_sepia_btn_clicked();
 
 private:
 

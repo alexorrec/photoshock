@@ -10,6 +10,7 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
@@ -22,6 +23,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -38,41 +40,40 @@ public:
     QSlider *exposure_slider;
     QLabel *textGreen;
     QSlider *contrast_slider;
-    QPushButton *reset_btn;
+    QSpinBox *exposure_spin;
+    QSpinBox *blue_spin;
     QSlider *green_slider;
+    QSpinBox *red_spin;
     QSlider *luminance_slider;
     QSlider *blue_slider;
+    QSpinBox *luminance_spin;
     QLabel *textWb;
     QLabel *label_6;
+    QSpinBox *saturation_spin;
+    QSpinBox *contrast_spin;
     QPushButton *ok_btn;
     QSlider *saturation_slider;
     QLabel *textBlue;
     QLabel *textContrast;
     QPushButton *hsl_btn;
     QSlider *hue_slider;
+    QSpinBox *hue_spin;
     QSpacerItem *verticalSpacer;
     QSlider *red_slider;
     QLabel *textRed;
     QLabel *label_2;
+    QSpinBox *green_spin;
     QLabel *label_3;
     QLabel *textExposure;
-    QSpinBox *green_spin;
-    QSpinBox *hue_spin;
-    QSpinBox *exposure_spin;
-    QSpinBox *luminance_spin;
-    QSpinBox *contrast_spin;
-    QSpinBox *saturation_spin;
-    QSpinBox *red_spin;
-    QSpinBox *blue_spin;
     QWidget *Kernel;
     QLabel *label_4;
     QSlider *horizontalSlider_2;
     QLabel *label_5;
     QSlider *gaussian_slider;
+    QPushButton *black_and_white;
     QPushButton *sepia_btn;
-    QPushButton *grayscale_btn;
     QWidget *Distortions;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QGridLayout *gridLayout_6;
     QGridLayout *gridLayout_2;
     QLabel *label_7;
@@ -90,16 +91,21 @@ public:
     QGridLayout *gridLayout_5;
     QPushButton *pushButton;
     QPushButton *pushButton_4;
-    QWidget *layoutWidget;
-    QHBoxLayout *horizontalLayout_2;
+    QWidget *layoutWidget1;
+    QHBoxLayout *top_layout;
     QPushButton *open_btn;
     QPushButton *save_btn;
     QSpacerItem *horizontalSpacer;
-    QPushButton *new_btn;
-    QWidget *layoutWidget1;
-    QHBoxLayout *horizontalLayout_3;
+    QPushButton *reset_btn;
+    QWidget *layoutWidget2;
+    QHBoxLayout *ignore;
     QLabel *textZoom;
     QSlider *zoom_slider;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout;
+    QLabel *r_hist;
+    QLabel *g_hist;
+    QLabel *b_hist;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -107,19 +113,19 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(1000, 663);
+        MainWindow->resize(1059, 742);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         img_lbl = new QLabel(centralWidget);
         img_lbl->setObjectName(QString::fromUtf8("img_lbl"));
-        img_lbl->setGeometry(QRect(10, 30, 701, 571));
+        img_lbl->setGeometry(QRect(9, 29, 731, 641));
         img_lbl->setAutoFillBackground(true);
         img_lbl->setText(QString::fromUtf8("<html><head/><body><p><br/></p></body></html>"));
         img_lbl->setScaledContents(false);
         img_lbl->setAlignment(Qt::AlignCenter);
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tabWidget->setGeometry(QRect(760, 10, 231, 611));
+        tabWidget->setGeometry(QRect(750, 220, 301, 481));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -160,11 +166,21 @@ public:
 
         gridLayout->addWidget(contrast_slider, 10, 0, 1, 1);
 
-        reset_btn = new QPushButton(Editing);
-        reset_btn->setObjectName(QString::fromUtf8("reset_btn"));
-        reset_btn->setEnabled(false);
+        exposure_spin = new QSpinBox(Editing);
+        exposure_spin->setObjectName(QString::fromUtf8("exposure_spin"));
+        exposure_spin->setEnabled(false);
+        exposure_spin->setMinimum(-100);
+        exposure_spin->setMaximum(100);
 
-        gridLayout->addWidget(reset_btn, 19, 0, 1, 2);
+        gridLayout->addWidget(exposure_spin, 8, 1, 1, 1);
+
+        blue_spin = new QSpinBox(Editing);
+        blue_spin->setObjectName(QString::fromUtf8("blue_spin"));
+        blue_spin->setEnabled(false);
+        blue_spin->setMinimum(-100);
+        blue_spin->setMaximum(100);
+
+        gridLayout->addWidget(blue_spin, 6, 1, 1, 1);
 
         green_slider = new QSlider(Editing);
         green_slider->setObjectName(QString::fromUtf8("green_slider"));
@@ -175,6 +191,14 @@ public:
         green_slider->setTickPosition(QSlider::TicksAbove);
 
         gridLayout->addWidget(green_slider, 4, 0, 1, 1);
+
+        red_spin = new QSpinBox(Editing);
+        red_spin->setObjectName(QString::fromUtf8("red_spin"));
+        red_spin->setEnabled(false);
+        red_spin->setMinimum(-100);
+        red_spin->setMaximum(100);
+
+        gridLayout->addWidget(red_spin, 2, 1, 1, 1);
 
         luminance_slider = new QSlider(Editing);
         luminance_slider->setObjectName(QString::fromUtf8("luminance_slider"));
@@ -196,6 +220,12 @@ public:
 
         gridLayout->addWidget(blue_slider, 6, 0, 1, 1);
 
+        luminance_spin = new QSpinBox(Editing);
+        luminance_spin->setObjectName(QString::fromUtf8("luminance_spin"));
+        luminance_spin->setEnabled(false);
+
+        gridLayout->addWidget(luminance_spin, 18, 1, 1, 1);
+
         textWb = new QLabel(Editing);
         textWb->setObjectName(QString::fromUtf8("textWb"));
 
@@ -205,6 +235,20 @@ public:
         label_6->setObjectName(QString::fromUtf8("label_6"));
 
         gridLayout->addWidget(label_6, 17, 0, 1, 1);
+
+        saturation_spin = new QSpinBox(Editing);
+        saturation_spin->setObjectName(QString::fromUtf8("saturation_spin"));
+        saturation_spin->setEnabled(false);
+
+        gridLayout->addWidget(saturation_spin, 16, 1, 1, 1);
+
+        contrast_spin = new QSpinBox(Editing);
+        contrast_spin->setObjectName(QString::fromUtf8("contrast_spin"));
+        contrast_spin->setEnabled(false);
+        contrast_spin->setMinimum(-100);
+        contrast_spin->setMaximum(100);
+
+        gridLayout->addWidget(contrast_spin, 10, 1, 1, 1);
 
         ok_btn = new QPushButton(Editing);
         ok_btn->setObjectName(QString::fromUtf8("ok_btn"));
@@ -248,6 +292,12 @@ public:
 
         gridLayout->addWidget(hue_slider, 14, 0, 1, 1);
 
+        hue_spin = new QSpinBox(Editing);
+        hue_spin->setObjectName(QString::fromUtf8("hue_spin"));
+        hue_spin->setEnabled(false);
+
+        gridLayout->addWidget(hue_spin, 14, 1, 1, 1);
+
         verticalSpacer = new QSpacerItem(20, 18, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         gridLayout->addItem(verticalSpacer, 11, 0, 1, 1);
@@ -272,6 +322,14 @@ public:
 
         gridLayout->addWidget(label_2, 13, 0, 1, 1);
 
+        green_spin = new QSpinBox(Editing);
+        green_spin->setObjectName(QString::fromUtf8("green_spin"));
+        green_spin->setEnabled(false);
+        green_spin->setMinimum(-100);
+        green_spin->setMaximum(100);
+
+        gridLayout->addWidget(green_spin, 4, 1, 1, 1);
+
         label_3 = new QLabel(Editing);
         label_3->setObjectName(QString::fromUtf8("label_3"));
 
@@ -281,64 +339,6 @@ public:
         textExposure->setObjectName(QString::fromUtf8("textExposure"));
 
         gridLayout->addWidget(textExposure, 7, 0, 1, 1);
-
-        green_spin = new QSpinBox(Editing);
-        green_spin->setObjectName(QString::fromUtf8("green_spin"));
-        green_spin->setEnabled(false);
-        green_spin->setMinimum(-100);
-        green_spin->setMaximum(100);
-
-        gridLayout->addWidget(green_spin, 4, 1, 1, 1);
-
-        hue_spin = new QSpinBox(Editing);
-        hue_spin->setObjectName(QString::fromUtf8("hue_spin"));
-        hue_spin->setEnabled(false);
-
-        gridLayout->addWidget(hue_spin, 14, 1, 1, 1);
-
-        exposure_spin = new QSpinBox(Editing);
-        exposure_spin->setObjectName(QString::fromUtf8("exposure_spin"));
-        exposure_spin->setEnabled(false);
-        exposure_spin->setMinimum(-100);
-        exposure_spin->setMaximum(100);
-
-        gridLayout->addWidget(exposure_spin, 8, 1, 1, 1);
-
-        luminance_spin = new QSpinBox(Editing);
-        luminance_spin->setObjectName(QString::fromUtf8("luminance_spin"));
-        luminance_spin->setEnabled(false);
-
-        gridLayout->addWidget(luminance_spin, 18, 1, 1, 1);
-
-        contrast_spin = new QSpinBox(Editing);
-        contrast_spin->setObjectName(QString::fromUtf8("contrast_spin"));
-        contrast_spin->setEnabled(false);
-        contrast_spin->setMinimum(-100);
-        contrast_spin->setMaximum(100);
-
-        gridLayout->addWidget(contrast_spin, 10, 1, 1, 1);
-
-        saturation_spin = new QSpinBox(Editing);
-        saturation_spin->setObjectName(QString::fromUtf8("saturation_spin"));
-        saturation_spin->setEnabled(false);
-
-        gridLayout->addWidget(saturation_spin, 16, 1, 1, 1);
-
-        red_spin = new QSpinBox(Editing);
-        red_spin->setObjectName(QString::fromUtf8("red_spin"));
-        red_spin->setEnabled(false);
-        red_spin->setMinimum(-100);
-        red_spin->setMaximum(100);
-
-        gridLayout->addWidget(red_spin, 2, 1, 1, 1);
-
-        blue_spin = new QSpinBox(Editing);
-        blue_spin->setObjectName(QString::fromUtf8("blue_spin"));
-        blue_spin->setEnabled(false);
-        blue_spin->setMinimum(-100);
-        blue_spin->setMaximum(100);
-
-        gridLayout->addWidget(blue_spin, 6, 1, 1, 1);
 
 
         gridLayout_3->addLayout(gridLayout, 0, 0, 1, 1);
@@ -360,19 +360,19 @@ public:
         gaussian_slider->setObjectName(QString::fromUtf8("gaussian_slider"));
         gaussian_slider->setGeometry(QRect(11, 125, 84, 16));
         gaussian_slider->setOrientation(Qt::Horizontal);
+        black_and_white = new QPushButton(Kernel);
+        black_and_white->setObjectName(QString::fromUtf8("black_and_white"));
+        black_and_white->setGeometry(QRect(140, 340, 80, 24));
         sepia_btn = new QPushButton(Kernel);
         sepia_btn->setObjectName(QString::fromUtf8("sepia_btn"));
-        sepia_btn->setGeometry(QRect(11, 523, 80, 24));
-        grayscale_btn = new QPushButton(Kernel);
-        grayscale_btn->setObjectName(QString::fromUtf8("grayscale_btn"));
-        grayscale_btn->setGeometry(QRect(124, 523, 80, 24));
+        sepia_btn->setGeometry(QRect(30, 340, 80, 24));
         tabWidget->addTab(Kernel, QString());
         Distortions = new QWidget();
         Distortions->setObjectName(QString::fromUtf8("Distortions"));
-        widget = new QWidget(Distortions);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(10, 11, 211, 251));
-        gridLayout_6 = new QGridLayout(widget);
+        layoutWidget = new QWidget(Distortions);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 11, 281, 251));
+        gridLayout_6 = new QGridLayout(layoutWidget);
         gridLayout_6->setSpacing(6);
         gridLayout_6->setContentsMargins(11, 11, 11, 11);
         gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
@@ -380,19 +380,19 @@ public:
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setSpacing(6);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        label_7 = new QLabel(widget);
+        label_7 = new QLabel(layoutWidget);
         label_7->setObjectName(QString::fromUtf8("label_7"));
 
         gridLayout_2->addWidget(label_7, 1, 0, 1, 1);
 
-        spinBox_4 = new QSpinBox(widget);
+        spinBox_4 = new QSpinBox(layoutWidget);
         spinBox_4->setObjectName(QString::fromUtf8("spinBox_4"));
         spinBox_4->setMinimum(-180);
         spinBox_4->setMaximum(180);
 
         gridLayout_2->addWidget(spinBox_4, 2, 1, 1, 1);
 
-        rotate_slider = new QSlider(widget);
+        rotate_slider = new QSlider(layoutWidget);
         rotate_slider->setObjectName(QString::fromUtf8("rotate_slider"));
         rotate_slider->setMinimum(-180);
         rotate_slider->setMaximum(180);
@@ -400,24 +400,24 @@ public:
 
         gridLayout_2->addWidget(rotate_slider, 2, 0, 1, 1);
 
-        spinBox_5 = new QSpinBox(widget);
+        spinBox_5 = new QSpinBox(layoutWidget);
         spinBox_5->setObjectName(QString::fromUtf8("spinBox_5"));
         spinBox_5->setMinimum(-180);
         spinBox_5->setMaximum(180);
 
         gridLayout_2->addWidget(spinBox_5, 4, 1, 1, 1);
 
-        label_9 = new QLabel(widget);
+        label_9 = new QLabel(layoutWidget);
         label_9->setObjectName(QString::fromUtf8("label_9"));
 
         gridLayout_2->addWidget(label_9, 0, 0, 1, 1);
 
-        label_8 = new QLabel(widget);
+        label_8 = new QLabel(layoutWidget);
         label_8->setObjectName(QString::fromUtf8("label_8"));
 
         gridLayout_2->addWidget(label_8, 3, 0, 1, 1);
 
-        scale_slider = new QSlider(widget);
+        scale_slider = new QSlider(layoutWidget);
         scale_slider->setObjectName(QString::fromUtf8("scale_slider"));
         scale_slider->setMinimum(-180);
         scale_slider->setMaximum(180);
@@ -431,12 +431,12 @@ public:
         gridLayout_4 = new QGridLayout();
         gridLayout_4->setSpacing(6);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        flipH_btn = new QPushButton(widget);
+        flipH_btn = new QPushButton(layoutWidget);
         flipH_btn->setObjectName(QString::fromUtf8("flipH_btn"));
 
         gridLayout_4->addWidget(flipH_btn, 0, 0, 1, 1);
 
-        flipV_btn = new QPushButton(widget);
+        flipV_btn = new QPushButton(layoutWidget);
         flipV_btn->setObjectName(QString::fromUtf8("flipV_btn"));
 
         gridLayout_4->addWidget(flipV_btn, 0, 1, 1, 1);
@@ -448,7 +448,7 @@ public:
 
         gridLayout_6->addItem(verticalSpacer_2, 2, 0, 1, 1);
 
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QString::fromUtf8("label"));
 
         gridLayout_6->addWidget(label, 3, 0, 1, 1);
@@ -456,12 +456,12 @@ public:
         gridLayout_5 = new QGridLayout();
         gridLayout_5->setSpacing(6);
         gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
-        pushButton = new QPushButton(widget);
+        pushButton = new QPushButton(layoutWidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
 
         gridLayout_5->addWidget(pushButton, 0, 0, 1, 1);
 
-        pushButton_4 = new QPushButton(widget);
+        pushButton_4 = new QPushButton(layoutWidget);
         pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
 
         gridLayout_5->addWidget(pushButton_4, 0, 1, 1, 1);
@@ -470,56 +470,79 @@ public:
         gridLayout_6->addLayout(gridLayout_5, 4, 0, 1, 1);
 
         tabWidget->addTab(Distortions, QString());
-        layoutWidget = new QWidget(centralWidget);
-        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(0, 0, 331, 26));
-        horizontalLayout_2 = new QHBoxLayout(layoutWidget);
-        horizontalLayout_2->setSpacing(6);
-        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
-        open_btn = new QPushButton(layoutWidget);
+        layoutWidget1 = new QWidget(centralWidget);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(0, 0, 371, 26));
+        top_layout = new QHBoxLayout(layoutWidget1);
+        top_layout->setSpacing(6);
+        top_layout->setContentsMargins(11, 11, 11, 11);
+        top_layout->setObjectName(QString::fromUtf8("top_layout"));
+        top_layout->setContentsMargins(0, 0, 0, 0);
+        open_btn = new QPushButton(layoutWidget1);
         open_btn->setObjectName(QString::fromUtf8("open_btn"));
         open_btn->setMinimumSize(QSize(80, 24));
 
-        horizontalLayout_2->addWidget(open_btn);
+        top_layout->addWidget(open_btn);
 
-        save_btn = new QPushButton(layoutWidget);
+        save_btn = new QPushButton(layoutWidget1);
         save_btn->setObjectName(QString::fromUtf8("save_btn"));
         save_btn->setEnabled(false);
 
-        horizontalLayout_2->addWidget(save_btn);
+        top_layout->addWidget(save_btn);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_2->addItem(horizontalSpacer);
+        top_layout->addItem(horizontalSpacer);
 
-        new_btn = new QPushButton(layoutWidget);
-        new_btn->setObjectName(QString::fromUtf8("new_btn"));
-        new_btn->setEnabled(false);
+        reset_btn = new QPushButton(layoutWidget1);
+        reset_btn->setObjectName(QString::fromUtf8("reset_btn"));
+        reset_btn->setEnabled(false);
 
-        horizontalLayout_2->addWidget(new_btn);
+        top_layout->addWidget(reset_btn);
 
-        layoutWidget1 = new QWidget(centralWidget);
-        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(570, 0, 171, 30));
-        horizontalLayout_3 = new QHBoxLayout(layoutWidget1);
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
-        horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
-        textZoom = new QLabel(layoutWidget1);
+        layoutWidget2 = new QWidget(centralWidget);
+        layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(570, 0, 171, 30));
+        ignore = new QHBoxLayout(layoutWidget2);
+        ignore->setSpacing(6);
+        ignore->setContentsMargins(11, 11, 11, 11);
+        ignore->setObjectName(QString::fromUtf8("ignore"));
+        ignore->setContentsMargins(0, 0, 0, 0);
+        textZoom = new QLabel(layoutWidget2);
         textZoom->setObjectName(QString::fromUtf8("textZoom"));
 
-        horizontalLayout_3->addWidget(textZoom);
+        ignore->addWidget(textZoom);
 
-        zoom_slider = new QSlider(layoutWidget1);
+        zoom_slider = new QSlider(layoutWidget2);
         zoom_slider->setObjectName(QString::fromUtf8("zoom_slider"));
         zoom_slider->setMinimum(-180);
         zoom_slider->setMaximum(180);
         zoom_slider->setOrientation(Qt::Horizontal);
 
-        horizontalLayout_3->addWidget(zoom_slider);
+        ignore->addWidget(zoom_slider);
+
+        widget = new QWidget(centralWidget);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(750, 0, 301, 221));
+        verticalLayout = new QVBoxLayout(widget);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        r_hist = new QLabel(widget);
+        r_hist->setObjectName(QString::fromUtf8("r_hist"));
+
+        verticalLayout->addWidget(r_hist);
+
+        g_hist = new QLabel(widget);
+        g_hist->setObjectName(QString::fromUtf8("g_hist"));
+
+        verticalLayout->addWidget(g_hist);
+
+        b_hist = new QLabel(widget);
+        b_hist->setObjectName(QString::fromUtf8("b_hist"));
+
+        verticalLayout->addWidget(b_hist);
 
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
@@ -528,6 +551,8 @@ public:
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         MainWindow->setStatusBar(statusBar);
+
+        mainToolBar->addSeparator();
 
         retranslateUi(MainWindow);
         QObject::connect(red_slider, SIGNAL(valueChanged(int)), red_spin, SLOT(setValue(int)));
@@ -561,7 +586,6 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
         textGreen->setText(QApplication::translate("MainWindow", "Green", nullptr));
-        reset_btn->setText(QApplication::translate("MainWindow", "Revert all changes", nullptr));
         textWb->setText(QApplication::translate("MainWindow", "WhiteBalance:", nullptr));
         label_6->setText(QApplication::translate("MainWindow", "Luminance", nullptr));
         ok_btn->setText(QApplication::translate("MainWindow", "Ok", nullptr));
@@ -575,8 +599,8 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(Editing), QApplication::translate("MainWindow", "Editing", nullptr));
         label_4->setText(QApplication::translate("MainWindow", "Gaussian", nullptr));
         label_5->setText(QApplication::translate("MainWindow", "Sharpener", nullptr));
+        black_and_white->setText(QApplication::translate("MainWindow", "B % W", nullptr));
         sepia_btn->setText(QApplication::translate("MainWindow", "Sepia", nullptr));
-        grayscale_btn->setText(QApplication::translate("MainWindow", "GrayScale", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Kernel), QApplication::translate("MainWindow", "Kernel", nullptr));
         label_7->setText(QApplication::translate("MainWindow", "Rotate", nullptr));
         label_9->setText(QApplication::translate("MainWindow", "Distortions:", nullptr));
@@ -589,8 +613,11 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(Distortions), QApplication::translate("MainWindow", "Distortions", nullptr));
         open_btn->setText(QApplication::translate("MainWindow", "Open", nullptr));
         save_btn->setText(QApplication::translate("MainWindow", "Save", nullptr));
-        new_btn->setText(QApplication::translate("MainWindow", "New", nullptr));
+        reset_btn->setText(QApplication::translate("MainWindow", "Revert all changes", nullptr));
         textZoom->setText(QApplication::translate("MainWindow", "Zoom:", nullptr));
+        r_hist->setText(QApplication::translate("MainWindow", "R", nullptr));
+        g_hist->setText(QApplication::translate("MainWindow", "G", nullptr));
+        b_hist->setText(QApplication::translate("MainWindow", "B", nullptr));
     } // retranslateUi
 
 };

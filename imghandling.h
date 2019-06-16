@@ -16,6 +16,8 @@ public:
 
     void imgLoad(cv::Mat& img, cv::Mat& tmp, QString& path);
     void imgSave(QString& path, cv::Mat& img);
+
+    void calculateHist(cv::Mat& img, cv::Mat& hist_Mat, int color);
 };
 
 #endif // IMGHANDLING_H

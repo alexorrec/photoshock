@@ -27,11 +27,23 @@ MainWindow::~MainWindow(){
     delete ui;
 }
 
-void MainWindow::updateUi(cv::Mat& img){
+void MainWindow::updateUi(cv::Mat& img, QLabel* label){
 
     QImage qimg((const uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
     qimg.bits();
-    ui->img_lbl->setPixmap(QPixmap::fromImage(qimg).scaled(ui->img_lbl->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    label->setPixmap(QPixmap::fromImage(qimg).scaled(label->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+}
+
+void MainWindow::updateHist(cv::Mat& img){
+
+    handling.calculateHist(img, master.hist_Mat_r, 0);
+    updateUi(master.hist_Mat_r, ui->r_hist);
+
+    handling.calculateHist(img, master.hist_Mat_g, 1);
+    updateUi(master.hist_Mat_g, ui->g_hist);
+
+    handling.calculateHist(img, master.hist_Mat_b, 2);
+    updateUi(master.hist_Mat_b, ui->b_hist);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event){
@@ -47,7 +59,8 @@ void MainWindow::on_open_btn_clicked(){
 
     handling.imgLoad(master.img, master.tmp, path);
 
-    updateUi(master.img);
+    updateUi(master.img, ui->img_lbl);
+    updateHist(master.img);
 
     ui->red_slider->setEnabled(true);
     ui->red_spin->setEnabled(true);
@@ -79,14 +92,16 @@ void MainWindow::on_save_btn_clicked(){
 
 void MainWindow::on_reset_btn_clicked(){
     master.tmp = master.img.clone();
-    updateUi(master.tmp);
+    updateUi(master.tmp, ui->img_lbl);
+    updateHist(master.tmp);
 }
 
 void MainWindow::on_exposure_slider_valueChanged(){
 
     master.exposure_val = ui->exposure_slider->value();
     compute.processMaster(master.img, master.tmp, master.exposure_val, master.red_val, master.green_val, master.blue_val, master.contrast_val);
-    updateUi(master.tmp);
+    updateUi(master.tmp, ui->img_lbl);
+    updateHist(master.tmp);
 
 }
 
@@ -94,7 +109,8 @@ void MainWindow::on_contrast_slider_valueChanged(){
 
     master.contrast_val = ui->contrast_slider->value();
     compute.processMaster(master.img, master.tmp, master.exposure_val, master.red_val, master.green_val, master.blue_val, master.contrast_val);
-    updateUi(master.tmp);
+    updateUi(master.tmp, ui->img_lbl);
+    updateHist(master.tmp);
 
 }
 
@@ -102,49 +118,43 @@ void MainWindow::on_red_slider_valueChanged(){
 
     master.red_val = ui->red_slider->value();
     compute.processMaster(master.img, master.tmp, master.exposure_val, master.red_val, master.green_val, master.blue_val, master.contrast_val);
-    updateUi(master.tmp);
+    updateUi(master.tmp, ui->img_lbl);
+    updateHist(master.tmp);
 }
 
 void MainWindow::on_green_slider_valueChanged(){
 
     master.green_val = ui->green_slider->value();
     compute.processMaster(master.img, master.tmp, master.exposure_val, master.red_val, master.green_val, master.blue_val, master.contrast_val);
-    updateUi(master.tmp);
-
+    updateUi(master.tmp, ui->img_lbl);
+    updateHist(master.tmp);
 }
 
 void MainWindow::on_blue_slider_valueChanged(){
 
     master.blue_val = ui->blue_slider->value();
     compute.processMaster(master.img, master.tmp, master.exposure_val, master.red_val, master.green_val, master.blue_val, master.contrast_val);
-    updateUi(master.tmp);
-
-}
-
-void MainWindow::on_grayscale_btn_clicked(){
-
-    compute.black_n_white(master.img, master.tmp);
-    updateUi(master.tmp);
-    master.img = master.tmp.clone();
+    updateUi(master.tmp, ui->img_lbl);
+    updateHist(master.tmp);
 }
 
 void MainWindow::on_rotate_slider_valueChanged(){
 
     distort.rotate(master.img, master.tmp, ui->rotate_slider->value());
-    updateUi(master.tmp);
+    updateUi(master.tmp, ui->img_lbl);
 }
 
 void MainWindow::on_flipV_btn_clicked(){
 
     distort.flipV(master.img, master.tmp);
-    updateUi(master.tmp);
+    updateUi(master.tmp, ui->img_lbl);
     master.img = master.tmp.clone();
 }
 
 void MainWindow::on_flipH_btn_clicked()
 {
     distort.flipH(master.img, master.tmp);
-    updateUi(master.tmp);
+    updateUi(master.tmp, ui->img_lbl);;
     master.img = master.tmp.clone();
 }
 
@@ -152,21 +162,24 @@ void MainWindow::on_hue_slider_valueChanged(){
 
     master.hue = ui->hue_slider->value();
     compute.processHLS(master.img, master.tmp, master.hue, master.luminance, master.saturation);
-    updateUi(master.tmp);
+    updateUi(master.tmp, ui->img_lbl);
+    updateHist(master.tmp);
 }
 
 void MainWindow::on_saturation_slider_valueChanged(){
 
     master.saturation = ui->saturation_slider->value();
     compute.processHLS(master.img, master.tmp, master.hue, master.luminance, master.saturation);
-    updateUi(master.tmp);
+    updateUi(master.tmp, ui->img_lbl);
+    updateHist(master.tmp);
 }
 
 void MainWindow::on_luminance_slider_valueChanged(){
 
     master.luminance = ui->luminance_slider->value();
     compute.processHLS(master.img, master.tmp, master.hue, master.luminance, master.saturation);
-    updateUi(master.tmp);
+    updateUi(master.tmp, ui->img_lbl);
+    updateHist(master.tmp);
 }
 
 void MainWindow::on_hsl_btn_clicked(){
@@ -240,4 +253,18 @@ void MainWindow::on_ok_btn_clicked(){
 void MainWindow::on_tabWidget_currentChanged()
 {
     master.img = master.tmp.clone();
+}
+
+void MainWindow::on_black_and_white_clicked(){
+
+    compute.black_n_white(master.img, master.tmp);
+    updateUi(master.tmp, ui->img_lbl);
+    updateHist(master.tmp);
+}
+
+void MainWindow::on_sepia_btn_clicked()
+{
+    compute.sepia(master.img, master.tmp);
+    updateUi(master.tmp, ui->img_lbl);
+    updateHist(master.tmp);
 }

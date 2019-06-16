@@ -16,6 +16,10 @@ public:
     cv::Mat img;
     cv::Mat tmp;
 
+    cv::Mat hist_Mat_r;
+    cv::Mat hist_Mat_g;
+    cv::Mat hist_Mat_b;
+
     int exposure_val = 0;
     int red_val = 0;
     int green_val = 0;
