@@ -11,10 +11,9 @@
 class MasterPH
 {
 public:
-    MasterPH();
-
     cv::Mat img;
     cv::Mat tmp;
+    cv::Mat original;
 
     cv::Mat hist_Mat_r;
     cv::Mat hist_Mat_g;

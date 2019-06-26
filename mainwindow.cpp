@@ -45,19 +45,20 @@ void MainWindow::updateHist(cv::Mat& img){
     handling.calculateHist(img, master.hist_Mat_b, 2);
     updateUi(master.hist_Mat_b, ui->b_hist);
 }
+/*
+void MainWindow::closeEvent(QCloseEvent * event){
 
-void MainWindow::closeEvent(QCloseEvent * /*event*/){
-
-    QMessageBox::critical(nullptr, "Error","Wish to save?:");
+    QMessageBox m;
+    m.critical(nullptr, "Error","Wish to save?:", "Cancel", "OK");
 }
-
+*/
 void MainWindow::on_open_btn_clicked(){
 
     QString path = QFileDialog::getOpenFileName(nullptr, QObject::tr("Open File"), "", QObject::tr(".JPG (*.jpg , *.jpeg) ;; .PNG (*.png) ;; .TIFF (*.tiff , *.tif)"));
 
     if(!path.isEmpty()){
 
-        handling.imgLoad(master.img, master.tmp, path);
+        handling.imgLoad(master.img, master.tmp, master.original, path);
 
         updateUi(master.img, ui->img_lbl);
         updateHist(master.img);
@@ -86,18 +87,17 @@ void MainWindow::on_open_btn_clicked(){
 
 void MainWindow::on_save_btn_clicked(){
 
-    QString path = QFileDialog::getSaveFileName(this, QObject::tr("Save File"), "", QObject::tr(".JPG (*.jpg , *.jpeg) ;; .PNG (*.png) ;; .TIFF (*.tiff , *.tif)"));
+    QString path = QFileDialog::getSaveFileName(this, QObject::tr("Save File"), "", QObject::tr(".JPG (*.jpg) ;; .PNG (*.png) ;; .TIFF (*.tif)"));
 
     if(!path.isEmpty())
         handling.imgSave(path, master.tmp);
-    else std::cout<<"test annullo in salvataggio"<<std::endl;
-
 }
 
 void MainWindow::on_reset_btn_clicked(){
-    master.tmp = master.img.clone();
-    updateUi(master.tmp, ui->img_lbl);
-    updateHist(master.tmp);
+    master.tmp = master.original.clone();
+    master.img = master.original.clone();
+    updateUi(master.img, ui->img_lbl);
+    updateHist(master.img);
 }
 
 void MainWindow::on_exposure_slider_valueChanged(){
@@ -272,3 +272,5 @@ void MainWindow::on_sepia_btn_clicked()
     updateUi(master.tmp, ui->img_lbl);
     updateHist(master.tmp);
 }
+
+

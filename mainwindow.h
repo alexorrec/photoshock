@@ -28,13 +28,13 @@ public:
     ~MainWindow() override;
 
     void updateUi(cv::Mat& img, QLabel* label);
-
     void updateHist(cv::Mat& img);
 
 protected:
-    void closeEvent(QCloseEvent *event) override;
+    //void closeEvent(QCloseEvent *event) override; da implementare ancora
 
 private slots:
+
     void on_open_btn_clicked();
     void on_save_btn_clicked();
     void on_reset_btn_clicked();
@@ -66,7 +66,11 @@ private slots:
 private:
 
     Ui::MainWindow *ui;
+    QAction zoom_in;
+    QAction zoom_out;
+
     MasterPH master;
+
     ImgHandling handling;
     ImgProcessing compute;
     ImgDistortions distort;

@@ -14,16 +14,14 @@
 
 ImgHandling::ImgHandling()= default;
 
-void ImgHandling::imgLoad(cv::Mat& img, cv::Mat& tmp, QString& path){
+void ImgHandling::imgLoad(cv::Mat& img, cv::Mat& tmp, cv::Mat& original, QString& path){
 
     const std::string imagePath(path.toStdString());
 
     img = cv::imread(imagePath);
-    tmp = cv::Mat::zeros(img.rows, img.cols, img.type()); //matrice di 0, dimensioni di img
-
-    tmp = img.clone();
     cvtColor(img, img, CV_BGR2RGB);
-    cvtColor(tmp, tmp, CV_BGR2RGB);
+    tmp = img.clone();
+    original = img.clone();
 }
 
 void ImgHandling::imgSave(QString& path, cv::Mat& img){

@@ -52,20 +52,21 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = imgdistortions.cpp \
+SOURCES       = imgconvolution.cpp \
+		imgdistortions.cpp \
 		imghandling.cpp \
 		imgprocessing.cpp \
 		main.cpp \
-		mainwindow.cpp \
-		masterph.cpp moc_mainwindow.cpp
-OBJECTS       = imgdistortions.o \
+		mainwindow.cpp moc_mainwindow.cpp
+OBJECTS       = imgconvolution.o \
+		imgdistortions.o \
 		imghandling.o \
 		imgprocessing.o \
 		main.o \
 		mainwindow.o \
-		masterph.o \
 		moc_mainwindow.o
-DIST          = ../../Qt/5.12.3/clang_64/mkspecs/features/spec_pre.prf \
+DIST          = test/lib/library.json \
+		../../Qt/5.12.3/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.12.3/clang_64/mkspecs/qdevice.pri \
 		../../Qt/5.12.3/clang_64/mkspecs/features/device_config.prf \
 		../../Qt/5.12.3/clang_64/mkspecs/common/unix.conf \
@@ -238,17 +239,17 @@ DIST          = ../../Qt/5.12.3/clang_64/mkspecs/features/spec_pre.prf \
 		../../Qt/5.12.3/clang_64/mkspecs/features/exceptions.prf \
 		../../Qt/5.12.3/clang_64/mkspecs/features/yacc.prf \
 		../../Qt/5.12.3/clang_64/mkspecs/features/lex.prf \
-		PhotoShock.pro imgdistortions.h \
+		PhotoShock.pro imgconvolution.h \
+		imgdistortions.h \
 		imghandling.h \
 		imgprocessing.h \
 		mainwindow.h \
-		/ \
-		masterph.h imgdistortions.cpp \
+		masterph.h imgconvolution.cpp \
+		imgdistortions.cpp \
 		imghandling.cpp \
 		imgprocessing.cpp \
 		main.cpp \
-		mainwindow.cpp \
-		masterph.cpp
+		mainwindow.cpp
 QMAKE_TARGET  = PhotoShock
 DESTDIR       = 
 TARGET        = PhotoShock.app/Contents/MacOS/PhotoShock
@@ -656,8 +657,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt/5.12.3/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents imgdistortions.h imghandling.h imgprocessing.h mainwindow.h / masterph.h $(DISTDIR)/
-	$(COPY_FILE) --parents imgdistortions.cpp imghandling.cpp imgprocessing.cpp main.cpp mainwindow.cpp masterph.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents imgconvolution.h imgdistortions.h imghandling.h imgprocessing.h mainwindow.h masterph.h $(DISTDIR)/
+	$(COPY_FILE) --parents imgconvolution.cpp imgdistortions.cpp imghandling.cpp imgprocessing.cpp main.cpp mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
 
 
@@ -708,8 +709,6 @@ moc_mainwindow.cpp: mainwindow.h \
 		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qimage.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/QPixmap \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		ui_mainwindow.h \
@@ -786,6 +785,9 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
+
+imgconvolution.o: imgconvolution.cpp imgconvolution.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o imgconvolution.o imgconvolution.cpp
 
 imgdistortions.o: imgdistortions.cpp imgdistortions.h \
 		/usr/local/include/opencv2/core/core.hpp \
@@ -883,6 +885,8 @@ imghandling.o: imghandling.cpp imghandling.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
 		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/QObject \
 		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		/usr/local/include/opencv2/opencv.hpp \
 		/usr/local/include/opencv2/calib3d.hpp \
 		/usr/local/include/opencv2/features2d.hpp \
@@ -1027,8 +1031,6 @@ main.o: main.cpp mainwindow.h \
 		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qimage.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/QPixmap \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		ui_mainwindow.h \
@@ -1090,8 +1092,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qimage.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QLabel \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/QPixmap \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		ui_mainwindow.h \
@@ -1142,59 +1142,11 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/qstring.h \
 		imgprocessing.h \
 		imgdistortions.h \
+		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
 		../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
-
-masterph.o: masterph.cpp masterph.h \
-		/usr/local/include/opencv2/core/core.hpp \
-		/usr/local/include/opencv2/core.hpp \
-		/usr/local/include/opencv2/core/cvdef.h \
-		/usr/local/include/opencv2/core/hal/interface.h \
-		/usr/local/include/opencv2/core/cv_cpu_dispatch.h \
-		/usr/local/include/opencv2/core/cv_cpu_helper.h \
-		/usr/local/include/opencv2/core/fast_math.hpp \
-		/usr/local/include/opencv2/core/version.hpp \
-		/usr/local/include/opencv2/core/base.hpp \
-		/usr/local/include/opencv2/opencv_modules.hpp \
-		/usr/local/include/opencv2/core/cvstd.hpp \
-		/usr/local/include/opencv2/core/ptr.inl.hpp \
-		/usr/local/include/opencv2/core/neon_utils.hpp \
-		/usr/local/include/opencv2/core/vsx_utils.hpp \
-		/usr/local/include/opencv2/core/check.hpp \
-		/usr/local/include/opencv2/core/traits.hpp \
-		/usr/local/include/opencv2/core/matx.hpp \
-		/usr/local/include/opencv2/core/saturate.hpp \
-		/usr/local/include/opencv2/core/types.hpp \
-		/usr/local/include/opencv2/core/mat.hpp \
-		/usr/local/include/opencv2/core/bufferpool.hpp \
-		/usr/local/include/opencv2/core/mat.inl.hpp \
-		/usr/local/include/opencv2/core/persistence.hpp \
-		/usr/local/include/opencv2/core/operations.hpp \
-		/usr/local/include/opencv2/core/cvstd.inl.hpp \
-		/usr/local/include/opencv2/core/utility.hpp \
-		/usr/local/include/opencv2/core/core_c.h \
-		/usr/local/include/opencv2/core/types_c.h \
-		/usr/local/include/opencv2/core/optim.hpp \
-		/usr/local/include/opencv2/core/ovx.hpp \
-		/usr/local/include/opencv2/highgui/highgui.hpp \
-		/usr/local/include/opencv2/highgui.hpp \
-		/usr/local/include/opencv2/imgcodecs.hpp \
-		/usr/local/include/opencv2/videoio.hpp \
-		/usr/local/include/opencv2/highgui/highgui_c.h \
-		/usr/local/include/opencv2/imgproc/imgproc_c.h \
-		/usr/local/include/opencv2/imgproc/types_c.h \
-		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
-		/usr/local/include/opencv2/videoio/videoio_c.h \
-		/usr/local/include/opencv2/imgproc/imgproc.hpp \
-		/usr/local/include/opencv2/imgproc.hpp \
-		imghandling.h \
-		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/QString \
-		../../Qt/5.12.3/clang_64/lib/QtCore.framework/Headers/qstring.h \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/QImage \
-		../../Qt/5.12.3/clang_64/lib/QtGui.framework/Headers/qimage.h \
-		imgprocessing.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o masterph.o masterph.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
