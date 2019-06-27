@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.9.1, 2019-06-26T11:34:01. -->
+<!-- Written by QtCreator 4.9.1, 2019-06-27T11:39:18. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -56,7 +56,8 @@
   <variable>ProjectExplorer.Project.PluginSettings</variable>
   <valuemap type="QVariantMap">
    <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey"/>
-   <value type="bool" key="ClangCodeModel.UseGlobalConfig">true</value>
+   <value type="bool" key="ClangCodeModel.UseGlobalConfig">false</value>
+   <value type="QString" key="ClangCodeModel.WarningConfigId">{8869d87c-63f6-492c-9394-8fcdc1c62bc5}</value>
    <value type="bool" key="ClangTools.BuildBeforeAnalysis">false</value>
    <value type="QString" key="ClangTools.DiagnosticConfig">Builtin.TidyAndClazy</value>
    <valuelist type="QVariantList" key="ClangTools.SelectedDirs">

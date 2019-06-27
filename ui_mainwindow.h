@@ -32,7 +32,6 @@ QT_BEGIN_NAMESPACE
 class Ui_MainWindow
 {
 public:
-    QAction *actionzoomInOut;
     QWidget *centralWidget;
     QTabWidget *tabWidget;
     QWidget *Editing;
@@ -103,7 +102,7 @@ public:
     QLabel *img_lbl;
     QWidget *layoutWidget4;
     QGridLayout *gridLayout_10;
-    QSlider *horizontalSlider;
+    QSlider *zoom_slider;
     QSpacerItem *horizontalSpacer_2;
     QHBoxLayout *top_layout;
     QPushButton *open_btn;
@@ -118,16 +117,16 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(1104, 743);
-        actionzoomInOut = new QAction(MainWindow);
-        actionzoomInOut->setObjectName(QString::fromUtf8("actionzoomInOut"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setGeometry(QRect(800, 220, 301, 481));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
         tabWidget->setSizePolicy(sizePolicy);
         Editing = new QWidget();
@@ -535,13 +534,13 @@ public:
         gridLayout_10->setContentsMargins(11, 11, 11, 11);
         gridLayout_10->setObjectName(QString::fromUtf8("gridLayout_10"));
         gridLayout_10->setContentsMargins(0, 0, 0, 0);
-        horizontalSlider = new QSlider(layoutWidget4);
-        horizontalSlider->setObjectName(QString::fromUtf8("horizontalSlider"));
-        horizontalSlider->setMinimum(-100);
-        horizontalSlider->setMaximum(100);
-        horizontalSlider->setOrientation(Qt::Horizontal);
+        zoom_slider = new QSlider(layoutWidget4);
+        zoom_slider->setObjectName(QString::fromUtf8("zoom_slider"));
+        zoom_slider->setMinimum(-100);
+        zoom_slider->setMaximum(100);
+        zoom_slider->setOrientation(Qt::Horizontal);
 
-        gridLayout_10->addWidget(horizontalSlider, 0, 2, 1, 1);
+        gridLayout_10->addWidget(zoom_slider, 0, 2, 1, 1);
 
         horizontalSpacer_2 = new QSpacerItem(58, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -560,7 +559,7 @@ public:
         save_btn->setObjectName(QString::fromUtf8("save_btn"));
         save_btn->setEnabled(false);
 
-        top_layout->addWidget(save_btn);
+        top_layout->addWidget(save_btn, 0, Qt::AlignHCenter|Qt::AlignVCenter);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -614,10 +613,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        actionzoomInOut->setText(QApplication::translate("MainWindow", "zoomInOut", nullptr));
-#ifndef QT_NO_TOOLTIP
-        actionzoomInOut->setToolTip(QApplication::translate("MainWindow", "Zoomming", nullptr));
-#endif // QT_NO_TOOLTIP
         textGreen->setText(QApplication::translate("MainWindow", "Green", nullptr));
         textWb->setText(QApplication::translate("MainWindow", "WhiteBalance:", nullptr));
         textLuminance->setText(QApplication::translate("MainWindow", "Luminance", nullptr));

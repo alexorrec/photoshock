@@ -49,9 +49,9 @@ QT_MOC_LITERAL(14, 320, 33), // "on_saturation_slider_valueCha..."
 QT_MOC_LITERAL(15, 354, 32), // "on_luminance_slider_valueChanged"
 QT_MOC_LITERAL(16, 387, 18), // "on_hsl_btn_clicked"
 QT_MOC_LITERAL(17, 406, 17), // "on_ok_btn_clicked"
-QT_MOC_LITERAL(18, 424, 27), // "on_tabWidget_currentChanged"
-QT_MOC_LITERAL(19, 452, 26), // "on_black_and_white_clicked"
-QT_MOC_LITERAL(20, 479, 20) // "on_sepia_btn_clicked"
+QT_MOC_LITERAL(18, 424, 26), // "on_black_and_white_clicked"
+QT_MOC_LITERAL(19, 451, 20), // "on_sepia_btn_clicked"
+QT_MOC_LITERAL(20, 472, 27) // "on_tabWidget_currentChanged"
 
     },
     "MainWindow\0on_open_btn_clicked\0\0"
@@ -67,9 +67,8 @@ QT_MOC_LITERAL(20, 479, 20) // "on_sepia_btn_clicked"
     "on_saturation_slider_valueChanged\0"
     "on_luminance_slider_valueChanged\0"
     "on_hsl_btn_clicked\0on_ok_btn_clicked\0"
-    "on_tabWidget_currentChanged\0"
     "on_black_and_white_clicked\0"
-    "on_sepia_btn_clicked"
+    "on_sepia_btn_clicked\0on_tabWidget_currentChanged"
 };
 #undef QT_MOC_LITERAL
 
@@ -153,9 +152,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 13: _t->on_luminance_slider_valueChanged(); break;
         case 14: _t->on_hsl_btn_clicked(); break;
         case 15: _t->on_ok_btn_clicked(); break;
-        case 16: _t->on_tabWidget_currentChanged(); break;
-        case 17: _t->on_black_and_white_clicked(); break;
-        case 18: _t->on_sepia_btn_clicked(); break;
+        case 16: _t->on_black_and_white_clicked(); break;
+        case 17: _t->on_sepia_btn_clicked(); break;
+        case 18: _t->on_tabWidget_currentChanged(); break;
         default: ;
         }
     }

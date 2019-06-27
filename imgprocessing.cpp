@@ -48,24 +48,13 @@ void ImgProcessing::sepia(cv::Mat &img, cv::Mat &tmp){
         {0.272, 0.534, 0.131}
         };
 
-    double sepia_value = 0;
-
     for(int i = 0; i < img.rows; i++)
         for(int j = 0; j < img.cols; j++)
             for(int k = 0; k < 3; k++){
-
-                 for (int m = 0; m < 3; m++)
-                     sepia_value += sepiaMat[k][m]*(img.at<cv::Vec3b>(i,j)[m]);
-
-                //if((int)sepia_value > 255)
-                  //  tmp.at<cv::Vec3b>(i,j)[k] = 255;
-                //else
-                    tmp.at<cv::Vec3b>(i,j)[k] = (int)sepia_value;
+                tmp.at<cv::Vec3b>(i,j)[k] = 0;
+                for (int m = 0; m < 3; m++)
+                    tmp.at<cv::Vec3b>(i,j)[k] += (sepiaMat[k][m]*(img.at<cv::Vec3b>(i,j)[m]));
             }
-
-
-
-
 }
 
 void ImgProcessing::processHLS(cv::Mat& img, cv::Mat& tmp, int hue, int luminance, int saturation){

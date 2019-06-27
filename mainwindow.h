@@ -57,17 +57,14 @@ private slots:
     void on_hsl_btn_clicked();
     void on_ok_btn_clicked();
 
-    void on_tabWidget_currentChanged();
-
     void on_black_and_white_clicked();
-
     void on_sepia_btn_clicked();
+
+    void on_tabWidget_currentChanged();
 
 private:
 
     Ui::MainWindow *ui;
-    QAction zoom_in;
-    QAction zoom_out;
 
     MasterPH master;
 

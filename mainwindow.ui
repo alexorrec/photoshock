@@ -10,6 +10,12 @@
     <height>743</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -24,7 +30,7 @@
      </rect>
     </property>
     <property name="sizePolicy">
-     <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
       <horstretch>0</horstretch>
       <verstretch>0</verstretch>
      </sizepolicy>
@@ -684,7 +690,7 @@
     </property>
     <layout class="QGridLayout" name="gridLayout_10">
      <item row="0" column="2">
-      <widget class="QSlider" name="horizontalSlider">
+      <widget class="QSlider" name="zoom_slider">
        <property name="minimum">
         <number>-100</number>
        </property>
@@ -724,7 +730,7 @@
          </property>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
         <widget class="QPushButton" name="save_btn">
          <property name="enabled">
           <bool>false</bool>
@@ -772,14 +778,6 @@
    <addaction name="separator"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionzoomInOut">
-   <property name="text">
-    <string>zoomInOut</string>
-   </property>
-   <property name="toolTip">
-    <string>Zoomming</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
