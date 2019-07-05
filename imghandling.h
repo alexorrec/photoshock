@@ -5,18 +5,24 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
+
 #include <QString>
-#include <iostream>
+#include <QImage>
+
 
 class ImgHandling
 {
 public:
     ImgHandling();
 
-    void imgLoad(cv::Mat& img, cv::Mat& tmp, cv::Mat& original, QString& path);
-    void imgSave(QString& path, cv::Mat& img);
+    cv::Mat calculateHist(cv::Mat img, int channel);
+    QImage Mat2Qimg(cv::Mat img);
 
-    void calculateHist(cv::Mat& img, cv::Mat& hist_Mat, int color);
+    void imgLoad(QString path);
+    void imgSave(QString path);
+
+    cv::Mat src;
+    cv::Mat dst;
 };
 
 #endif // IMGHANDLING_H

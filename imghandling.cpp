@@ -1,33 +1,20 @@
 #include "imghandling.h"
-#include <iostream>
-#include <QImage>
-#include <QString>
-#include <QFileDialog>
-#include <iostream>
-#include <QWidget>
-#include <QObject>
 #include <QMessageBox>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/opencv.hpp>
 
-ImgHandling::ImgHandling()= default;
+ImgHandling::ImgHandling() = default;
 
-void ImgHandling::imgLoad(cv::Mat& img, cv::Mat& tmp, cv::Mat& original, QString& path){
+void ImgHandling::imgLoad(QString path){
 
     const std::string imagePath(path.toStdString());
 
-    img = cv::imread(imagePath);
-    cvtColor(img, img, CV_BGR2RGB);
-    tmp = img.clone();
-    original = img.clone();
+    src = cv::imread(imagePath);
+    cvtColor(src, src, CV_BGR2RGB);
+    dst = src.clone();
 }
 
-void ImgHandling::imgSave(QString& path, cv::Mat& img){
+void ImgHandling::imgSave(QString path){
 
-    QImage qimg((const uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
-    qimg.bits();
+    QImage qimg = Mat2Qimg(dst);
 
     if(!qimg.isNull())
         qimg.save(path);
@@ -35,10 +22,10 @@ void ImgHandling::imgSave(QString& path, cv::Mat& img){
         QMessageBox::critical(nullptr, "Errore","Impossibile salvare il file");
 }
 
-void ImgHandling::calculateHist(cv::Mat& img, cv::Mat& hist_Mat, int color){
+cv::Mat ImgHandling::calculateHist(cv::Mat img, int channel){
 
     int k = 0, r = 255, g = 255, b = 255;
-    switch (color)
+    switch (channel)
     {
         case 0:
              k = 0; r = 255; g = 0; b = 0;
@@ -57,7 +44,6 @@ void ImgHandling::calculateHist(cv::Mat& img, cv::Mat& hist_Mat, int color){
     for(int i = 0; i < 255; i++)
         hist[i] = 0;
 
-    //Calcolo hist
     for(int i = 0; i < img.rows; i++)
         for(int j = 0; j < img.cols; j++)
             hist[(int)img.at<cv::Vec3b>(i,j)[k]]++;
@@ -80,5 +66,13 @@ void ImgHandling::calculateHist(cv::Mat& img, cv::Mat& hist_Mat, int color){
     for(int i = 0; i < 255; i++)
         line(histImage, cv::Point(bin_w*(i), hist_h), cv::Point(bin_w*(i), hist_h - hist[i]), cv::Scalar(r,g,b), 1, 8, 0);
 
-    hist_Mat = histImage.clone();
+    return histImage;
+}
+
+QImage ImgHandling::Mat2Qimg(cv::Mat img){
+
+    QImage qimg((const uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
+    qimg.bits();
+
+    return qimg;
 }

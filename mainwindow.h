@@ -2,18 +2,23 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QImage>
-#include <QLabel>
-#include <QMessageBox>
 #include "ui_mainwindow.h"
-#include "masterph.h"
-#include "imghandling.h"
-#include "imgprocessing.h"
-#include "imgdistortions.h"
+//#include "masterph.h"
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
+
+#include "process.h"
+#include "imghandling.h"
+#include "rgb_process.h"
+#include "hsl_process.h"
+#include "matrix_filters.h"
+#include "flip.h"
+#include "rotation.h"
+#include "blur.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -27,17 +32,10 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 
-    void updateUi(cv::Mat& img, QLabel* label);
-    void updateHist(cv::Mat& img);
-
-protected:
-    //void closeEvent(QCloseEvent *event) override; da implementare ancora
-
 private slots:
 
     void on_open_btn_clicked();
     void on_save_btn_clicked();
-    void on_reset_btn_clicked();
 
     void on_exposure_slider_valueChanged();
     void on_contrast_slider_valueChanged();
@@ -60,17 +58,14 @@ private slots:
     void on_black_and_white_clicked();
     void on_sepia_btn_clicked();
 
-    void on_tabWidget_currentChanged();
+    void on_tabWidget_currentChanged(){ handling.src = handling.dst.clone(); }
 
 private:
 
+    void updateUi(cv::Mat img);
+
     Ui::MainWindow *ui;
-
-    MasterPH master;
-
     ImgHandling handling;
-    ImgProcessing compute;
-    ImgDistortions distort;
 };
 
 

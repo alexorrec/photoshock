@@ -65,17 +65,16 @@ public:
     QSpinBox *green_spin;
     QLabel *saturation_lbl;
     QLabel *textExposure;
-    QWidget *Kernel;
+    QWidget *Specials;
     QWidget *layoutWidget;
     QGridLayout *gridLayout_7;
-    QLabel *textDenoise;
-    QSpinBox *gaussian_spin;
     QSpacerItem *verticalSpacer_2;
-    QSlider *gaussian_slider;
+    QSpinBox *gaussian_spin;
     QSlider *sharpener_slider;
+    QLabel *textGaussian;
     QSpinBox *sharpener_spin;
     QLabel *textSharpener;
-    QLabel *textGaussian;
+    QSlider *gaussian_slider;
     QWidget *layoutWidget1;
     QGridLayout *gridLayout_8;
     QPushButton *sepia_btn;
@@ -84,14 +83,14 @@ public:
     QWidget *layoutWidget2;
     QGridLayout *gridLayout_6;
     QGridLayout *gridLayout_2;
-    QSpinBox *rotate_spin;
-    QLabel *label_7;
     QSlider *rotate_slider;
+    QLabel *label_7;
+    QSpinBox *rotate_spin;
     QLabel *label_9;
+    QSpacerItem *verticalSpacer_3;
     QGridLayout *gridLayout_4;
     QPushButton *flipH_btn;
     QPushButton *flipV_btn;
-    QGridLayout *gridLayout_5;
     QWidget *layoutWidget3;
     QVBoxLayout *verticalLayout;
     QLabel *r_hist;
@@ -348,9 +347,9 @@ public:
         gridLayout_3->addLayout(gridLayout, 0, 0, 1, 1);
 
         tabWidget->addTab(Editing, QString());
-        Kernel = new QWidget();
-        Kernel->setObjectName(QString::fromUtf8("Kernel"));
-        layoutWidget = new QWidget(Kernel);
+        Specials = new QWidget();
+        Specials->setObjectName(QString::fromUtf8("Specials"));
+        layoutWidget = new QWidget(Specials);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
         layoutWidget->setGeometry(QRect(10, 11, 281, 271));
         gridLayout_7 = new QGridLayout(layoutWidget);
@@ -358,28 +357,15 @@ public:
         gridLayout_7->setContentsMargins(11, 11, 11, 11);
         gridLayout_7->setObjectName(QString::fromUtf8("gridLayout_7"));
         gridLayout_7->setContentsMargins(0, 0, 0, 0);
-        textDenoise = new QLabel(layoutWidget);
-        textDenoise->setObjectName(QString::fromUtf8("textDenoise"));
+        verticalSpacer_2 = new QSpacerItem(48, 48, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        gridLayout_7->addWidget(textDenoise, 4, 0, 1, 1);
+        gridLayout_7->addItem(verticalSpacer_2, 4, 0, 1, 1);
 
         gaussian_spin = new QSpinBox(layoutWidget);
         gaussian_spin->setObjectName(QString::fromUtf8("gaussian_spin"));
         gaussian_spin->setMaximum(100);
 
         gridLayout_7->addWidget(gaussian_spin, 1, 1, 1, 1);
-
-        verticalSpacer_2 = new QSpacerItem(48, 48, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_7->addItem(verticalSpacer_2, 5, 0, 1, 1);
-
-        gaussian_slider = new QSlider(layoutWidget);
-        gaussian_slider->setObjectName(QString::fromUtf8("gaussian_slider"));
-        gaussian_slider->setMaximum(100);
-        gaussian_slider->setOrientation(Qt::Horizontal);
-        gaussian_slider->setTickPosition(QSlider::TicksAbove);
-
-        gridLayout_7->addWidget(gaussian_slider, 1, 0, 1, 1);
 
         sharpener_slider = new QSlider(layoutWidget);
         sharpener_slider->setObjectName(QString::fromUtf8("sharpener_slider"));
@@ -388,6 +374,11 @@ public:
         sharpener_slider->setTickPosition(QSlider::TicksAbove);
 
         gridLayout_7->addWidget(sharpener_slider, 3, 0, 1, 1);
+
+        textGaussian = new QLabel(layoutWidget);
+        textGaussian->setObjectName(QString::fromUtf8("textGaussian"));
+
+        gridLayout_7->addWidget(textGaussian, 0, 0, 1, 1);
 
         sharpener_spin = new QSpinBox(layoutWidget);
         sharpener_spin->setObjectName(QString::fromUtf8("sharpener_spin"));
@@ -400,12 +391,15 @@ public:
 
         gridLayout_7->addWidget(textSharpener, 2, 0, 1, 1);
 
-        textGaussian = new QLabel(layoutWidget);
-        textGaussian->setObjectName(QString::fromUtf8("textGaussian"));
+        gaussian_slider = new QSlider(layoutWidget);
+        gaussian_slider->setObjectName(QString::fromUtf8("gaussian_slider"));
+        gaussian_slider->setMaximum(100);
+        gaussian_slider->setOrientation(Qt::Horizontal);
+        gaussian_slider->setTickPosition(QSlider::TicksAbove);
 
-        gridLayout_7->addWidget(textGaussian, 0, 0, 1, 1);
+        gridLayout_7->addWidget(gaussian_slider, 1, 0, 1, 1);
 
-        layoutWidget1 = new QWidget(Kernel);
+        layoutWidget1 = new QWidget(Specials);
         layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
         layoutWidget1->setGeometry(QRect(10, 290, 281, 26));
         gridLayout_8 = new QGridLayout(layoutWidget1);
@@ -423,12 +417,12 @@ public:
 
         gridLayout_8->addWidget(black_and_white, 0, 1, 1, 1);
 
-        tabWidget->addTab(Kernel, QString());
+        tabWidget->addTab(Specials, QString());
         Distortions = new QWidget();
         Distortions->setObjectName(QString::fromUtf8("Distortions"));
         layoutWidget2 = new QWidget(Distortions);
         layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(10, 11, 281, 251));
+        layoutWidget2->setGeometry(QRect(10, 11, 281, 151));
         gridLayout_6 = new QGridLayout(layoutWidget2);
         gridLayout_6->setSpacing(6);
         gridLayout_6->setContentsMargins(11, 11, 11, 11);
@@ -437,30 +431,34 @@ public:
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setSpacing(6);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        rotate_spin = new QSpinBox(layoutWidget2);
-        rotate_spin->setObjectName(QString::fromUtf8("rotate_spin"));
-        rotate_spin->setMinimum(-180);
-        rotate_spin->setMaximum(180);
-
-        gridLayout_2->addWidget(rotate_spin, 2, 1, 1, 1);
-
-        label_7 = new QLabel(layoutWidget2);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
-
-        gridLayout_2->addWidget(label_7, 1, 0, 1, 1);
-
         rotate_slider = new QSlider(layoutWidget2);
         rotate_slider->setObjectName(QString::fromUtf8("rotate_slider"));
         rotate_slider->setMinimum(-180);
         rotate_slider->setMaximum(180);
         rotate_slider->setOrientation(Qt::Horizontal);
 
-        gridLayout_2->addWidget(rotate_slider, 2, 0, 1, 1);
+        gridLayout_2->addWidget(rotate_slider, 3, 0, 1, 1);
+
+        label_7 = new QLabel(layoutWidget2);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+
+        gridLayout_2->addWidget(label_7, 2, 0, 1, 1);
+
+        rotate_spin = new QSpinBox(layoutWidget2);
+        rotate_spin->setObjectName(QString::fromUtf8("rotate_spin"));
+        rotate_spin->setMinimum(-180);
+        rotate_spin->setMaximum(180);
+
+        gridLayout_2->addWidget(rotate_spin, 3, 1, 1, 1);
 
         label_9 = new QLabel(layoutWidget2);
         label_9->setObjectName(QString::fromUtf8("label_9"));
 
         gridLayout_2->addWidget(label_9, 0, 0, 1, 1);
+
+        verticalSpacer_3 = new QSpacerItem(20, 18, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer_3, 1, 0, 1, 1);
 
 
         gridLayout_6->addLayout(gridLayout_2, 0, 0, 1, 1);
@@ -480,12 +478,6 @@ public:
 
 
         gridLayout_6->addLayout(gridLayout_4, 1, 0, 1, 1);
-
-        gridLayout_5 = new QGridLayout();
-        gridLayout_5->setSpacing(6);
-        gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
-
-        gridLayout_6->addLayout(gridLayout_5, 2, 0, 1, 1);
 
         tabWidget->addTab(Distortions, QString());
         layoutWidget3 = new QWidget(centralWidget);
@@ -604,7 +596,7 @@ public:
         QObject::connect(rotate_slider, SIGNAL(valueChanged(int)), rotate_spin, SLOT(setValue(int)));
         QObject::connect(rotate_spin, SIGNAL(valueChanged(int)), rotate_slider, SLOT(setValue(int)));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -625,12 +617,11 @@ public:
         saturation_lbl->setText(QApplication::translate("MainWindow", "Saturation", nullptr));
         textExposure->setText(QApplication::translate("MainWindow", "Exposure", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Editing), QApplication::translate("MainWindow", "Editing", nullptr));
-        textDenoise->setText(QApplication::translate("MainWindow", "Denoise", nullptr));
-        textSharpener->setText(QApplication::translate("MainWindow", "Sharpener", nullptr));
         textGaussian->setText(QApplication::translate("MainWindow", "Gaussian", nullptr));
+        textSharpener->setText(QApplication::translate("MainWindow", "Sharpener", nullptr));
         sepia_btn->setText(QApplication::translate("MainWindow", "Sepia", nullptr));
         black_and_white->setText(QApplication::translate("MainWindow", "B % W", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(Kernel), QApplication::translate("MainWindow", "Kernel", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(Specials), QApplication::translate("MainWindow", "Kernel", nullptr));
         label_7->setText(QApplication::translate("MainWindow", "Rotate", nullptr));
         label_9->setText(QApplication::translate("MainWindow", "Distortions:", nullptr));
         flipH_btn->setText(QApplication::translate("MainWindow", "Flip Horizontal", nullptr));

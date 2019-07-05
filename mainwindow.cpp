@@ -1,23 +1,5 @@
 #include "mainwindow.h"
-#include <QMainWindow>
-#include <QImage>
-#include <QLabel>
-#include <QPixmap>
-#include <QString>
 #include <QFileDialog>
-#include <iostream>
-#include <QMessageBox>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/imgcodecs.hpp>
-#include "imghandling.h"
-#include "imgprocessing.h"
-#include "imgdistortions.h"
-
-
-using namespace std;
-
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this);
@@ -27,41 +9,34 @@ MainWindow::~MainWindow(){
     delete ui;
 }
 
-void MainWindow::updateUi(cv::Mat& img, QLabel* label){
+void MainWindow::updateUi(cv::Mat img){
 
-    QImage qimg((const uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
-    qimg.bits();
-    label->setPixmap(QPixmap::fromImage(qimg).scaled(label->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    cv::Mat hist_r = handling.calculateHist(img, 0);
+    cv::Mat hist_g = handling.calculateHist(img, 1);
+    cv::Mat hist_b = handling.calculateHist(img, 2);
+
+    QImage qHr = handling.Mat2Qimg(hist_r);
+    QImage qHg = handling.Mat2Qimg(hist_g);
+    QImage qHb = handling.Mat2Qimg(hist_b);
+
+    QImage qimg = handling.Mat2Qimg(img);
+
+    ui->r_hist->setPixmap(QPixmap::fromImage(qHr).scaled(ui->r_hist->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    ui->g_hist->setPixmap(QPixmap::fromImage(qHg).scaled(ui->g_hist->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    ui->b_hist->setPixmap(QPixmap::fromImage(qHb).scaled(ui->b_hist->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+    ui->img_lbl->setPixmap(QPixmap::fromImage(qimg).scaled(ui->img_lbl->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
-void MainWindow::updateHist(cv::Mat& img){
-
-    handling.calculateHist(img, master.hist_Mat_r, 0);
-    updateUi(master.hist_Mat_r, ui->r_hist);
-
-    handling.calculateHist(img, master.hist_Mat_g, 1);
-    updateUi(master.hist_Mat_g, ui->g_hist);
-
-    handling.calculateHist(img, master.hist_Mat_b, 2);
-    updateUi(master.hist_Mat_b, ui->b_hist);
-}
-/*
-void MainWindow::closeEvent(QCloseEvent * event){
-
-    QMessageBox m;
-    m.critical(nullptr, "Error","Wish to save?:", "Cancel", "OK");
-}
-*/
 void MainWindow::on_open_btn_clicked(){
 
     QString path = QFileDialog::getOpenFileName(nullptr, QObject::tr("Open File"), "", QObject::tr(".JPG (*.jpg , *.jpeg) ;; .PNG (*.png) ;; .TIFF (*.tiff , *.tif)"));
 
     if(!path.isEmpty()){
 
-        handling.imgLoad(master.img, master.tmp, master.original, path);
+        handling.imgLoad(path);
 
-        updateUi(master.img, ui->img_lbl);
-        updateHist(master.img);
+        updateUi(handling.src);
 
         ui->red_slider->setEnabled(true);
         ui->red_spin->setEnabled(true);
@@ -90,105 +65,104 @@ void MainWindow::on_save_btn_clicked(){
     QString path = QFileDialog::getSaveFileName(this, QObject::tr("Save File"), "", QObject::tr(".JPG (*.jpg) ;; .PNG (*.png) ;; .TIFF (*.tif)"));
 
     if(!path.isEmpty())
-        handling.imgSave(path, master.tmp);
-}
-
-void MainWindow::on_reset_btn_clicked(){
-    master.tmp = master.original.clone();
-    master.img = master.original.clone();
-    updateUi(master.img, ui->img_lbl);
-    updateHist(master.img);
+        handling.imgSave(path);
 }
 
 void MainWindow::on_exposure_slider_valueChanged(){
 
-    master.exposure_val = ui->exposure_slider->value();
-    compute.processMaster(master.img, master.tmp, master.exposure_val, master.red_val, master.green_val, master.blue_val, master.contrast_val);
-    updateUi(master.tmp, ui->img_lbl);
-    updateHist(master.tmp);
+    RGB_process m (handling.src, handling.dst, ui->exposure_slider->value(), ui->contrast_slider->value(),
+                   ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
+
+    m.doProcess();
+    updateUi(handling.dst);
 
 }
 
 void MainWindow::on_contrast_slider_valueChanged(){
 
-    master.contrast_val = ui->contrast_slider->value();
-    compute.processMaster(master.img, master.tmp, master.exposure_val, master.red_val, master.green_val, master.blue_val, master.contrast_val);
-    updateUi(master.tmp, ui->img_lbl);
-    updateHist(master.tmp);
+    RGB_process m (handling.src, handling.dst, ui->exposure_slider->value(), ui->contrast_slider->value(),
+                   ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
 
+    m.doProcess();
+    updateUi(handling.dst);
 }
 
 void MainWindow::on_red_slider_valueChanged(){
 
-    master.red_val = ui->red_slider->value();
-    compute.processMaster(master.img, master.tmp, master.exposure_val, master.red_val, master.green_val, master.blue_val, master.contrast_val);
-    updateUi(master.tmp, ui->img_lbl);
-    updateHist(master.tmp);
+    RGB_process m (handling.src, handling.dst, ui->exposure_slider->value(), ui->contrast_slider->value(),
+                   ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
+
+    m.doProcess();
+    updateUi(handling.dst);
+
 }
 
 void MainWindow::on_green_slider_valueChanged(){
 
-    master.green_val = ui->green_slider->value();
-    compute.processMaster(master.img, master.tmp, master.exposure_val, master.red_val, master.green_val, master.blue_val, master.contrast_val);
-    updateUi(master.tmp, ui->img_lbl);
-    updateHist(master.tmp);
+    RGB_process m (handling.src, handling.dst, ui->exposure_slider->value(), ui->contrast_slider->value(),
+                   ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
+
+    m.doProcess();
+    updateUi(handling.dst);
 }
 
 void MainWindow::on_blue_slider_valueChanged(){
 
-    master.blue_val = ui->blue_slider->value();
-    compute.processMaster(master.img, master.tmp, master.exposure_val, master.red_val, master.green_val, master.blue_val, master.contrast_val);
-    updateUi(master.tmp, ui->img_lbl);
-    updateHist(master.tmp);
+    RGB_process m (handling.src, handling.dst, ui->exposure_slider->value(), ui->contrast_slider->value(),
+                   ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
+
+    m.doProcess();
+    updateUi(handling.dst);
 }
 
 void MainWindow::on_rotate_slider_valueChanged(){
 
-    distort.rotate(master.img, master.tmp, ui->rotate_slider->value());
-    updateUi(master.tmp, ui->img_lbl);
+    rotation m(handling.src, handling.dst, ui->rotate_slider->value());
+    m.doProcess();
+    updateUi(handling.dst);
 }
 
 void MainWindow::on_flipV_btn_clicked(){
 
-    distort.flipV(master.img, master.tmp);
-    updateUi(master.tmp, ui->img_lbl);
-    master.img = master.tmp.clone();
+    flip m(handling.src, handling.dst, true);
+    m.doProcess();
+    updateUi(handling.dst);
+    handling.src = handling.dst.clone();
 }
 
 void MainWindow::on_flipH_btn_clicked()
 {
-    distort.flipH(master.img, master.tmp);
-    updateUi(master.tmp, ui->img_lbl);;
-    master.img = master.tmp.clone();
+    flip m(handling.src, handling.dst, false);
+    m.doProcess();
+    updateUi(handling.dst);
+
+    handling.src = handling.dst.clone();
 }
 
 void MainWindow::on_hue_slider_valueChanged(){
 
-    master.hue = ui->hue_slider->value();
-    compute.processHLS(master.img, master.tmp, master.hue, master.luminance, master.saturation);
-    updateUi(master.tmp, ui->img_lbl);
-    updateHist(master.tmp);
+    HSL_process process(handling.src, handling.dst, ui->hue_slider->value(), ui->saturation_slider->value(), ui->luminance_slider->value());
+    process.doProcess();
+    updateUi(handling.dst);
 }
 
 void MainWindow::on_saturation_slider_valueChanged(){
 
-    master.saturation = ui->saturation_slider->value();
-    compute.processHLS(master.img, master.tmp, master.hue, master.luminance, master.saturation);
-    updateUi(master.tmp, ui->img_lbl);
-    updateHist(master.tmp);
+    HSL_process process(handling.src, handling.dst, ui->hue_slider->value(), ui->saturation_slider->value(), ui->luminance_slider->value());
+    process.doProcess();
+    updateUi(handling.dst);
 }
 
 void MainWindow::on_luminance_slider_valueChanged(){
 
-    master.luminance = ui->luminance_slider->value();
-    compute.processHLS(master.img, master.tmp, master.hue, master.luminance, master.saturation);
-    updateUi(master.tmp, ui->img_lbl);
-    updateHist(master.tmp);
+    HSL_process process(handling.src, handling.dst, ui->hue_slider->value(), ui->saturation_slider->value(), ui->luminance_slider->value());
+    process.doProcess();
+    updateUi(handling.dst);
 }
 
 void MainWindow::on_hsl_btn_clicked(){
 
-    master.img = master.tmp.clone();
+    handling.src = handling.dst.clone();
 
     ui->red_slider->setValue(0);
     ui->red_slider->setEnabled(false);
@@ -224,7 +198,7 @@ void MainWindow::on_hsl_btn_clicked(){
 
 void MainWindow::on_ok_btn_clicked(){
 
-    master.img = master.tmp.clone();
+    handling.src = handling.dst.clone();
 
     ui->hue_slider->setValue(0);
     ui->saturation_slider->setValue(0);
@@ -254,23 +228,16 @@ void MainWindow::on_ok_btn_clicked(){
     ui->contrast_spin->setEnabled(true);
 }
 
-void MainWindow::on_tabWidget_currentChanged()
-{
-    master.img = master.tmp.clone();
-}
-
 void MainWindow::on_black_and_white_clicked(){
 
-    compute.black_n_white(master.img, master.tmp);
-    updateUi(master.tmp, ui->img_lbl);
-    updateHist(master.tmp);
+    Matrix_Filters bw(handling.src, handling.dst, "BW");
+    bw.doProcess();
+    updateUi(handling.dst);
 }
 
-void MainWindow::on_sepia_btn_clicked()
-{
-    compute.sepia(master.img, master.tmp);
-    updateUi(master.tmp, ui->img_lbl);
-    updateHist(master.tmp);
+void MainWindow::on_sepia_btn_clicked(){
+
+    Matrix_Filters sepia(handling.src, handling.dst, "SEPIA");
+    sepia.doProcess();
+    updateUi(handling.dst);
 }
-
-

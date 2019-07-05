@@ -10,20 +10,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        imgconvolution.cpp \
-        imgdistortions.cpp \
+        blur.cpp \
+        flip.cpp \
+        hsl_process.cpp \
         imghandling.cpp \
-        imgprocessing.cpp \
+        kernels.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        matrix_filters.cpp \
+        process.cpp \
+        rgb_process.cpp \
+        rotation.cpp
 
 HEADERS += \
-    imgconvolution.h \
-    imgdistortions.h \
+    blur.h \
+    flip.h \
+    hsl_process.h \
         imghandling.h \
-        imgprocessing.h \
+    kernels.h \
         mainwindow.h \
-    masterph.h
+    matrix_filters.h \
+    process.h \
+    rgb_process.h \
+    rotation.h
 
 FORMS += \
         mainwindow.ui
