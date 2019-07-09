@@ -1,25 +1,28 @@
 #include "mainwindow.h"
 #include <QFileDialog>
+#include "blur.h"
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow){
+MainWindow::MainWindow(Model* m, Controller* c, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow),  model(m), controller(c){
     ui->setupUi(this);
+    model->addObserver(this);
 }
 
 MainWindow::~MainWindow(){
     delete ui;
+    model->removeObserver(this);
 }
 
-void MainWindow::updateUi(cv::Mat img){
+void MainWindow::updateUi(){
 
-    cv::Mat hist_r = handling.calculateHist(img, 0);
-    cv::Mat hist_g = handling.calculateHist(img, 1);
-    cv::Mat hist_b = handling.calculateHist(img, 2);
+    cv::Mat hist_r = model->calculateHist(model->dst, 0);
+    cv::Mat hist_g = model->calculateHist(model->dst, 1);
+    cv::Mat hist_b = model->calculateHist(model->dst, 2);
 
-    QImage qHr = handling.Mat2Qimg(hist_r);
-    QImage qHg = handling.Mat2Qimg(hist_g);
-    QImage qHb = handling.Mat2Qimg(hist_b);
+    QImage qHr = model->Mat2Qimg(hist_r);
+    QImage qHg = model->Mat2Qimg(hist_g);
+    QImage qHb = model->Mat2Qimg(hist_b);
 
-    QImage qimg = handling.Mat2Qimg(img);
+    QImage qimg = model->Mat2Qimg(model->dst);
 
     ui->r_hist->setPixmap(QPixmap::fromImage(qHr).scaled(ui->r_hist->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     ui->g_hist->setPixmap(QPixmap::fromImage(qHg).scaled(ui->g_hist->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
@@ -34,9 +37,9 @@ void MainWindow::on_open_btn_clicked(){
 
     if(!path.isEmpty()){
 
-        handling.imgLoad(path);
+        model->imgLoad(path);
 
-        updateUi(handling.src);
+        updateUi();
 
         ui->red_slider->setEnabled(true);
         ui->red_spin->setEnabled(true);
@@ -65,104 +68,70 @@ void MainWindow::on_save_btn_clicked(){
     QString path = QFileDialog::getSaveFileName(this, QObject::tr("Save File"), "", QObject::tr(".JPG (*.jpg) ;; .PNG (*.png) ;; .TIFF (*.tif)"));
 
     if(!path.isEmpty())
-        handling.imgSave(path);
+        model->imgSave(path);
 }
 
 void MainWindow::on_exposure_slider_valueChanged(){
 
-    RGB_process m (handling.src, handling.dst, ui->exposure_slider->value(), ui->contrast_slider->value(),
-                   ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
-
-    m.doProcess();
-    updateUi(handling.dst);
-
+    controller->rgb(ui->exposure_slider->value(), ui->contrast_slider->value(),
+                    ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
 }
 
 void MainWindow::on_contrast_slider_valueChanged(){
 
-    RGB_process m (handling.src, handling.dst, ui->exposure_slider->value(), ui->contrast_slider->value(),
-                   ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
-
-    m.doProcess();
-    updateUi(handling.dst);
+    controller->rgb(ui->exposure_slider->value(), ui->contrast_slider->value(),
+                    ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
 }
 
 void MainWindow::on_red_slider_valueChanged(){
 
-    RGB_process m (handling.src, handling.dst, ui->exposure_slider->value(), ui->contrast_slider->value(),
-                   ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
-
-    m.doProcess();
-    updateUi(handling.dst);
+    controller->rgb(ui->exposure_slider->value(), ui->contrast_slider->value(),
+                    ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
 
 }
 
 void MainWindow::on_green_slider_valueChanged(){
 
-    RGB_process m (handling.src, handling.dst, ui->exposure_slider->value(), ui->contrast_slider->value(),
-                   ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
-
-    m.doProcess();
-    updateUi(handling.dst);
+    controller->rgb(ui->exposure_slider->value(), ui->contrast_slider->value(),
+                    ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
 }
 
 void MainWindow::on_blue_slider_valueChanged(){
 
-    RGB_process m (handling.src, handling.dst, ui->exposure_slider->value(), ui->contrast_slider->value(),
-                   ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
-
-    m.doProcess();
-    updateUi(handling.dst);
+    controller->rgb(ui->exposure_slider->value(), ui->contrast_slider->value(),
+                    ui->red_slider->value(), ui->green_slider->value(), ui->blue_slider->value());
 }
 
 void MainWindow::on_rotate_slider_valueChanged(){
-
-    rotation m(handling.src, handling.dst, ui->rotate_slider->value());
-    m.doProcess();
-    updateUi(handling.dst);
+    controller->rotate(ui->rotate_slider->value());
 }
 
 void MainWindow::on_flipV_btn_clicked(){
-
-    flip m(handling.src, handling.dst, true);
-    m.doProcess();
-    updateUi(handling.dst);
-    handling.src = handling.dst.clone();
+    controller->mirror("VERTICAL");
 }
 
-void MainWindow::on_flipH_btn_clicked()
-{
-    flip m(handling.src, handling.dst, false);
-    m.doProcess();
-    updateUi(handling.dst);
-
-    handling.src = handling.dst.clone();
+void MainWindow::on_flipH_btn_clicked(){
+    controller->mirror("HORIZONTAL");
 }
 
 void MainWindow::on_hue_slider_valueChanged(){
 
-    HSL_process process(handling.src, handling.dst, ui->hue_slider->value(), ui->saturation_slider->value(), ui->luminance_slider->value());
-    process.doProcess();
-    updateUi(handling.dst);
+    controller->hsl(ui->hue_slider->value(), ui->saturation_slider->value(), ui->luminance_slider->value());
 }
 
 void MainWindow::on_saturation_slider_valueChanged(){
 
-    HSL_process process(handling.src, handling.dst, ui->hue_slider->value(), ui->saturation_slider->value(), ui->luminance_slider->value());
-    process.doProcess();
-    updateUi(handling.dst);
+    controller->hsl(ui->hue_slider->value(), ui->saturation_slider->value(), ui->luminance_slider->value());
 }
 
 void MainWindow::on_luminance_slider_valueChanged(){
 
-    HSL_process process(handling.src, handling.dst, ui->hue_slider->value(), ui->saturation_slider->value(), ui->luminance_slider->value());
-    process.doProcess();
-    updateUi(handling.dst);
+    controller->hsl(ui->hue_slider->value(), ui->saturation_slider->value(), ui->luminance_slider->value());
 }
 
 void MainWindow::on_hsl_btn_clicked(){
 
-    handling.src = handling.dst.clone();
+    model->src = model->dst.clone();
 
     ui->red_slider->setValue(0);
     ui->red_slider->setEnabled(false);
@@ -198,7 +167,7 @@ void MainWindow::on_hsl_btn_clicked(){
 
 void MainWindow::on_ok_btn_clicked(){
 
-    handling.src = handling.dst.clone();
+    model->src = model->dst.clone();
 
     ui->hue_slider->setValue(0);
     ui->saturation_slider->setValue(0);
@@ -229,15 +198,17 @@ void MainWindow::on_ok_btn_clicked(){
 }
 
 void MainWindow::on_black_and_white_clicked(){
-
-    Matrix_Filters bw(handling.src, handling.dst, "BW");
-    bw.doProcess();
-    updateUi(handling.dst);
+    controller->sepia_Bw("BW");
 }
 
 void MainWindow::on_sepia_btn_clicked(){
+    controller->sepia_Bw("SEPIA");
+}
 
-    Matrix_Filters sepia(handling.src, handling.dst, "SEPIA");
-    sepia.doProcess();
-    updateUi(handling.dst);
+void MainWindow::on_blur_btn_clicked(){
+    controller->gaussian_blur();
+}
+
+void MainWindow::on_sharp_btn_clicked(){
+    controller->sharpener();
 }

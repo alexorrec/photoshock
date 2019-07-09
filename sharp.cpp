@@ -1,10 +1,9 @@
-#include "blur.h"
-#include <iostream>
+#include "sharp.h"
 
-Blur::Blur(cv::Mat& src, cv::Mat& dst) : Kernels (src, dst){
+Sharp::Sharp(cv::Mat& src, cv::Mat& dst) : Kernels (src, dst){
 }
 
-void Blur::applyKernel(){
+void Sharp::applyKernel(){
 
     double sum;
         for(int i = 1; i < src.rows - 1; i++){
@@ -14,7 +13,7 @@ void Blur::applyKernel(){
                 dst.at<cv::Vec3b>(i,j)[k] = 0.0;
                 for(int x = -1; x <= 1; x++){
                     for(int y = -1; y <= 1; y++){
-                        sum += (Blur_Mat[y+1][x+1]*src.at<cv::Vec3b>(i - x, j - y)[k]);
+                        sum += (Sharp_Mat[y+1][x+1]*src.at<cv::Vec3b>(i - x, j - y)[k]);
                     }
                 }
                 dst.at<cv::Vec3b>(i,j)[k] = cv::saturate_cast<uchar>(sum);

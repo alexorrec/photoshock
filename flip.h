@@ -6,12 +6,12 @@
 class flip : process
 {
 public:
-    flip(cv::Mat& src, cv::Mat& dst, bool h = false);
+    flip(cv::Mat& src, cv::Mat& dst, std::string o = "HORIZONTAL");
 
-    void doProcess() override;
+    virtual void doProcess() override;
 
 private:
-    bool is_Horiented; //false = verticale, true orizzontale
+    std::string orientation;
 };
 
 #endif // FLIP_H

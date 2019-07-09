@@ -8,7 +8,7 @@ class Matrix_Filters : process
 public:
     Matrix_Filters(cv::Mat& src, cv::Mat& dst, std::string c = "BW");
 
-    void doProcess() override;
+    virtual void doProcess() override;
 
 private:
 

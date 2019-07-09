@@ -8,8 +8,8 @@
 
 class Kernels{
 public:
-    Kernels(cv::Mat& s, cv::Mat& d);
-    virtual ~Kernels();
+    Kernels(cv::Mat& s, cv::Mat& d) : src(s), dst(d){}
+    virtual ~Kernels(){}
 
     virtual void applyKernel() = 0;
 

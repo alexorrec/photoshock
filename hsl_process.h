@@ -8,7 +8,7 @@ class HSL_process : process
 public:
     HSL_process(cv::Mat& src, cv::Mat& dst, int h = 0, int s = 0, int l = 0);
 
-    void doProcess() override;
+    virtual void doProcess() override;
 
 private:
     int hue;

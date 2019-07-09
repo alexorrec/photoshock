@@ -8,8 +8,8 @@
 
 class process{    
 public:
-    process(cv::Mat& src, cv::Mat& dst);
-    virtual ~process();
+    process(cv::Mat& s, cv::Mat& d) : src(s), dst(d){}
+    virtual ~process(){}
 
     virtual void doProcess() = 0;
 

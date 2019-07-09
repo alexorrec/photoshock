@@ -8,15 +8,14 @@ class Blur : Kernels
 public:
     Blur(cv::Mat& src, cv::Mat& dst);
 
-    void applyKernel() override;
+    virtual void applyKernel() override;
 
 private:
-    const int Blur_Mat[3][3] = {
-        {1, 2, 1} ,
-        {2, 4, 2} ,
-        {1, 2, 1}
+    const double Blur_Mat[3][3] = {
+        {0.0625, 0.125, 0.0625} ,
+        {0.125, 0.25, 0.125} ,
+        {0.0625, 0.125, 0.0625}
         };
-
 };
 
 #endif // BLUR_H

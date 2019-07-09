@@ -11,28 +11,34 @@ CONFIG += c++11
 
 SOURCES += \
         blur.cpp \
+        controller.cpp \
         flip.cpp \
         hsl_process.cpp \
         imghandling.cpp \
-        kernels.cpp \
         main.cpp \
         mainwindow.cpp \
         matrix_filters.cpp \
-        process.cpp \
+        model.cpp \
         rgb_process.cpp \
-        rotation.cpp
+        rotation.cpp \
+        sharp.cpp
 
 HEADERS += \
     blur.h \
+    controller.h \
     flip.h \
     hsl_process.h \
         imghandling.h \
     kernels.h \
         mainwindow.h \
     matrix_filters.h \
+    model.h \
+    observer.h \
     process.h \
     rgb_process.h \
-    rotation.h
+    rotation.h \
+    sharp.h \
+    subject.h
 
 FORMS += \
         mainwindow.ui
