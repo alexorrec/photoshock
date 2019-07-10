@@ -1,7 +1,15 @@
 #include "model.h"
 
-Model::Model()
-{
+Model::Model(){
+     exposure_Val = 0;
+     contrast_Val = 0;
+     red_Val = 0;
+     green_Val = 0;
+     blue_Val = 0;
+     hue_Val = 0;
+     saturation_Val = 0;
+     luminance_Val = 0;
+     angle_Val = 0;
 
 }
 

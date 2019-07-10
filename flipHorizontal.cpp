@@ -1,4 +1,4 @@
-#include "flipHorizontal.h"
+#include "fliphorizontal.h"
 
 flipHorizontal::flipHorizontal(cv::Mat& src, cv::Mat& dst) : process (src, dst){
 }
