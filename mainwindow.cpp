@@ -107,11 +107,11 @@ void MainWindow::on_rotate_slider_valueChanged(){
 }
 
 void MainWindow::on_flipV_btn_clicked(){
-    controller->mirror("VERTICAL");
+    controller->flip_V();
 }
 
 void MainWindow::on_flipH_btn_clicked(){
-    controller->mirror("HORIZONTAL");
+    controller->flip_H();
 }
 
 void MainWindow::on_hue_slider_valueChanged(){
@@ -197,12 +197,12 @@ void MainWindow::on_ok_btn_clicked(){
     ui->contrast_spin->setEnabled(true);
 }
 
-void MainWindow::on_black_and_white_clicked(){
-    controller->sepia_Bw("BW");
+void MainWindow::on_grayscale_btn_clicked(){
+    controller->grayscale();
 }
 
 void MainWindow::on_sepia_btn_clicked(){
-    controller->sepia_Bw("SEPIA");
+    controller->sepia();
 }
 
 void MainWindow::on_blur_btn_clicked(){
@@ -212,3 +212,5 @@ void MainWindow::on_blur_btn_clicked(){
 void MainWindow::on_sharp_btn_clicked(){
     controller->sharpener();
 }
+
+

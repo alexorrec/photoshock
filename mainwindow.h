@@ -46,14 +46,15 @@ private slots:
     void on_hsl_btn_clicked();
     void on_ok_btn_clicked();
 
-    void on_black_and_white_clicked();
+    void on_grayscale_btn_clicked();
     void on_sepia_btn_clicked();
 
     void on_tabWidget_currentChanged(){ model->src = model->dst.clone(); }
 
     void on_blur_btn_clicked();
-
     void on_sharp_btn_clicked();
+
+
 
 private:
 

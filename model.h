@@ -17,33 +17,39 @@ class Model : public Subject, public ImgHandling
 public:
     Model();
 
-    void setValue(int v, int& value);
-    void setString(std::string s, std::string& string);
-    void storeSignal();
-    void undo(); //TODO
+    void setValue(int a);
+    void setValue(int e, double c, int r, int g, int b);
+    void setValue(int h, int s, int l);
+    void setFlag(bool flag, bool& X);
 
     virtual void addObserver(Observer* o) override;
     virtual void removeObserver(Observer* o) override;
     virtual void notify() override;
 
-public:
-
     std::list<Observer*> observers;
 
-    int exposure_Val = 0;
-    int contrast_Val = 0;
-    int red_Val = 0;
-    int green_Val = 0;
-    int blue_Val = 0;
+    bool is_Flipped_V = false;
+    bool is_Flipped_H = false;
+    bool is_Rotated = false;
+    bool is_Blurred = false;
+    bool is_Sharpened = false;
+    bool is_Grayscale = false;
+    bool is_Sepia = false;
+    bool is_Loaded = false;
+    bool is_Saved = false;
 
-    int hue = 0;
-    int saturation = 0;
-    int luminance = 0;
+private:
+    int exposure_Val;
+    double contrast_Val;
+    int red_Val;
+    int green_Val;
+    int blue_Val;
 
-    int angle = 0;
+    int hue_Val;
+    int saturation_Val;
+    int luminance_Val;
 
-    std::string orientation = "VERTICAL";
-    std::string filter = "BW";
+    int angle_Val;
 };
 
 #endif // MODEL_H

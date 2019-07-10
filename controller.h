@@ -6,10 +6,12 @@
 #include "rgb_process.h"
 #include "hsl_process.h"
 #include "rotation.h"
-#include "flip.h"
-#include "matrix_filters.h"
+#include "flipVertical.h"
+#include "fliphorizontal.h"
+#include "sepia.h"
 #include "blur.h"
 #include "sharp.h"
+#include "grayscale.h"
 
 
 class Controller
@@ -17,11 +19,15 @@ class Controller
 public:
     explicit Controller(Model* m) : model(m) {}
 
+    void load(QString path);
+    void save(QString path);
     void rgb(int exp, double cont, int r, int g, int b);
     void hsl(int h, int s, int l);
     void rotate(int a);
-    void mirror(std::string orientation);
-    void sepia_Bw(std::string choice);
+    void flip_V();
+    void flip_H();
+    void sepia();
+    void grayscale();
 
     void gaussian_blur();
     void sharpener();
