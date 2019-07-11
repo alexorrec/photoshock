@@ -10,6 +10,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        Memento/caretaker.cpp \
+        Memento/memento.cpp \
+        Memento/originator.cpp \
         blur.cpp \
         controller.cpp \
         flipHorizontal.cpp \
@@ -26,6 +29,9 @@ SOURCES += \
         sharp.cpp
 
 HEADERS += \
+    Memento/caretaker.h \
+    Memento/memento.h \
+    Memento/originator.h \
     blur.h \
     controller.h \
     flipHorizontal.h \

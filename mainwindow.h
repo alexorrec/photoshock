@@ -56,6 +56,10 @@ private slots:
 
 
 
+    void on_undo_btn_clicked();
+
+    void on_redo_btn_clicked();
+
 private:
 
     Ui::MainWindow *ui;

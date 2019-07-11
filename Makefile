@@ -52,7 +52,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = blur.cpp \
+SOURCES       = Memento/caretaker.cpp \
+		Memento/memento.cpp \
+		Memento/originator.cpp \
+		blur.cpp \
 		controller.cpp \
 		flipHorizontal.cpp \
 		flipVertical.cpp \
@@ -66,7 +69,10 @@ SOURCES       = blur.cpp \
 		rotation.cpp \
 		sepia.cpp \
 		sharp.cpp moc_mainwindow.cpp
-OBJECTS       = blur.o \
+OBJECTS       = caretaker.o \
+		memento.o \
+		originator.o \
+		blur.o \
 		controller.o \
 		flipHorizontal.o \
 		flipVertical.o \
@@ -255,7 +261,10 @@ DIST          = test/lib/library.json \
 		../../Qt/5.12.3/clang_64/mkspecs/features/exceptions.prf \
 		../../Qt/5.12.3/clang_64/mkspecs/features/yacc.prf \
 		../../Qt/5.12.3/clang_64/mkspecs/features/lex.prf \
-		PhotoShock.pro blur.h \
+		PhotoShock.pro Memento/caretaker.h \
+		Memento/memento.h \
+		Memento/originator.h \
+		blur.h \
 		controller.h \
 		flipHorizontal.h \
 		flipVertical.h \
@@ -271,7 +280,10 @@ DIST          = test/lib/library.json \
 		rotation.h \
 		sepia.h \
 		sharp.h \
-		subject.h blur.cpp \
+		subject.h Memento/caretaker.cpp \
+		Memento/memento.cpp \
+		Memento/originator.cpp \
+		blur.cpp \
 		controller.cpp \
 		flipHorizontal.cpp \
 		flipVertical.cpp \
@@ -692,8 +704,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../Qt/5.12.3/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents blur.h controller.h flipHorizontal.h flipVertical.h grayscale.h hsl_process.h imghandling.h kernels.h mainwindow.h model.h observer.h process.h rgb_process.h rotation.h sepia.h sharp.h subject.h $(DISTDIR)/
-	$(COPY_FILE) --parents blur.cpp controller.cpp flipHorizontal.cpp flipVertical.cpp grayscale.cpp hsl_process.cpp imghandling.cpp main.cpp mainwindow.cpp model.cpp rgb_process.cpp rotation.cpp sepia.cpp sharp.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents Memento/caretaker.h Memento/memento.h Memento/originator.h blur.h controller.h flipHorizontal.h flipVertical.h grayscale.h hsl_process.h imghandling.h kernels.h mainwindow.h model.h observer.h process.h rgb_process.h rotation.h sepia.h sharp.h subject.h $(DISTDIR)/
+	$(COPY_FILE) --parents Memento/caretaker.cpp Memento/memento.cpp Memento/originator.cpp blur.cpp controller.cpp flipHorizontal.cpp flipVertical.cpp grayscale.cpp hsl_process.cpp imghandling.cpp main.cpp mainwindow.cpp model.cpp rgb_process.cpp rotation.cpp sepia.cpp sharp.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
 
 
@@ -791,6 +803,7 @@ moc_mainwindow.cpp: mainwindow.h \
 		hsl_process.h \
 		rotation.h \
 		flipVertical.h \
+		fliphorizontal.h \
 		sepia.h \
 		blur.h \
 		kernels.h \
@@ -822,6 +835,18 @@ compiler_lex_clean:
 compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
+
+caretaker.o: Memento/caretaker.cpp Memento/caretaker.h \
+		Memento/memento.h \
+		Memento/originator.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o caretaker.o Memento/caretaker.cpp
+
+memento.o: Memento/memento.cpp Memento/memento.h \
+		Memento/originator.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o memento.o Memento/memento.cpp
+
+originator.o: Memento/originator.cpp Memento/originator.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o originator.o Memento/originator.cpp
 
 blur.o: blur.cpp blur.h \
 		kernels.h \
@@ -923,6 +948,7 @@ controller.o: controller.cpp controller.h \
 		hsl_process.h \
 		rotation.h \
 		flipVertical.h \
+		fliphorizontal.h \
 		sepia.h \
 		blur.h \
 		kernels.h \
@@ -930,7 +956,49 @@ controller.o: controller.cpp controller.h \
 		grayscale.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o controller.cpp
 
-flipHorizontal.o: flipHorizontal.cpp flipHorizontal.h
+flipHorizontal.o: flipHorizontal.cpp fliphorizontal.h \
+		process.h \
+		/usr/local/include/opencv2/core/core.hpp \
+		/usr/local/include/opencv2/core.hpp \
+		/usr/local/include/opencv2/core/cvdef.h \
+		/usr/local/include/opencv2/core/hal/interface.h \
+		/usr/local/include/opencv2/core/cv_cpu_dispatch.h \
+		/usr/local/include/opencv2/core/cv_cpu_helper.h \
+		/usr/local/include/opencv2/core/fast_math.hpp \
+		/usr/local/include/opencv2/core/version.hpp \
+		/usr/local/include/opencv2/core/base.hpp \
+		/usr/local/include/opencv2/opencv_modules.hpp \
+		/usr/local/include/opencv2/core/cvstd.hpp \
+		/usr/local/include/opencv2/core/ptr.inl.hpp \
+		/usr/local/include/opencv2/core/neon_utils.hpp \
+		/usr/local/include/opencv2/core/vsx_utils.hpp \
+		/usr/local/include/opencv2/core/check.hpp \
+		/usr/local/include/opencv2/core/traits.hpp \
+		/usr/local/include/opencv2/core/matx.hpp \
+		/usr/local/include/opencv2/core/saturate.hpp \
+		/usr/local/include/opencv2/core/types.hpp \
+		/usr/local/include/opencv2/core/mat.hpp \
+		/usr/local/include/opencv2/core/bufferpool.hpp \
+		/usr/local/include/opencv2/core/mat.inl.hpp \
+		/usr/local/include/opencv2/core/persistence.hpp \
+		/usr/local/include/opencv2/core/operations.hpp \
+		/usr/local/include/opencv2/core/cvstd.inl.hpp \
+		/usr/local/include/opencv2/core/utility.hpp \
+		/usr/local/include/opencv2/core/core_c.h \
+		/usr/local/include/opencv2/core/types_c.h \
+		/usr/local/include/opencv2/core/optim.hpp \
+		/usr/local/include/opencv2/core/ovx.hpp \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
+		/usr/local/include/opencv2/imgcodecs.hpp \
+		/usr/local/include/opencv2/videoio.hpp \
+		/usr/local/include/opencv2/highgui/highgui_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc_c.h \
+		/usr/local/include/opencv2/imgproc/types_c.h \
+		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/usr/local/include/opencv2/videoio/videoio_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc.hpp \
+		/usr/local/include/opencv2/imgproc.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o flipHorizontal.o flipHorizontal.cpp
 
 flipVertical.o: flipVertical.cpp flipVertical.h \
@@ -1177,6 +1245,7 @@ main.o: main.cpp mainwindow.h \
 		hsl_process.h \
 		rotation.h \
 		flipVertical.h \
+		fliphorizontal.h \
 		sepia.h \
 		blur.h \
 		kernels.h \
@@ -1245,6 +1314,7 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		hsl_process.h \
 		rotation.h \
 		flipVertical.h \
+		fliphorizontal.h \
 		sepia.h \
 		blur.h \
 		kernels.h \

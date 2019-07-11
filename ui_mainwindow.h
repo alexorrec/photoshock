@@ -95,14 +95,15 @@ public:
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
     QLabel *img_lbl;
-    QWidget *layoutWidget4;
-    QGridLayout *gridLayout_10;
-    QHBoxLayout *top_layout;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout;
     QPushButton *open_btn;
     QPushButton *save_btn;
     QSpacerItem *horizontalSpacer;
     QPushButton *reset_btn;
     QSpacerItem *horizontalSpacer_2;
+    QPushButton *undo_btn;
+    QPushButton *redo_btn;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -485,45 +486,49 @@ public:
         img_lbl->setScaledContents(false);
         img_lbl->setAlignment(Qt::AlignCenter);
         scrollArea->setWidget(scrollAreaWidgetContents);
-        layoutWidget4 = new QWidget(centralWidget);
-        layoutWidget4->setObjectName(QString::fromUtf8("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(0, 0, 731, 28));
-        gridLayout_10 = new QGridLayout(layoutWidget4);
-        gridLayout_10->setSpacing(6);
-        gridLayout_10->setContentsMargins(11, 11, 11, 11);
-        gridLayout_10->setObjectName(QString::fromUtf8("gridLayout_10"));
-        gridLayout_10->setContentsMargins(0, 0, 0, 0);
-        top_layout = new QHBoxLayout();
-        top_layout->setSpacing(6);
-        top_layout->setObjectName(QString::fromUtf8("top_layout"));
-        open_btn = new QPushButton(layoutWidget4);
+        widget = new QWidget(centralWidget);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(2, 2, 576, 26));
+        horizontalLayout = new QHBoxLayout(widget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        open_btn = new QPushButton(widget);
         open_btn->setObjectName(QString::fromUtf8("open_btn"));
         open_btn->setMinimumSize(QSize(80, 24));
 
-        top_layout->addWidget(open_btn);
+        horizontalLayout->addWidget(open_btn);
 
-        save_btn = new QPushButton(layoutWidget4);
+        save_btn = new QPushButton(widget);
         save_btn->setObjectName(QString::fromUtf8("save_btn"));
         save_btn->setEnabled(false);
 
-        top_layout->addWidget(save_btn, 0, Qt::AlignHCenter|Qt::AlignVCenter);
+        horizontalLayout->addWidget(save_btn);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        top_layout->addItem(horizontalSpacer);
+        horizontalLayout->addItem(horizontalSpacer);
 
-        reset_btn = new QPushButton(layoutWidget4);
+        reset_btn = new QPushButton(widget);
         reset_btn->setObjectName(QString::fromUtf8("reset_btn"));
         reset_btn->setEnabled(false);
 
-        top_layout->addWidget(reset_btn);
-
-
-        gridLayout_10->addLayout(top_layout, 0, 0, 1, 1);
+        horizontalLayout->addWidget(reset_btn);
 
         horizontalSpacer_2 = new QSpacerItem(58, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_10->addItem(horizontalSpacer_2, 0, 1, 1, 1);
+        horizontalLayout->addItem(horizontalSpacer_2);
+
+        undo_btn = new QPushButton(widget);
+        undo_btn->setObjectName(QString::fromUtf8("undo_btn"));
+
+        horizontalLayout->addWidget(undo_btn);
+
+        redo_btn = new QPushButton(widget);
+        redo_btn->setObjectName(QString::fromUtf8("redo_btn"));
+
+        horizontalLayout->addWidget(redo_btn);
 
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
@@ -555,7 +560,7 @@ public:
         QObject::connect(rotate_slider, SIGNAL(valueChanged(int)), rotate_spin, SLOT(setValue(int)));
         QObject::connect(rotate_spin, SIGNAL(valueChanged(int)), rotate_slider, SLOT(setValue(int)));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -592,6 +597,8 @@ public:
         open_btn->setText(QApplication::translate("MainWindow", "Open", nullptr));
         save_btn->setText(QApplication::translate("MainWindow", "Save", nullptr));
         reset_btn->setText(QApplication::translate("MainWindow", "Revert all changes", nullptr));
+        undo_btn->setText(QApplication::translate("MainWindow", "<--", nullptr));
+        redo_btn->setText(QApplication::translate("MainWindow", "-->", nullptr));
     } // retranslateUi
 
 };

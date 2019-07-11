@@ -12,6 +12,8 @@
 #include "blur.h"
 #include "sharp.h"
 #include "grayscale.h"
+#include "Memento/caretaker.h"
+#include "Memento/originator.h"
 
 
 class Controller
@@ -32,9 +34,12 @@ public:
     void gaussian_blur();
     void sharpener();
 
-
 private:
     Model* model;
+public:
+    Originator* originator = new Originator();
+    CareTaker* caretaker = new CareTaker();
+    bool un_re_Doing = false;
 };
 
 #endif // CONTROLLER_H

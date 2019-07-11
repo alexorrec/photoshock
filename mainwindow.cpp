@@ -29,6 +29,16 @@ void MainWindow::updateUi(){
     ui->b_hist->setPixmap(QPixmap::fromImage(qHb).scaled(ui->b_hist->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
     ui->img_lbl->setPixmap(QPixmap::fromImage(qimg).scaled(ui->img_lbl->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+    if(controller->caretaker->listMementoRedo.front() == nullptr)
+        ui->redo_btn->setEnabled(false);
+    else
+        ui->redo_btn->setEnabled(true);
+
+    if(controller->caretaker->listMementoUndo.back() == nullptr)
+        ui->undo_btn->setEnabled(false);
+    else
+        ui->undo_btn->setEnabled(true);
 }
 
 void MainWindow::on_open_btn_clicked(){
@@ -37,9 +47,7 @@ void MainWindow::on_open_btn_clicked(){
 
     if(!path.isEmpty()){
 
-        model->imgLoad(path);
-
-        updateUi();
+        controller->load(path);
 
         ui->red_slider->setEnabled(true);
         ui->red_spin->setEnabled(true);
@@ -68,7 +76,7 @@ void MainWindow::on_save_btn_clicked(){
     QString path = QFileDialog::getSaveFileName(this, QObject::tr("Save File"), "", QObject::tr(".JPG (*.jpg) ;; .PNG (*.png) ;; .TIFF (*.tif)"));
 
     if(!path.isEmpty())
-        model->imgSave(path);
+        controller->save(path);
 }
 
 void MainWindow::on_exposure_slider_valueChanged(){
@@ -213,4 +221,38 @@ void MainWindow::on_sharp_btn_clicked(){
     controller->sharpener();
 }
 
+void MainWindow::on_undo_btn_clicked()
+{
+    controller->un_re_Doing = true;
 
+    controller->originator->restoreToMemento(controller->caretaker->getMementoUndo());
+    ui->exposure_slider->setValue(controller->originator->getValue(controller->originator->exposure_Val));
+    ui->contrast_slider->setValue(controller->originator->getValue(controller->originator->contrast_Val));
+    ui->red_slider->setValue(controller->originator->getValue(controller->originator->red_Val));
+    ui->green_slider->setValue(controller->originator->getValue(controller->originator->green_Val));
+    ui->blue_slider->setValue(controller->originator->getValue(controller->originator->blue_Val));
+
+    ui->hue_slider->setValue(controller->originator->getValue(controller->originator->hue_Val));
+    ui->saturation_slider->setValue(controller->originator->getValue(controller->originator->saturation_Val));
+    ui->luminance_slider->setValue(controller->originator->getValue(controller->originator->luminance_Val));
+
+    controller->un_re_Doing = false;
+}
+
+void MainWindow::on_redo_btn_clicked()
+{
+    controller->un_re_Doing = true;
+
+    controller->originator->restoreToMemento(controller->caretaker->getMementoRedo());
+    ui->exposure_slider->setValue(controller->originator->getValue(controller->originator->exposure_Val));
+    ui->contrast_slider->setValue(controller->originator->getValue(controller->originator->contrast_Val));
+    ui->red_slider->setValue(controller->originator->getValue(controller->originator->red_Val));
+    ui->green_slider->setValue(controller->originator->getValue(controller->originator->green_Val));
+    ui->blue_slider->setValue(controller->originator->getValue(controller->originator->blue_Val));
+
+    ui->hue_slider->setValue(controller->originator->getValue(controller->originator->hue_Val));
+    ui->saturation_slider->setValue(controller->originator->getValue(controller->originator->saturation_Val));
+    ui->luminance_slider->setValue(controller->originator->getValue(controller->originator->luminance_Val));
+
+    controller->un_re_Doing = false;
+}
