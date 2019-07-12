@@ -1,15 +1,16 @@
-#include "grayscale.h"
+#include "sepia.h"
 
-Grayscale::Grayscale(cv::Mat& src, cv::Mat& dst) : process (src, dst){
+Sepia::Sepia(cv::Mat& src, cv::Mat& dst)
+    : Process (src, dst) {
 }
 
-void Grayscale::doProcess(){
+void Sepia::doProcess(){
 
     for(int i = 0; i < src.rows; i++)
         for(int j = 0; j < src.cols; j++)
             for(int k = 0; k < 3; k++){
                 dst.at<cv::Vec3b>(i,j)[k] = 0;
                 for (int m = 0; m < 3; m++)
-                    dst.at<cv::Vec3b>(i,j)[k] += bw_Mat[k][m]*src.at<cv::Vec3b>(i,j)[m];
+                    dst.at<cv::Vec3b>(i,j)[k] += sepia_Mat[k][m]*src.at<cv::Vec3b>(i,j)[m];
             }
 }

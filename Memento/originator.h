@@ -9,7 +9,7 @@ class Originator
 public:
     Originator(const int exp = 0, const double c = 0,
                const int r = 0, const int g = 0, const int b = 0,
-               const int h = 0, const int s = 0, const int l = 0,
+               const int h = 0, const int s = 0, const int l = 0, const int a = 0,
                const bool fV = false, const bool fH = false, const bool rot = false,
                const bool blur = false, const bool sharp = false,
                const bool gray = false, const bool sep = false);
@@ -49,8 +49,6 @@ public:
     int luminance_Val;
 
     int angle_Val;
-
-    int memento_counter = 0;
 };
 
 #endif // ORIGINATOR_H

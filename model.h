@@ -9,7 +9,7 @@
 #include "subject.h"
 #include <list>
 #include <iostream>
-#include "imghandling.h"
+#include "ImgFunctions/imghandling.h"
 
 
 class Model : public Subject, public ImgHandling

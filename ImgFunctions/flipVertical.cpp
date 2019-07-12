@@ -1,6 +1,6 @@
 #include "flipVertical.h"
 
-flipVertical::flipVertical(cv::Mat& src, cv::Mat& dst) : process (src, dst){
+flipVertical::flipVertical(cv::Mat& src, cv::Mat& dst) : Process (src, dst){
 }
 
 void flipVertical::doProcess(){

@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-class RGB_process : process
+class RGB_process : Process
 {
 public:
     RGB_process(cv::Mat& src, cv::Mat& dst, int exp = 0, double c = 1, int r = 0, int g = 0, int b = 0);

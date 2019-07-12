@@ -3,7 +3,7 @@
 
 Originator::Originator(const int exp, const double c,
                        const int r, const int g, const int b,
-                       const int h, const int s, const int l,
+                       const int h, const int s, const int l, const int a,
                        const bool fV, const bool fH, const bool rot,
                        const bool blur, const bool sharp,
                        const bool gray, const bool sep)
@@ -28,11 +28,9 @@ void Originator::setValue(const double v, double &value){
 }
 
 Memento* Originator::createMemento(){
-    memento_counter++;
     return new Memento(*this);
 }
 
 void Originator::restoreToMemento(Memento* memento){
-    memento_counter--;
     *this = memento->getOriginator();
 }

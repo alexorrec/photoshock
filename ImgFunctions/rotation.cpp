@@ -1,6 +1,6 @@
 #include "rotation.h"
 
-rotation::rotation(cv::Mat& src, cv::Mat& dst, int a) : process (src, dst), angle(a){
+rotation::rotation(cv::Mat& src, cv::Mat& dst, int a) : Process(src, dst), angle(a){
 }
 
 void rotation::doProcess(){

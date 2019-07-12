@@ -3,7 +3,7 @@
 
 #include "process.h"
 
-class Sepia : process
+class Sepia : Process
 {
 public:
     Sepia(cv::Mat& src, cv::Mat& dst);

@@ -3,7 +3,7 @@
 
 #include "process.h"
 
-class Grayscale : process
+class Grayscale : Process
 {
 public:
     Grayscale(cv::Mat& src, cv::Mat& dst);

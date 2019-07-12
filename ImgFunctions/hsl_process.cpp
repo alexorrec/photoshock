@@ -1,7 +1,7 @@
 #include "hsl_process.h"
 
 HSL_process::HSL_process(cv::Mat& src, cv::Mat& dst, int h, int s, int l)
-    : process (src, dst), hue(h), saturation(s), luminance(l){
+    : Process(src, dst), hue(h), saturation(s), luminance(l){
 }
 
 void HSL_process::doProcess(){

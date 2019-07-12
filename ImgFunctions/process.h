@@ -6,10 +6,10 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
 
-class process{    
+class Process{
 public:
-    process(cv::Mat& s, cv::Mat& d) : src(s), dst(d){}
-    virtual ~process(){}
+    Process(cv::Mat& s, cv::Mat& d) : src(s), dst(d){}
+    virtual ~Process(){}
 
     virtual void doProcess() = 0;
 

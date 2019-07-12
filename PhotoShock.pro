@@ -10,44 +10,45 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        ImgFunctions/blur.cpp \
+        ImgFunctions/flipVertical.cpp \
+        ImgFunctions/fliphorizontal.cpp \
+        ImgFunctions/grayscale.cpp \
+        ImgFunctions/hsl_process.cpp \
+        ImgFunctions/imghandling.cpp \
+        ImgFunctions/kernels.cpp \
+        ImgFunctions/rgb_process.cpp \
+        ImgFunctions/rotation.cpp \
+        ImgFunctions/sepia.cpp \
+        ImgFunctions/sharp.cpp \
         Memento/caretaker.cpp \
         Memento/memento.cpp \
         Memento/originator.cpp \
-        blur.cpp \
         controller.cpp \
-        flipHorizontal.cpp \
-        flipVertical.cpp \
-        grayscale.cpp \
-        hsl_process.cpp \
-        imghandling.cpp \
         main.cpp \
         mainwindow.cpp \
-        model.cpp \
-        rgb_process.cpp \
-        rotation.cpp \
-        sepia.cpp \
-        sharp.cpp
+        model.cpp
 
 HEADERS += \
+    ImgFunctions/blur.h \
+    ImgFunctions/flipVertical.h \
+    ImgFunctions/fliphorizontal.h \
+    ImgFunctions/grayscale.h \
+    ImgFunctions/hsl_process.h \
+    ImgFunctions/imghandling.h \
+    ImgFunctions/kernels.h \
+    ImgFunctions/process.h \
+    ImgFunctions/rgb_process.h \
+    ImgFunctions/rotation.h \
+    ImgFunctions/sepia.h \
+    ImgFunctions/sharp.h \
     Memento/caretaker.h \
     Memento/memento.h \
     Memento/originator.h \
-    blur.h \
     controller.h \
-    flipHorizontal.h \
-    flipVertical.h \
-    grayscale.h \
-    hsl_process.h \
-        imghandling.h \
-    kernels.h \
         mainwindow.h \
     model.h \
     observer.h \
-    process.h \
-    rgb_process.h \
-    rotation.h \
-    sepia.h \
-    sharp.h \
     subject.h
 
 FORMS += \

@@ -3,7 +3,7 @@
 
 #include "process.h"
 
-class rotation : process
+class rotation : Process
 {
 public:
     rotation(cv::Mat& src, cv::Mat& dst, int a = 0);

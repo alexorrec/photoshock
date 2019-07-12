@@ -1,7 +1,7 @@
 #include "rgb_process.h"
 
 RGB_process::RGB_process(cv::Mat& src, cv::Mat& dst, int exp, double c, int r, int g, int b)
-    : process (src, dst), exposure_Val(exp), contrast_Val(c), red_Val(r), green_Val(g), blue_Val(b){
+    : Process (src, dst), exposure_Val(exp), contrast_Val(c), red_Val(r), green_Val(g), blue_Val(b){
 }
 
 void RGB_process::doProcess(){

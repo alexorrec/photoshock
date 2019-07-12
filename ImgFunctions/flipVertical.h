@@ -3,7 +3,7 @@
 
 #include "process.h"
 
-class flipVertical : process
+class flipVertical : Process
 {
 public:
     flipVertical(cv::Mat& src, cv::Mat& dst);

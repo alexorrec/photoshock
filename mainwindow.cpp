@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include <QFileDialog>
-#include "blur.h"
 
 MainWindow::MainWindow(Model* m, Controller* c, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow),  model(m), controller(c){
     ui->setupUi(this);
@@ -30,12 +29,12 @@ void MainWindow::updateUi(){
 
     ui->img_lbl->setPixmap(QPixmap::fromImage(qimg).scaled(ui->img_lbl->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    if(controller->caretaker->listMementoRedo.front() == nullptr)
+    if(controller->caretaker->listMementoRedo.empty())
         ui->redo_btn->setEnabled(false);
     else
         ui->redo_btn->setEnabled(true);
 
-    if(controller->caretaker->listMementoUndo.back() == nullptr)
+    if(controller->caretaker->listMementoUndo.empty())
         ui->undo_btn->setEnabled(false);
     else
         ui->undo_btn->setEnabled(true);
