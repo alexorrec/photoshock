@@ -11,6 +11,18 @@ MainWindow::~MainWindow(){
     model->removeObserver(this);
 }
 
+void MainWindow::closeEvent(QCloseEvent*  /*event*/){
+
+    switch (QMessageBox(tr("Warning!"), tr("Save before Exit?"), QMessageBox::Warning, QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::Escape).exec()){
+        case 3: {
+            ui->save_btn->clicked();
+        }
+        default: {
+            break;
+        }
+    }
+}
+
 void MainWindow::updateUi(){
 
     cv::Mat hist_r = model->calculateHist(model->dst, 0);
@@ -34,7 +46,7 @@ void MainWindow::updateUi(){
     else
         ui->redo_btn->setEnabled(true);
 
-    if(controller->caretaker->listMementoUndo.empty())
+    if(controller->caretaker->listMementoUndo.back() == nullptr)
         ui->undo_btn->setEnabled(false);
     else
         ui->undo_btn->setEnabled(true);
@@ -67,6 +79,17 @@ void MainWindow::on_open_btn_clicked(){
         ui->hsl_btn->setEnabled(true);
         ui->save_btn->setEnabled(true);
 
+        ui->blur_btn->setEnabled(true);
+        ui->sharp_btn->setEnabled(true);
+        ui->sepia_btn->setEnabled(true);
+        ui->grayscale_btn->setEnabled(true);
+
+        ui->rotate_slider->setEnabled(true);
+        ui->rotate_spin->setEnabled(true);
+        ui->flipH_btn->setEnabled(true);
+        ui->flipV_btn->setEnabled(true);
+
+        ui->steps_spin->setEnabled(true);
     }
 }
 
@@ -170,6 +193,9 @@ void MainWindow::on_hsl_btn_clicked(){
     ui->luminance_spin->setEnabled(true);
     ui->ok_btn->setEnabled(true);
     ui->hsl_btn->setEnabled(false);
+
+    ui->tabWidget->setTabEnabled(1, false);
+    ui->tabWidget->setTabEnabled(2, false);
 }
 
 void MainWindow::on_ok_btn_clicked(){
@@ -202,6 +228,10 @@ void MainWindow::on_ok_btn_clicked(){
 
     ui->contrast_slider->setEnabled(true);
     ui->contrast_spin->setEnabled(true);
+
+    ui->tabWidget->setTabEnabled(1, true);
+    ui->tabWidget->setTabEnabled(2, true);
+
 }
 
 void MainWindow::on_grayscale_btn_clicked(){
@@ -213,11 +243,13 @@ void MainWindow::on_sepia_btn_clicked(){
 }
 
 void MainWindow::on_blur_btn_clicked(){
-    controller->gaussian_blur();
+    for(int k = 0; k < ui->steps_spin->value(); k++)
+        controller->gaussian_blur();
 }
 
 void MainWindow::on_sharp_btn_clicked(){
-    controller->sharpener();
+    for(int k = 0; k < ui->steps_spin->value(); k++)
+        controller->sharpener();
 }
 
 void MainWindow::on_undo_btn_clicked()
@@ -254,4 +286,17 @@ void MainWindow::on_redo_btn_clicked()
     ui->luminance_slider->setValue(controller->originator->getValue(controller->originator->luminance_Val));
 
     controller->un_re_Doing = false;
+}
+
+void MainWindow::on_reset_btn_clicked(){
+    ui->exposure_spin->setValue(0);
+    ui->contrast_spin->setValue(0);
+    ui->red_spin->setValue(0);
+    ui->green_spin->setValue(0);
+    ui->blue_spin->setValue(0);
+
+    ui->rotate_spin->setValue(0);
+
+    controller->caretaker->listMementoRedo.clear();
+    controller->revertAll();
 }

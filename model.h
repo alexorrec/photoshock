@@ -22,19 +22,21 @@ public:
     void setValue(int h, int s, int l);
     void setFlag(bool flag, bool& X);
 
-    virtual void addObserver(Observer* o) override;
-    virtual void removeObserver(Observer* o) override;
-    virtual void notify() override;
+    void addObserver(Observer* o) override;
+    void removeObserver(Observer* o) override;
+    void notify() override;
 
     std::list<Observer*> observers;
 
     bool is_Flipped_V = false;
     bool is_Flipped_H = false;
     bool is_Rotated = false;
+
     bool is_Blurred = false;
     bool is_Sharpened = false;
     bool is_Grayscale = false;
     bool is_Sepia = false;
+
     bool is_Loaded = false;
     bool is_Saved = false;
 

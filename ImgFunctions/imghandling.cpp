@@ -3,16 +3,17 @@
 
 ImgHandling::ImgHandling() = default;
 
-void ImgHandling::imgLoad(QString path){
+void ImgHandling::imgLoad(const QString& path){
 
     const std::string imagePath(path.toStdString());
 
     src = cv::imread(imagePath);
     cvtColor(src, src, CV_BGR2RGB);
     dst = src.clone();
+    primary = src.clone();
 }
 
-void ImgHandling::imgSave(QString path){
+void ImgHandling::imgSave(const QString& path){
 
     QImage qimg = Mat2Qimg(dst);
 

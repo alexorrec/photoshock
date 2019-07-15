@@ -8,7 +8,7 @@ class Grayscale : Process
 public:
     Grayscale(cv::Mat& src, cv::Mat& dst);
 
-    virtual void doProcess() override;
+    void doProcess() override;
 
 private:
     const double bw_Mat[3][3] = {

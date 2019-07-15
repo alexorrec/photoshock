@@ -8,7 +8,7 @@ class rotation : Process
 public:
     rotation(cv::Mat& src, cv::Mat& dst, int a = 0);
 
-    virtual void doProcess() override;
+    void doProcess() override;
 
 protected:
     int angle;

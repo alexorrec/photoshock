@@ -1,7 +1,9 @@
 #include "controller.h"
 
+#include <utility>
+
 void Controller::load(QString path){
-    model->imgLoad(path);
+    model->imgLoad(std::move(path));
     model->setFlag(true, model->is_Loaded);
     originator->setValue(0, originator->exposure_Val);
     originator->setValue(0, originator->contrast_Val);
@@ -12,7 +14,7 @@ void Controller::load(QString path){
 }
 
 void Controller::save(QString path){
-    model->imgSave(path);
+    model->imgSave(std::move(path));
     model->setFlag(true, model->is_Saved);
 }
 
@@ -134,4 +136,11 @@ void Controller::sharpener(){
     run.applyKernel();
     model->src = model->dst.clone();
     model->setFlag(true, model->is_Sharpened);
+}
+
+void Controller::revertAll(){
+
+    model->src = model->primary.clone();
+    model->dst = model->src.clone();
+    model->notify();
 }

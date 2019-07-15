@@ -1,5 +1,5 @@
 #include "originator.h"
-#include "memento.h"
+#include "Memento/Memento.h"
 
 Originator::Originator(const int exp, const double c,
                        const int r, const int g, const int b,
@@ -11,8 +11,7 @@ Originator::Originator(const int exp, const double c,
       is_Flipped_V(fV), is_Flipped_H(fH), is_Rotated(rot), is_Blurred(blur), is_Sharpened(sharp), is_Grayscale(gray), is_Sepia(sep){
 }
 
-Originator::~Originator(){
-}
+Originator::~Originator() = default;
 
 void Originator::setState(const bool s, bool& state){
     state = s;

@@ -1,8 +1,7 @@
 #include <iostream>
-#include "CareTaker.h"
-#include "Memento.h"
+#include "Memento/caretaker.h"
 
-CareTaker::CareTaker() : lastElementInList(nullptr) {
+CareTaker::CareTaker(){
 }
 
 CareTaker::~CareTaker() {
@@ -11,9 +10,7 @@ CareTaker::~CareTaker() {
     }
     listMementoUndo.clear();
     listMementoRedo.clear();
-    if ( lastElementInList != nullptr) {
-        delete lastElementInList;
-    }
+    delete lastElementInList;
 }
 
 

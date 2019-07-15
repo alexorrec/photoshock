@@ -9,10 +9,9 @@
 class Kernels{
 public:
     Kernels(cv::Mat& s, cv::Mat& d) : src(s), dst(d){}
-    virtual ~Kernels(){}
+    virtual ~Kernels() = default;
 
     virtual void applyKernel() = 0;
-
 
 protected:
     cv::Mat src;

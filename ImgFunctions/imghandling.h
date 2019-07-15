@@ -17,11 +17,12 @@ public:
     cv::Mat calculateHist(cv::Mat img, int channel);
     QImage Mat2Qimg(cv::Mat img);
 
-    void imgLoad(QString path);
-    void imgSave(QString path);
+    void imgLoad(const QString& path);
+    void imgSave(const QString& path);
 
     cv::Mat src;
     cv::Mat dst;
+    cv::Mat primary;
 };
 
 #endif // IMGHANDLING_H

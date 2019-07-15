@@ -9,7 +9,7 @@
 class Process{
 public:
     Process(cv::Mat& s, cv::Mat& d) : src(s), dst(d){}
-    virtual ~Process(){}
+    virtual ~Process()= default;
 
     virtual void doProcess() = 0;
 

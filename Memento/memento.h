@@ -6,7 +6,7 @@
 class Memento
 {
 public:
-    Memento(Originator o);
+    Memento(const Originator& o);
     ~Memento();
     friend class Originator;
 

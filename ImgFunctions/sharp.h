@@ -8,7 +8,7 @@ class Sharp : Kernels
 public:
     Sharp(cv::Mat& src, cv::Mat& dst);
 
-    virtual void applyKernel() override;
+    void applyKernel() override;
 
 private:
     const int Sharp_Mat[3][3] = {

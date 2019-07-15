@@ -8,7 +8,7 @@ class Blur : Kernels
 public:
     Blur(cv::Mat& src, cv::Mat& dst);
 
-    virtual void applyKernel() override;
+    void applyKernel() override;
 
 private:
     const double Blur_Mat[3][3] = {

@@ -34,6 +34,8 @@ public:
     void gaussian_blur();
     void sharpener();
 
+    void revertAll();
+
 private:
     Model* model;
 public:

@@ -7,8 +7,8 @@
 class Observer
 {
 public:
-    Observer(){}
-    virtual ~Observer(){}
+    Observer()= default;
+    virtual ~Observer()= default;
     virtual void updateUi() = 0;
 };
 

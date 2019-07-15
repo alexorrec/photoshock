@@ -7,6 +7,7 @@
 #include "model.h"
 #include "controller.h"
 #include "observer.h"
+#include <QMessageBox>
 
 
 namespace Ui {
@@ -21,7 +22,7 @@ public:
     MainWindow(Model* m, Controller* c, QWidget *parent = nullptr);
     ~MainWindow() override;
 
-    virtual void updateUi() override;
+    void updateUi() override;
 
 private slots:
 
@@ -49,16 +50,16 @@ private slots:
     void on_grayscale_btn_clicked();
     void on_sepia_btn_clicked();
 
-    void on_tabWidget_currentChanged(){ model->src = model->dst.clone(); }
-
     void on_blur_btn_clicked();
     void on_sharp_btn_clicked();
 
-
-
     void on_undo_btn_clicked();
-
     void on_redo_btn_clicked();
+
+    void on_reset_btn_clicked();
+    void on_tabWidget_currentChanged(){ model->src = model->dst.clone(); }
+
+    void closeEvent(QCloseEvent* event) override;
 
 private:
 

@@ -8,7 +8,7 @@ class Sepia : Process
 public:
     Sepia(cv::Mat& src, cv::Mat& dst);
 
-    virtual void doProcess() override;
+    void doProcess() override;
 
 private:
 

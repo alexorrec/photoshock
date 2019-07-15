@@ -6,8 +6,8 @@
 class Subject
 {
 public:
-    Subject(){}
-    virtual ~Subject(){}
+    Subject()= default;
+    virtual ~Subject()= default;
 
     virtual void notify() = 0;
     virtual void addObserver(Observer* o) = 0;

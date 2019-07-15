@@ -7,23 +7,23 @@ class Memento;
 class Originator
 {
 public:
-    Originator(const int exp = 0, const double c = 0,
-               const int r = 0, const int g = 0, const int b = 0,
-               const int h = 0, const int s = 0, const int l = 0, const int a = 0,
-               const bool fV = false, const bool fH = false, const bool rot = false,
-               const bool blur = false, const bool sharp = false,
-               const bool gray = false, const bool sep = false);
+    Originator(int exp = 0, double c = 0,
+               int r = 0, int g = 0, int b = 0,
+               int h = 0, int s = 0, int l = 0, int a = 0,
+               bool fV = false, bool fH = false, bool rot = false,
+               bool blur = false, bool sharp = false,
+               bool gray = false, bool sep = false);
 
 
     ~Originator();
 
-    void setValue(const int v, int& value);
-    void setValue(const double v, double& value);
+    void setValue(int v, int& value);
+    void setValue(double v, double& value);
 
     int getValue(int& value) const { return value; }
     double getValue(double& value) const { return value; }
 
-    void setState(const bool s, bool& state);
+    void setState(bool s, bool& state);
     bool getState(bool& state) const { return state; }
 
     Memento* createMemento();

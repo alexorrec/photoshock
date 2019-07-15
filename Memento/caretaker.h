@@ -1,7 +1,7 @@
 #ifndef CARETAKER_H
 #define CARETAKER_H
 
-#include "memento.h"
+#include "Memento/Memento.h"
 #include <list>
 
 class CareTaker
@@ -19,7 +19,7 @@ public:
     std::list<Memento*> listMementoRedo;
 
 private:
-    Memento* lastElementInList;
+    Memento* lastElementInList{nullptr};
 
 };
 

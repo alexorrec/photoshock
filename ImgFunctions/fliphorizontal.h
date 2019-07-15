@@ -8,7 +8,7 @@ class flipHorizontal : Process
 public:
     flipHorizontal(cv::Mat& src, cv::Mat& dst);
 
-    virtual void doProcess() override;
+    void doProcess() override;
 };
 
 #endif // FLIPHORIZONTAL_H
