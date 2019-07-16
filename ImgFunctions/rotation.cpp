@@ -20,7 +20,7 @@ void rotation::doProcess(){
                      dst.at<cv::Vec3b>(i ,j) = src.at<cv::Vec3b>(x, y);
                   }
             else
-                dst.at<cv::Vec3b>(i ,j) = 75;
+                dst.at<cv::Vec3b>(i ,j) = NULL;
         }
 
 }

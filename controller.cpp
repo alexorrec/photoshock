@@ -5,11 +5,13 @@
 void Controller::load(QString path){
     model->imgLoad(std::move(path));
     model->setFlag(true, model->is_Loaded);
+
     originator->setValue(0, originator->exposure_Val);
     originator->setValue(0, originator->contrast_Val);
     originator->setValue(0, originator->red_Val);
     originator->setValue(0, originator->green_Val);
     originator->setValue(0, originator->blue_Val);
+    originator->setMat(model->dst);
     caretaker->setMemento(originator->createMemento());
 }
 
@@ -27,6 +29,7 @@ void Controller::rgb(int exp, double cont, int r, int g, int b){
         originator->setValue(r, originator->red_Val);
         originator->setValue(g, originator->green_Val);
         originator->setValue(b, originator->blue_Val);
+        originator->setMat(model->dst);
         caretaker->setMemento(originator->createMemento());
     }
 
@@ -42,6 +45,7 @@ void Controller::hsl(int h, int s, int l){
         originator->setValue(h, originator->hue_Val);
         originator->setValue(s, originator->saturation_Val);
         originator->setValue(l, originator->luminance_Val);
+        originator->setMat(model->dst);
         caretaker->setMemento(originator->createMemento());
     }
 
@@ -54,6 +58,7 @@ void Controller::rotate(int a){
 
     if(!un_re_Doing){
         originator->setState(true, originator->is_Rotated);
+        originator->setMat(model->dst);
         caretaker->setMemento(originator->createMemento());
     }
 
@@ -66,6 +71,7 @@ void Controller::flip_V(){
 
     if(!un_re_Doing){
         originator->setState(true, originator->is_Flipped_V);
+        originator->setMat(model->dst);
         caretaker->setMemento(originator->createMemento());
     }
 
@@ -79,6 +85,7 @@ void Controller::flip_H(){
 
     if(!un_re_Doing){
         originator->setState(true, originator->is_Flipped_H);
+        originator->setMat(model->dst);
         caretaker->setMemento(originator->createMemento());
     }
 
@@ -92,6 +99,7 @@ void Controller::sepia(){
 
     if(!un_re_Doing){
         originator->setState(true, originator->is_Sepia);
+        originator->setMat(model->dst);
         caretaker->setMemento(originator->createMemento());
     }
 
@@ -104,6 +112,7 @@ void Controller::grayscale(){
 
     if(!un_re_Doing){
         originator->setState(true, originator->is_Grayscale);
+        originator->setMat(model->dst);
         caretaker->setMemento(originator->createMemento());
     }
 
@@ -116,6 +125,7 @@ void Controller::gaussian_blur(){
 
     if(!un_re_Doing){
         originator->setState(true, originator->is_Blurred);
+        originator->setMat(model->dst);
         caretaker->setMemento(originator->createMemento());
     }
 
@@ -129,6 +139,7 @@ void Controller::sharpener(){
 
     if(!un_re_Doing){
         originator->setState(true, originator->is_Sharpened);
+        originator->setMat(model->dst);
         caretaker->setMemento(originator->createMemento());
     }
 
@@ -138,9 +149,11 @@ void Controller::sharpener(){
     model->setFlag(true, model->is_Sharpened);
 }
 
-void Controller::revertAll(){
+void Controller::revertMat(cv::Mat img){
 
-    model->src = model->primary.clone();
+    model->src = img.clone();
     model->dst = model->src.clone();
     model->notify();
 }
+
+

@@ -34,10 +34,12 @@ public:
     void gaussian_blur();
     void sharpener();
 
-    void revertAll();
+    void revertMat(cv::Mat img);
+
 
 private:
     Model* model;
+
 public:
     Originator* originator = new Originator();
     CareTaker* caretaker = new CareTaker();

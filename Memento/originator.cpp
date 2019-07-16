@@ -32,3 +32,7 @@ Memento* Originator::createMemento(){
 void Originator::restoreToMemento(Memento* memento){
     *this = memento->getOriginator();
 }
+
+void Originator::setMat(cv::Mat actual){
+    prev = actual.clone();
+}

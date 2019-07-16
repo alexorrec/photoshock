@@ -33,6 +33,23 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
+    QWidget *widget;
+    QGridLayout *gridLayout_5;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *open_btn;
+    QPushButton *save_btn;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *reset_btn;
+    QSpacerItem *horizontalSpacer_2;
+    QPushButton *undo_btn;
+    QPushButton *redo_btn;
+    QVBoxLayout *verticalLayout;
+    QLabel *r_hist;
+    QLabel *g_hist;
+    QLabel *b_hist;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents;
+    QLabel *img_lbl;
     QTabWidget *tabWidget;
     QWidget *Editing;
     QGridLayout *gridLayout_3;
@@ -88,23 +105,6 @@ public:
     QGridLayout *gridLayout_4;
     QPushButton *flipH_btn;
     QPushButton *flipV_btn;
-    QWidget *layoutWidget3;
-    QVBoxLayout *verticalLayout;
-    QLabel *r_hist;
-    QLabel *g_hist;
-    QLabel *b_hist;
-    QScrollArea *scrollArea;
-    QWidget *scrollAreaWidgetContents;
-    QLabel *img_lbl;
-    QWidget *layoutWidget4;
-    QHBoxLayout *horizontalLayout;
-    QPushButton *open_btn;
-    QPushButton *save_btn;
-    QSpacerItem *horizontalSpacer;
-    QPushButton *reset_btn;
-    QSpacerItem *horizontalSpacer_2;
-    QPushButton *undo_btn;
-    QPushButton *redo_btn;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -120,10 +120,99 @@ public:
         MainWindow->setSizePolicy(sizePolicy);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        tabWidget = new QTabWidget(centralWidget);
+        widget = new QWidget(centralWidget);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(0, 0, 881, 598));
+        gridLayout_5 = new QGridLayout(widget);
+        gridLayout_5->setSpacing(6);
+        gridLayout_5->setContentsMargins(11, 11, 11, 11);
+        gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
+        gridLayout_5->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        open_btn = new QPushButton(widget);
+        open_btn->setObjectName(QString::fromUtf8("open_btn"));
+        open_btn->setMinimumSize(QSize(80, 24));
+
+        horizontalLayout->addWidget(open_btn);
+
+        save_btn = new QPushButton(widget);
+        save_btn->setObjectName(QString::fromUtf8("save_btn"));
+        save_btn->setEnabled(false);
+
+        horizontalLayout->addWidget(save_btn);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer);
+
+        reset_btn = new QPushButton(widget);
+        reset_btn->setObjectName(QString::fromUtf8("reset_btn"));
+        reset_btn->setEnabled(false);
+
+        horizontalLayout->addWidget(reset_btn);
+
+        horizontalSpacer_2 = new QSpacerItem(58, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_2);
+
+        undo_btn = new QPushButton(widget);
+        undo_btn->setObjectName(QString::fromUtf8("undo_btn"));
+        undo_btn->setEnabled(false);
+
+        horizontalLayout->addWidget(undo_btn);
+
+        redo_btn = new QPushButton(widget);
+        redo_btn->setObjectName(QString::fromUtf8("redo_btn"));
+        redo_btn->setEnabled(false);
+
+        horizontalLayout->addWidget(redo_btn);
+
+
+        gridLayout_5->addLayout(horizontalLayout, 0, 0, 1, 1);
+
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        r_hist = new QLabel(widget);
+        r_hist->setObjectName(QString::fromUtf8("r_hist"));
+
+        verticalLayout->addWidget(r_hist);
+
+        g_hist = new QLabel(widget);
+        g_hist->setObjectName(QString::fromUtf8("g_hist"));
+
+        verticalLayout->addWidget(g_hist);
+
+        b_hist = new QLabel(widget);
+        b_hist->setObjectName(QString::fromUtf8("b_hist"));
+
+        verticalLayout->addWidget(b_hist);
+
+
+        gridLayout_5->addLayout(verticalLayout, 0, 1, 2, 1);
+
+        scrollArea = new QScrollArea(widget);
+        scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 574, 560));
+        img_lbl = new QLabel(scrollAreaWidgetContents);
+        img_lbl->setObjectName(QString::fromUtf8("img_lbl"));
+        img_lbl->setGeometry(QRect(10, 10, 781, 651));
+        img_lbl->setAutoFillBackground(true);
+        img_lbl->setText(QString::fromUtf8("<html><head/><body><p><br/></p></body></html>"));
+        img_lbl->setScaledContents(false);
+        img_lbl->setAlignment(Qt::AlignCenter);
+        scrollArea->setWidget(scrollAreaWidgetContents);
+
+        gridLayout_5->addWidget(scrollArea, 1, 0, 2, 1);
+
+        tabWidget = new QTabWidget(widget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setEnabled(true);
-        tabWidget->setGeometry(QRect(800, 220, 301, 481));
         sizePolicy.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
         tabWidget->setSizePolicy(sizePolicy);
         Editing = new QWidget();
@@ -473,89 +562,8 @@ public:
         gridLayout_6->addLayout(gridLayout_4, 1, 0, 1, 1);
 
         tabWidget->addTab(Distortions, QString());
-        layoutWidget3 = new QWidget(centralWidget);
-        layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(802, 0, 300, 221));
-        verticalLayout = new QVBoxLayout(layoutWidget3);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        r_hist = new QLabel(layoutWidget3);
-        r_hist->setObjectName(QString::fromUtf8("r_hist"));
 
-        verticalLayout->addWidget(r_hist);
-
-        g_hist = new QLabel(layoutWidget3);
-        g_hist->setObjectName(QString::fromUtf8("g_hist"));
-
-        verticalLayout->addWidget(g_hist);
-
-        b_hist = new QLabel(layoutWidget3);
-        b_hist->setObjectName(QString::fromUtf8("b_hist"));
-
-        verticalLayout->addWidget(b_hist);
-
-        scrollArea = new QScrollArea(centralWidget);
-        scrollArea->setObjectName(QString::fromUtf8("scrollArea"));
-        scrollArea->setGeometry(QRect(0, 30, 801, 671));
-        scrollArea->setWidgetResizable(true);
-        scrollAreaWidgetContents = new QWidget();
-        scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 799, 669));
-        img_lbl = new QLabel(scrollAreaWidgetContents);
-        img_lbl->setObjectName(QString::fromUtf8("img_lbl"));
-        img_lbl->setGeometry(QRect(10, 10, 781, 651));
-        img_lbl->setAutoFillBackground(true);
-        img_lbl->setText(QString::fromUtf8("<html><head/><body><p><br/></p></body></html>"));
-        img_lbl->setScaledContents(false);
-        img_lbl->setAlignment(Qt::AlignCenter);
-        scrollArea->setWidget(scrollAreaWidgetContents);
-        layoutWidget4 = new QWidget(centralWidget);
-        layoutWidget4->setObjectName(QString::fromUtf8("layoutWidget4"));
-        layoutWidget4->setGeometry(QRect(2, 2, 576, 26));
-        horizontalLayout = new QHBoxLayout(layoutWidget4);
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        open_btn = new QPushButton(layoutWidget4);
-        open_btn->setObjectName(QString::fromUtf8("open_btn"));
-        open_btn->setMinimumSize(QSize(80, 24));
-
-        horizontalLayout->addWidget(open_btn);
-
-        save_btn = new QPushButton(layoutWidget4);
-        save_btn->setObjectName(QString::fromUtf8("save_btn"));
-        save_btn->setEnabled(false);
-
-        horizontalLayout->addWidget(save_btn);
-
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer);
-
-        reset_btn = new QPushButton(layoutWidget4);
-        reset_btn->setObjectName(QString::fromUtf8("reset_btn"));
-        reset_btn->setEnabled(false);
-
-        horizontalLayout->addWidget(reset_btn);
-
-        horizontalSpacer_2 = new QSpacerItem(58, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer_2);
-
-        undo_btn = new QPushButton(layoutWidget4);
-        undo_btn->setObjectName(QString::fromUtf8("undo_btn"));
-        undo_btn->setEnabled(false);
-
-        horizontalLayout->addWidget(undo_btn);
-
-        redo_btn = new QPushButton(layoutWidget4);
-        redo_btn->setObjectName(QString::fromUtf8("redo_btn"));
-        redo_btn->setEnabled(false);
-
-        horizontalLayout->addWidget(redo_btn);
+        gridLayout_5->addWidget(tabWidget, 2, 1, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         mainToolBar = new QToolBar(MainWindow);
@@ -587,7 +595,7 @@ public:
         QObject::connect(rotate_slider, SIGNAL(valueChanged(int)), rotate_spin, SLOT(setValue(int)));
         QObject::connect(rotate_spin, SIGNAL(valueChanged(int)), rotate_slider, SLOT(setValue(int)));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -596,6 +604,14 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
+        open_btn->setText(QApplication::translate("MainWindow", "Open", nullptr));
+        save_btn->setText(QApplication::translate("MainWindow", "Save", nullptr));
+        reset_btn->setText(QApplication::translate("MainWindow", "Revert all changes", nullptr));
+        undo_btn->setText(QApplication::translate("MainWindow", "<--", nullptr));
+        redo_btn->setText(QApplication::translate("MainWindow", "-->", nullptr));
+        r_hist->setText(QApplication::translate("MainWindow", "R", nullptr));
+        g_hist->setText(QApplication::translate("MainWindow", "G", nullptr));
+        b_hist->setText(QApplication::translate("MainWindow", "B", nullptr));
         textGreen->setText(QApplication::translate("MainWindow", "Green", nullptr));
         textWb->setText(QApplication::translate("MainWindow", "WhiteBalance:", nullptr));
         textLuminance->setText(QApplication::translate("MainWindow", "Luminance", nullptr));
@@ -618,14 +634,6 @@ public:
         flipH_btn->setText(QApplication::translate("MainWindow", "Flip Horizontal", nullptr));
         flipV_btn->setText(QApplication::translate("MainWindow", "Flip Vertical", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Distortions), QApplication::translate("MainWindow", "Distortions", nullptr));
-        r_hist->setText(QApplication::translate("MainWindow", "R", nullptr));
-        g_hist->setText(QApplication::translate("MainWindow", "G", nullptr));
-        b_hist->setText(QApplication::translate("MainWindow", "B", nullptr));
-        open_btn->setText(QApplication::translate("MainWindow", "Open", nullptr));
-        save_btn->setText(QApplication::translate("MainWindow", "Save", nullptr));
-        reset_btn->setText(QApplication::translate("MainWindow", "Revert all changes", nullptr));
-        undo_btn->setText(QApplication::translate("MainWindow", "<--", nullptr));
-        redo_btn->setText(QApplication::translate("MainWindow", "-->", nullptr));
     } // retranslateUi
 
 };

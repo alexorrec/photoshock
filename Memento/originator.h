@@ -2,6 +2,12 @@
 #define ORIGINATOR_H
 
 #include <iostream>
+
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgcodecs.hpp>
+
 class Memento;
 
 class Originator
@@ -26,6 +32,9 @@ public:
     void setState(bool s, bool& state);
     bool getState(bool& state) const { return state; }
 
+    cv::Mat getMat() const { return prev; }
+    void setMat(cv::Mat actual);
+
     Memento* createMemento();
     void restoreToMemento(Memento* memento);
 
@@ -49,6 +58,8 @@ public:
     int luminance_Val;
 
     int angle_Val;
+
+    cv::Mat prev;
 };
 
 #endif // ORIGINATOR_H

@@ -1,5 +1,6 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include <QFileDialog>
+#include <QGraphicsScene>
 
 MainWindow::MainWindow(Model* m, Controller* c, QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow),  model(m), controller(c){
     ui->setupUi(this);
@@ -13,12 +14,11 @@ MainWindow::~MainWindow(){
 
 void MainWindow::closeEvent(QCloseEvent*  /*event*/){
 
-    switch (QMessageBox(tr("Warning!"), tr("Save before Exit?"), QMessageBox::Warning, QMessageBox::Yes | QMessageBox::Default, QMessageBox::No, QMessageBox::Escape).exec()){
-        case 3: {
+    if(ui->img_lbl->pixmap()){
+    switch (QMessageBox(tr("Warning!"), tr("Save before Exit?"), QMessageBox::Warning, QMessageBox::Yes |
+                        QMessageBox::Default, QMessageBox::No, QMessageBox::Escape).exec()){
+        case 3:
             ui->save_btn->clicked();
-        }
-        default: {
-            break;
         }
     }
 }
@@ -257,6 +257,7 @@ void MainWindow::on_undo_btn_clicked()
     controller->un_re_Doing = true;
 
     controller->originator->restoreToMemento(controller->caretaker->getMementoUndo());
+
     ui->exposure_slider->setValue(controller->originator->getValue(controller->originator->exposure_Val));
     ui->contrast_slider->setValue(controller->originator->getValue(controller->originator->contrast_Val));
     ui->red_slider->setValue(controller->originator->getValue(controller->originator->red_Val));
@@ -267,6 +268,9 @@ void MainWindow::on_undo_btn_clicked()
     ui->saturation_slider->setValue(controller->originator->getValue(controller->originator->saturation_Val));
     ui->luminance_slider->setValue(controller->originator->getValue(controller->originator->luminance_Val));
 
+    ui->rotate_slider->setValue(controller->originator->getValue(controller->originator->angle_Val));
+
+    controller->revertMat(controller->originator->prev);
     controller->un_re_Doing = false;
 }
 
@@ -275,6 +279,7 @@ void MainWindow::on_redo_btn_clicked()
     controller->un_re_Doing = true;
 
     controller->originator->restoreToMemento(controller->caretaker->getMementoRedo());
+
     ui->exposure_slider->setValue(controller->originator->getValue(controller->originator->exposure_Val));
     ui->contrast_slider->setValue(controller->originator->getValue(controller->originator->contrast_Val));
     ui->red_slider->setValue(controller->originator->getValue(controller->originator->red_Val));
@@ -285,6 +290,9 @@ void MainWindow::on_redo_btn_clicked()
     ui->saturation_slider->setValue(controller->originator->getValue(controller->originator->saturation_Val));
     ui->luminance_slider->setValue(controller->originator->getValue(controller->originator->luminance_Val));
 
+    ui->rotate_slider->setValue(controller->originator->getValue(controller->originator->angle_Val));
+
+    controller->revertMat(controller->originator->prev);
     controller->un_re_Doing = false;
 }
 
@@ -298,5 +306,6 @@ void MainWindow::on_reset_btn_clicked(){
     ui->rotate_spin->setValue(0);
 
     controller->caretaker->listMementoRedo.clear();
-    controller->revertAll();
+    controller->revertMat(model->primary);
 }
+
