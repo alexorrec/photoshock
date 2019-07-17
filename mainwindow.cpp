@@ -308,4 +308,3 @@ void MainWindow::on_reset_btn_clicked(){
     controller->caretaker->listMementoRedo.clear();
     controller->revertMat(model->primary);
 }
-

@@ -41,8 +41,6 @@ public:
     QPushButton *undo_btn;
     QPushButton *redo_btn;
     QSpacerItem *horizontalSpacer_3;
-    QPushButton *zoom_in_btn;
-    QPushButton *zoom_out_btn;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
     QGridLayout *gridLayout_9;
@@ -188,16 +186,6 @@ public:
         horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer_3);
-
-        zoom_in_btn = new QPushButton(centralWidget);
-        zoom_in_btn->setObjectName(QString::fromUtf8("zoom_in_btn"));
-
-        horizontalLayout->addWidget(zoom_in_btn);
-
-        zoom_out_btn = new QPushButton(centralWidget);
-        zoom_out_btn->setObjectName(QString::fromUtf8("zoom_out_btn"));
-
-        horizontalLayout->addWidget(zoom_out_btn);
 
 
         verticalLayout_2->addLayout(horizontalLayout);
@@ -700,8 +688,6 @@ public:
         reset_btn->setText(QApplication::translate("MainWindow", "Revert all changes", nullptr));
         undo_btn->setText(QApplication::translate("MainWindow", "<--", nullptr));
         redo_btn->setText(QApplication::translate("MainWindow", "-->", nullptr));
-        zoom_in_btn->setText(QApplication::translate("MainWindow", "+", nullptr));
-        zoom_out_btn->setText(QApplication::translate("MainWindow", "-", nullptr));
         img_lbl->setText(QString());
         r_hist->setText(QApplication::translate("MainWindow", "R", nullptr));
         g_hist->setText(QApplication::translate("MainWindow", "G", nullptr));
