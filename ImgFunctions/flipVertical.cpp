@@ -8,6 +8,6 @@ void flipVertical::doProcess(){
     for(int i = 0; i < src.rows; i++)
         for(int j = 0; j < src.cols; j++){
             int y = -j + src.cols;
-            dst.at<cv::Vec3b>(i,j) = src.at<cv::Vec3b>(i,y);
+            dst.at<cv::Vec4b>(i,j) = src.at<cv::Vec4b>(i,y);
         }
 }

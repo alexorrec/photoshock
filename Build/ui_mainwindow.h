@@ -204,6 +204,8 @@ public:
         gridLayout_9->setObjectName(QString::fromUtf8("gridLayout_9"));
         img_lbl = new QLabel(scrollAreaWidgetContents);
         img_lbl->setObjectName(QString::fromUtf8("img_lbl"));
+        sizePolicy.setHeightForWidth(img_lbl->sizePolicy().hasHeightForWidth());
+        img_lbl->setSizePolicy(sizePolicy);
         img_lbl->setAlignment(Qt::AlignCenter);
 
         gridLayout_9->addWidget(img_lbl, 0, 0, 1, 1);

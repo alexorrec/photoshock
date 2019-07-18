@@ -8,7 +8,7 @@ void ImgHandling::imgLoad(const QString& path){
     const std::string imagePath(path.toStdString());
 
     src = cv::imread(imagePath);
-    cvtColor(src, src, CV_BGR2RGB);
+    cvtColor(src, src, CV_BGR2RGBA);
     dst = src.clone();
     primary = src.clone();
 }
@@ -46,14 +46,16 @@ cv::Mat ImgHandling::calculateHist(cv::Mat img, int channel){
         hist[i] = 0;
 
     for(int i = 0; i < img.rows; i++)
-        for(int j = 0; j < img.cols; j++)
-            hist[(int)img.at<cv::Vec3b>(i,j)[k]]++;
+        for(int j = 0; j < img.cols; j++){
+            if(img.at<cv::Vec4b>(i,j)[3] != 0)
+                hist[(int)img.at<cv::Vec4b>(i,j)[k]]++;
+        }
 
     int hist_w = 299;
     int hist_h = 69;
     int bin_w = cvRound((double) hist_w/256);
 
-    cv::Mat histImage(hist_h, hist_w, CV_8UC3, cv::Scalar(50, 50, 50));
+    cv::Mat histImage(hist_h, hist_w, CV_8UC4, cv::Scalar(50, 50, 50, 255));
 
     int max = hist[0];
 
@@ -65,14 +67,14 @@ cv::Mat ImgHandling::calculateHist(cv::Mat img, int channel){
             hist[i] = ((double)hist[i]/max)*histImage.rows;
 
     for(int i = 0; i < 255; i++)
-        line(histImage, cv::Point(bin_w*(i), hist_h), cv::Point(bin_w*(i), hist_h - hist[i]), cv::Scalar(r,g,b), 1, 8, 0);
+        line(histImage, cv::Point(bin_w*(i), hist_h), cv::Point(bin_w*(i), hist_h - hist[i]), cv::Scalar(r,g,b, 255), 1, 8, 0);
 
     return histImage;
 }
 
 QImage ImgHandling::Mat2Qimg(cv::Mat img){
 
-    QImage qimg((const uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGB888);
+    QImage qimg((const uchar*) img.data, img.cols, img.rows, img.step, QImage::Format_RGBA8888);
     qimg.bits();
 
     return qimg;

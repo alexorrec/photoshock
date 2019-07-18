@@ -1,5 +1,5 @@
 #include "rotation.h"
-
+#include <iostream>
 rotation::rotation(cv::Mat& src, cv::Mat& dst, int a) : Process(src, dst), angle(a){
 }
 
@@ -17,10 +17,11 @@ void rotation::doProcess(){
             int x = ycenter + ((float)(i)-ycenter)*_cos - ((float)(j)-xcenter)*_sin;
             int y = xcenter + ((float)(i)-ycenter)*_sin + ((float)(j)-xcenter)*_cos;
             if (x >= 0 && x < src.rows && y >= 0 && y < src.cols) {
-                     dst.at<cv::Vec3b>(i ,j) = src.at<cv::Vec3b>(x, y);
+                     dst.at<cv::Vec4b>(i ,j) = src.at<cv::Vec4b>(x, y);
                   }
-            else
-                dst.at<cv::Vec3b>(i ,j) = NULL;
+            else {
+                dst.at<cv::Vec4b>(i ,j)[3] = 0;
+            }
         }
 
 }

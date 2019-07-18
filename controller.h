@@ -19,7 +19,7 @@
 class Controller
 {
 public:
-    explicit Controller(Model* m) : model(m) {}
+    Controller(Model* m) : model(m) {}
 
     void load(QString path);
     void save(QString path);

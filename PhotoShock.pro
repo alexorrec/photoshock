@@ -16,7 +16,6 @@ SOURCES += \
         ImgFunctions/grayscale.cpp \
         ImgFunctions/hsl_process.cpp \
         ImgFunctions/imghandling.cpp \
-        ImgFunctions/kernels.cpp \
         ImgFunctions/rgb_process.cpp \
         ImgFunctions/rotation.cpp \
         ImgFunctions/sepia.cpp \

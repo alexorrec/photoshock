@@ -5,8 +5,13 @@ HSL_process::HSL_process(cv::Mat& src, cv::Mat& dst, int h, int s, int l)
 }
 
 void HSL_process::doProcess(){
+
+    cv::cvtColor(src, src, CV_RGBA2RGB);
     cv::cvtColor(src, src, CV_RGB2HLS);
+
+    cv::cvtColor(dst, dst, CV_RGBA2RGB);
     cv::cvtColor(dst, dst, CV_RGB2HLS);
+
 
     for(int i = 0; i < src.rows; i++)
         for(int j = 0; j < src.cols; j++){
@@ -15,6 +20,8 @@ void HSL_process::doProcess(){
             dst.at<cv::Vec3b>(i,j)[2] = cv::saturate_cast<uchar>(src.at<cv::Vec3b>(i,j)[2] + saturation);
         }
 
-    cv::cvtColor(src, src, CV_HLS2RGB);
     cv::cvtColor(dst, dst, CV_HLS2RGB);
+    cv::cvtColor(dst, dst, CV_RGB2RGBA);
+    cv::cvtColor(src, src, CV_HLS2RGB);
+    cv::cvtColor(src, src, CV_RGB2RGBA);
 }

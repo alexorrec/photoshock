@@ -58,7 +58,6 @@ SOURCES       = ../ImgFunctions/blur.cpp \
 		../ImgFunctions/grayscale.cpp \
 		../ImgFunctions/hsl_process.cpp \
 		../ImgFunctions/imghandling.cpp \
-		../ImgFunctions/kernels.cpp \
 		../ImgFunctions/rgb_process.cpp \
 		../ImgFunctions/rotation.cpp \
 		../ImgFunctions/sepia.cpp \
@@ -76,7 +75,6 @@ OBJECTS       = blur.o \
 		grayscale.o \
 		hsl_process.o \
 		imghandling.o \
-		kernels.o \
 		rgb_process.o \
 		rotation.o \
 		sepia.o \
@@ -287,7 +285,6 @@ DIST          = ../test/lib/library.json \
 		../ImgFunctions/grayscale.cpp \
 		../ImgFunctions/hsl_process.cpp \
 		../ImgFunctions/imghandling.cpp \
-		../ImgFunctions/kernels.cpp \
 		../ImgFunctions/rgb_process.cpp \
 		../ImgFunctions/rotation.cpp \
 		../ImgFunctions/sepia.cpp \
@@ -705,7 +702,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/5.12.3/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../ImgFunctions/blur.h ../ImgFunctions/flipVertical.h ../ImgFunctions/fliphorizontal.h ../ImgFunctions/grayscale.h ../ImgFunctions/hsl_process.h ../ImgFunctions/imghandling.h ../ImgFunctions/kernels.h ../ImgFunctions/process.h ../ImgFunctions/rgb_process.h ../ImgFunctions/rotation.h ../ImgFunctions/sepia.h ../ImgFunctions/sharp.h ../Memento/caretaker.h ../Memento/memento.h ../Memento/originator.h ../controller.h ../mainwindow.h ../model.h ../observer.h ../subject.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../ImgFunctions/blur.cpp ../ImgFunctions/flipVertical.cpp ../ImgFunctions/fliphorizontal.cpp ../ImgFunctions/grayscale.cpp ../ImgFunctions/hsl_process.cpp ../ImgFunctions/imghandling.cpp ../ImgFunctions/kernels.cpp ../ImgFunctions/rgb_process.cpp ../ImgFunctions/rotation.cpp ../ImgFunctions/sepia.cpp ../ImgFunctions/sharp.cpp ../Memento/caretaker.cpp ../Memento/memento.cpp ../Memento/originator.cpp ../controller.cpp ../main.cpp ../mainwindow.cpp ../model.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../ImgFunctions/blur.cpp ../ImgFunctions/flipVertical.cpp ../ImgFunctions/fliphorizontal.cpp ../ImgFunctions/grayscale.cpp ../ImgFunctions/hsl_process.cpp ../ImgFunctions/imghandling.cpp ../ImgFunctions/rgb_process.cpp ../ImgFunctions/rotation.cpp ../ImgFunctions/sepia.cpp ../ImgFunctions/sharp.cpp ../Memento/caretaker.cpp ../Memento/memento.cpp ../Memento/originator.cpp ../controller.cpp ../main.cpp ../mainwindow.cpp ../model.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../mainwindow.ui $(DISTDIR)/
 
 
@@ -807,8 +804,10 @@ moc_mainwindow.cpp: ../mainwindow.h \
 		../ImgFunctions/sharp.h \
 		../ImgFunctions/grayscale.h \
 		../Memento/caretaker.h \
-		../Memento/memento.h \
+		../Memento/Memento.h \
 		../Memento/originator.h \
+		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		moc_predefs.h \
 		../../../Qt/5.12.3/clang_64/bin/moc
 	/Users/alessandrocerro/Qt/5.12.3/clang_64/bin/moc $(DEFINES) --include /Users/alessandrocerro/Desktop/PhotoShock/Build/moc_predefs.h -I/Users/alessandrocerro/Qt/5.12.3/clang_64/mkspecs/macx-g++ -I/Users/alessandrocerro/Desktop/PhotoShock -I/usr/local/include/opencv -I/usr/local/include -I/Users/alessandrocerro/Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers -I/Users/alessandrocerro/Qt/5.12.3/clang_64/lib/QtGui.framework/Headers -I/Users/alessandrocerro/Qt/5.12.3/clang_64/lib/QtCore.framework/Headers -I. -I/Library/Developer/CommandLineTools/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include -I/Library/Developer/CommandLineTools/usr/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include -F/Users/alessandrocerro/Qt/5.12.3/clang_64/lib ../mainwindow.h -o moc_mainwindow.cpp
@@ -1109,9 +1108,6 @@ imghandling.o: ../ImgFunctions/imghandling.cpp ../ImgFunctions/imghandling.h \
 		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o imghandling.o ../ImgFunctions/imghandling.cpp
 
-kernels.o: ../ImgFunctions/kernels.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o kernels.o ../ImgFunctions/kernels.cpp
-
 rgb_process.o: ../ImgFunctions/rgb_process.cpp ../ImgFunctions/rgb_process.h \
 		../ImgFunctions/process.h \
 		/usr/local/include/opencv2/core/core.hpp \
@@ -1292,19 +1288,141 @@ sharp.o: ../ImgFunctions/sharp.cpp ../ImgFunctions/sharp.h \
 		/usr/local/include/opencv2/imgproc.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sharp.o ../ImgFunctions/sharp.cpp
 
-caretaker.o: ../Memento/caretaker.cpp ../Memento/CareTaker.h \
-		../Memento/memento.h \
+caretaker.o: ../Memento/caretaker.cpp ../Memento/caretaker.h \
+		../Memento/Memento.h \
 		../Memento/originator.h \
-		../Memento/Memento.h
+		/usr/local/include/opencv2/core/core.hpp \
+		/usr/local/include/opencv2/core.hpp \
+		/usr/local/include/opencv2/core/cvdef.h \
+		/usr/local/include/opencv2/core/hal/interface.h \
+		/usr/local/include/opencv2/core/cv_cpu_dispatch.h \
+		/usr/local/include/opencv2/core/cv_cpu_helper.h \
+		/usr/local/include/opencv2/core/fast_math.hpp \
+		/usr/local/include/opencv2/core/version.hpp \
+		/usr/local/include/opencv2/core/base.hpp \
+		/usr/local/include/opencv2/opencv_modules.hpp \
+		/usr/local/include/opencv2/core/cvstd.hpp \
+		/usr/local/include/opencv2/core/ptr.inl.hpp \
+		/usr/local/include/opencv2/core/neon_utils.hpp \
+		/usr/local/include/opencv2/core/vsx_utils.hpp \
+		/usr/local/include/opencv2/core/check.hpp \
+		/usr/local/include/opencv2/core/traits.hpp \
+		/usr/local/include/opencv2/core/matx.hpp \
+		/usr/local/include/opencv2/core/saturate.hpp \
+		/usr/local/include/opencv2/core/types.hpp \
+		/usr/local/include/opencv2/core/mat.hpp \
+		/usr/local/include/opencv2/core/bufferpool.hpp \
+		/usr/local/include/opencv2/core/mat.inl.hpp \
+		/usr/local/include/opencv2/core/persistence.hpp \
+		/usr/local/include/opencv2/core/operations.hpp \
+		/usr/local/include/opencv2/core/cvstd.inl.hpp \
+		/usr/local/include/opencv2/core/utility.hpp \
+		/usr/local/include/opencv2/core/core_c.h \
+		/usr/local/include/opencv2/core/types_c.h \
+		/usr/local/include/opencv2/core/optim.hpp \
+		/usr/local/include/opencv2/core/ovx.hpp \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
+		/usr/local/include/opencv2/imgcodecs.hpp \
+		/usr/local/include/opencv2/videoio.hpp \
+		/usr/local/include/opencv2/highgui/highgui_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc_c.h \
+		/usr/local/include/opencv2/imgproc/types_c.h \
+		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/usr/local/include/opencv2/videoio/videoio_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc.hpp \
+		/usr/local/include/opencv2/imgproc.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o caretaker.o ../Memento/caretaker.cpp
 
 memento.o: ../Memento/memento.cpp ../Memento/Memento.h \
 		../Memento/originator.h \
+		/usr/local/include/opencv2/core/core.hpp \
+		/usr/local/include/opencv2/core.hpp \
+		/usr/local/include/opencv2/core/cvdef.h \
+		/usr/local/include/opencv2/core/hal/interface.h \
+		/usr/local/include/opencv2/core/cv_cpu_dispatch.h \
+		/usr/local/include/opencv2/core/cv_cpu_helper.h \
+		/usr/local/include/opencv2/core/fast_math.hpp \
+		/usr/local/include/opencv2/core/version.hpp \
+		/usr/local/include/opencv2/core/base.hpp \
+		/usr/local/include/opencv2/opencv_modules.hpp \
+		/usr/local/include/opencv2/core/cvstd.hpp \
+		/usr/local/include/opencv2/core/ptr.inl.hpp \
+		/usr/local/include/opencv2/core/neon_utils.hpp \
+		/usr/local/include/opencv2/core/vsx_utils.hpp \
+		/usr/local/include/opencv2/core/check.hpp \
+		/usr/local/include/opencv2/core/traits.hpp \
+		/usr/local/include/opencv2/core/matx.hpp \
+		/usr/local/include/opencv2/core/saturate.hpp \
+		/usr/local/include/opencv2/core/types.hpp \
+		/usr/local/include/opencv2/core/mat.hpp \
+		/usr/local/include/opencv2/core/bufferpool.hpp \
+		/usr/local/include/opencv2/core/mat.inl.hpp \
+		/usr/local/include/opencv2/core/persistence.hpp \
+		/usr/local/include/opencv2/core/operations.hpp \
+		/usr/local/include/opencv2/core/cvstd.inl.hpp \
+		/usr/local/include/opencv2/core/utility.hpp \
+		/usr/local/include/opencv2/core/core_c.h \
+		/usr/local/include/opencv2/core/types_c.h \
+		/usr/local/include/opencv2/core/optim.hpp \
+		/usr/local/include/opencv2/core/ovx.hpp \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
+		/usr/local/include/opencv2/imgcodecs.hpp \
+		/usr/local/include/opencv2/videoio.hpp \
+		/usr/local/include/opencv2/highgui/highgui_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc_c.h \
+		/usr/local/include/opencv2/imgproc/types_c.h \
+		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/usr/local/include/opencv2/videoio/videoio_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc.hpp \
+		/usr/local/include/opencv2/imgproc.hpp \
 		../Memento/Originator.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o memento.o ../Memento/memento.cpp
 
 originator.o: ../Memento/originator.cpp ../Memento/originator.h \
-		../Memento/memento.h
+		/usr/local/include/opencv2/core/core.hpp \
+		/usr/local/include/opencv2/core.hpp \
+		/usr/local/include/opencv2/core/cvdef.h \
+		/usr/local/include/opencv2/core/hal/interface.h \
+		/usr/local/include/opencv2/core/cv_cpu_dispatch.h \
+		/usr/local/include/opencv2/core/cv_cpu_helper.h \
+		/usr/local/include/opencv2/core/fast_math.hpp \
+		/usr/local/include/opencv2/core/version.hpp \
+		/usr/local/include/opencv2/core/base.hpp \
+		/usr/local/include/opencv2/opencv_modules.hpp \
+		/usr/local/include/opencv2/core/cvstd.hpp \
+		/usr/local/include/opencv2/core/ptr.inl.hpp \
+		/usr/local/include/opencv2/core/neon_utils.hpp \
+		/usr/local/include/opencv2/core/vsx_utils.hpp \
+		/usr/local/include/opencv2/core/check.hpp \
+		/usr/local/include/opencv2/core/traits.hpp \
+		/usr/local/include/opencv2/core/matx.hpp \
+		/usr/local/include/opencv2/core/saturate.hpp \
+		/usr/local/include/opencv2/core/types.hpp \
+		/usr/local/include/opencv2/core/mat.hpp \
+		/usr/local/include/opencv2/core/bufferpool.hpp \
+		/usr/local/include/opencv2/core/mat.inl.hpp \
+		/usr/local/include/opencv2/core/persistence.hpp \
+		/usr/local/include/opencv2/core/operations.hpp \
+		/usr/local/include/opencv2/core/cvstd.inl.hpp \
+		/usr/local/include/opencv2/core/utility.hpp \
+		/usr/local/include/opencv2/core/core_c.h \
+		/usr/local/include/opencv2/core/types_c.h \
+		/usr/local/include/opencv2/core/optim.hpp \
+		/usr/local/include/opencv2/core/ovx.hpp \
+		/usr/local/include/opencv2/highgui/highgui.hpp \
+		/usr/local/include/opencv2/highgui.hpp \
+		/usr/local/include/opencv2/imgcodecs.hpp \
+		/usr/local/include/opencv2/videoio.hpp \
+		/usr/local/include/opencv2/highgui/highgui_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc_c.h \
+		/usr/local/include/opencv2/imgproc/types_c.h \
+		/usr/local/include/opencv2/imgcodecs/imgcodecs_c.h \
+		/usr/local/include/opencv2/videoio/videoio_c.h \
+		/usr/local/include/opencv2/imgproc/imgproc.hpp \
+		/usr/local/include/opencv2/imgproc.hpp \
+		../Memento/Memento.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o originator.o ../Memento/originator.cpp
 
 controller.o: ../controller.cpp ../controller.h \
@@ -1367,7 +1485,7 @@ controller.o: ../controller.cpp ../controller.h \
 		../ImgFunctions/sharp.h \
 		../ImgFunctions/grayscale.h \
 		../Memento/caretaker.h \
-		../Memento/memento.h \
+		../Memento/Memento.h \
 		../Memento/originator.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o ../controller.cpp
 
@@ -1435,8 +1553,10 @@ main.o: ../main.cpp ../mainwindow.h \
 		../ImgFunctions/sharp.h \
 		../ImgFunctions/grayscale.h \
 		../Memento/caretaker.h \
-		../Memento/memento.h \
+		../Memento/Memento.h \
 		../Memento/originator.h \
+		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../main.cpp
@@ -1505,10 +1625,14 @@ mainwindow.o: ../mainwindow.cpp ../mainwindow.h \
 		../ImgFunctions/sharp.h \
 		../ImgFunctions/grayscale.h \
 		../Memento/caretaker.h \
-		../Memento/memento.h \
+		../Memento/Memento.h \
 		../Memento/originator.h \
+		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QMessageBox \
+		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
 		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QFileDialog \
-		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h
+		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/QGraphicsScene \
+		../../../Qt/5.12.3/clang_64/lib/QtWidgets.framework/Headers/qgraphicsscene.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../mainwindow.cpp
 
 model.o: ../model.cpp ../model.h \
