@@ -1,34 +1,34 @@
 #include "rotation.h"
 #include <iostream>
-rotation::rotation(cv::Mat& src, cv::Mat& dst, int a) : Process(src, dst), angle(a){
+#include <opencv2/opencv.hpp>
+
+rotation::rotation(cv::Mat& src, cv::Mat& dst, int a, int d) : Process(src, dst), angle(a), diagonal(d){
 }
 
 void rotation::doProcess(){
 
+    cv::Mat container = cv::Mat::zeros(diagonal, diagonal, src.type());
+
+    int offsetX = (diagonal - src.cols) / 2;
+    int offsetY = (diagonal - src.rows) / 2;
+
+    src.copyTo(container.rowRange(offsetY, offsetY + src.rows).colRange(offsetX, offsetX + src.cols));
+
     float rads = angle*3.1415926/180.0;
     float _cos = cos(-rads);
     float _sin = sin(-rads);
-    float xcenter = (float)(src.cols)/2.0;
-    float ycenter = (float)(src.rows)/2.0;
+    float xcenter = (float)(container.cols)/2.0;
+    float ycenter = (float)(container.rows)/2.0;
 
-    //int newH = 2 * (src.rows/2*sin(rads) + src.cols/2*cos(rads));
-    //int newW = 2 * (src.rows/2*cos(rads) + src.cols/2*sin(rads));
-
-    //dst = cv::Mat::zeros(newW, newH, CV_8UC4);
-
-    for(int i = 0; i < src.rows; i++)
-        for(int j = 0; j < src.cols; j++){
+    for(int i = 0; i < container.rows; i++)
+        for(int j = 0; j < container.cols; j++){
 
             int x = ycenter + ((float)(i)-ycenter)*_cos - ((float)(j)-xcenter)*_sin;
             int y = xcenter + ((float)(i)-ycenter)*_sin + ((float)(j)-xcenter)*_cos;
-            if (x >= 0 && x < src.rows && y >= 0 && y < src.cols) {
-                    dst.at<cv::Vec4b>(i,j) = src.at<cv::Vec4b>(x, y);
-                  }
-            else {
+
+            if (x >= 0 && x < container.rows && y >= 0 && y < container.cols)
+                    dst.at<cv::Vec4b>(i,j) = container.at<cv::Vec4b>(x, y);
+            else
                 dst.at<cv::Vec4b>(i,j)[3] = 0;
-            }
         }
-
-    //w = row    h = col
-
 }

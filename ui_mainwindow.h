@@ -676,7 +676,7 @@ public:
         QObject::connect(rotate_slider, SIGNAL(valueChanged(int)), rotate_spin, SLOT(setValue(int)));
         QObject::connect(rotate_spin, SIGNAL(valueChanged(int)), rotate_slider, SLOT(setValue(int)));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

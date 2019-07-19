@@ -1,8 +1,7 @@
 #include <iostream>
-#include "Memento/caretaker.h"
+#include "caretaker.h"
 
-CareTaker::CareTaker(){
-}
+CareTaker::CareTaker()= default;
 
 CareTaker::~CareTaker() {
     for (Memento* element : listMementoUndo) {

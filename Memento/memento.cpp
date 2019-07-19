@@ -1,5 +1,5 @@
-#include "Memento.h"
-#include "Originator.h"
+#include "memento.h"
+#include "originator.h"
 
 Memento::Memento(const Originator& o) : originator(o) {
 }

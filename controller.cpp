@@ -3,7 +3,7 @@
 #include <utility>
 
 void Controller::load(QString path){
-    model->imgLoad(std::move(path));
+    model->imgLoad(path);
     model->setFlag(true, model->is_Loaded);
 
     originator->setValue(0, originator->exposure_Val);
@@ -16,7 +16,7 @@ void Controller::load(QString path){
 }
 
 void Controller::save(QString path){
-    model->imgSave(std::move(path));
+    model->imgSave(path);
     model->setFlag(true, model->is_Saved);
 }
 
@@ -62,7 +62,10 @@ void Controller::rotate(int a){
         caretaker->setMemento(originator->createMemento());
     }
 
-    rotation run(model->src, model->dst, a);
+    int _diag = (int)sqrt(model->src.cols*model->src.cols+model->src.rows*model->src.rows);
+    model->dst = cv::Mat::zeros(_diag, _diag, model->src.type());
+
+    rotation run(model->src, model->dst, a, _diag);
     run.doProcess();
     model->setValue(a);
 }

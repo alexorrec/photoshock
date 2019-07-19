@@ -2,7 +2,6 @@
 #define ORIGINATOR_H
 
 #include <iostream>
-
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
@@ -33,7 +32,7 @@ public:
     bool getState(bool& state) const { return state; }
 
     cv::Mat getMat() const { return prev; }
-    void setMat(cv::Mat actual);
+    void setMat(const cv::Mat& actual);
 
     Memento* createMemento();
     void restoreToMemento(Memento* memento);

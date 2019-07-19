@@ -1,5 +1,5 @@
 #include "originator.h"
-#include "Memento/Memento.h"
+#include "memento.h"
 
 Originator::Originator(const int exp, const double c,
                        const int r, const int g, const int b,
@@ -33,6 +33,6 @@ void Originator::restoreToMemento(Memento* memento){
     *this = memento->getOriginator();
 }
 
-void Originator::setMat(cv::Mat actual){
+void Originator::setMat(const cv::Mat& actual){
     prev = actual.clone();
 }
