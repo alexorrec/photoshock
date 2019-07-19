@@ -55,6 +55,7 @@ FORMS += \
 
 LIBS += /usr/local/lib/libopencv_core.3.4.6.dylib
 LIBS += /usr/local/lib/libopencv_highgui.3.4.6.dylib
+LIBS += /usr/local/lib/libopencv_imgproc.3.4.6.dylib
 
 
 QT_CONFIG -= no-pkg-config

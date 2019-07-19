@@ -11,17 +11,24 @@ void rotation::doProcess(){
     float xcenter = (float)(src.cols)/2.0;
     float ycenter = (float)(src.rows)/2.0;
 
+    //int newH = 2 * (src.rows/2*sin(rads) + src.cols/2*cos(rads));
+    //int newW = 2 * (src.rows/2*cos(rads) + src.cols/2*sin(rads));
+
+    //dst = cv::Mat::zeros(newW, newH, CV_8UC4);
+
     for(int i = 0; i < src.rows; i++)
         for(int j = 0; j < src.cols; j++){
 
             int x = ycenter + ((float)(i)-ycenter)*_cos - ((float)(j)-xcenter)*_sin;
             int y = xcenter + ((float)(i)-ycenter)*_sin + ((float)(j)-xcenter)*_cos;
             if (x >= 0 && x < src.rows && y >= 0 && y < src.cols) {
-                     dst.at<cv::Vec4b>(i ,j) = src.at<cv::Vec4b>(x, y);
+                    dst.at<cv::Vec4b>(i,j) = src.at<cv::Vec4b>(x, y);
                   }
             else {
-                dst.at<cv::Vec4b>(i ,j)[3] = 0;
+                dst.at<cv::Vec4b>(i,j)[3] = 0;
             }
         }
+
+    //w = row    h = col
 
 }
