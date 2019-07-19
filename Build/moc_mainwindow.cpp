@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[28];
-    char stringdata0[609];
+    QByteArrayData data[30];
+    char stringdata0[656];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -58,7 +58,9 @@ QT_MOC_LITERAL(23, 530, 20), // "on_reset_btn_clicked"
 QT_MOC_LITERAL(24, 551, 27), // "on_tabWidget_currentChanged"
 QT_MOC_LITERAL(25, 579, 10), // "closeEvent"
 QT_MOC_LITERAL(26, 590, 12), // "QCloseEvent*"
-QT_MOC_LITERAL(27, 603, 5) // "event"
+QT_MOC_LITERAL(27, 603, 5), // "event"
+QT_MOC_LITERAL(28, 609, 22), // "on_zoom_in_btn_clicked"
+QT_MOC_LITERAL(29, 632, 23) // "on_zoom_out_btn_clicked"
 
     },
     "MainWindow\0on_open_btn_clicked\0\0"
@@ -77,7 +79,8 @@ QT_MOC_LITERAL(27, 603, 5) // "event"
     "on_blur_btn_clicked\0on_sharp_btn_clicked\0"
     "on_undo_btn_clicked\0on_redo_btn_clicked\0"
     "on_reset_btn_clicked\0on_tabWidget_currentChanged\0"
-    "closeEvent\0QCloseEvent*\0event"
+    "closeEvent\0QCloseEvent*\0event\0"
+    "on_zoom_in_btn_clicked\0on_zoom_out_btn_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -87,7 +90,7 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      24,   14, // methods
+      26,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -95,30 +98,32 @@ static const uint qt_meta_data_MainWindow[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,  134,    2, 0x08 /* Private */,
-       3,    0,  135,    2, 0x08 /* Private */,
-       4,    0,  136,    2, 0x08 /* Private */,
-       5,    0,  137,    2, 0x08 /* Private */,
-       6,    0,  138,    2, 0x08 /* Private */,
-       7,    0,  139,    2, 0x08 /* Private */,
-       8,    0,  140,    2, 0x08 /* Private */,
-       9,    0,  141,    2, 0x08 /* Private */,
-      10,    0,  142,    2, 0x08 /* Private */,
-      11,    0,  143,    2, 0x08 /* Private */,
-      12,    0,  144,    2, 0x08 /* Private */,
-      13,    0,  145,    2, 0x08 /* Private */,
-      14,    0,  146,    2, 0x08 /* Private */,
-      15,    0,  147,    2, 0x08 /* Private */,
-      16,    0,  148,    2, 0x08 /* Private */,
-      17,    0,  149,    2, 0x08 /* Private */,
-      18,    0,  150,    2, 0x08 /* Private */,
-      19,    0,  151,    2, 0x08 /* Private */,
-      20,    0,  152,    2, 0x08 /* Private */,
-      21,    0,  153,    2, 0x08 /* Private */,
-      22,    0,  154,    2, 0x08 /* Private */,
-      23,    0,  155,    2, 0x08 /* Private */,
-      24,    0,  156,    2, 0x08 /* Private */,
-      25,    1,  157,    2, 0x08 /* Private */,
+       1,    0,  144,    2, 0x08 /* Private */,
+       3,    0,  145,    2, 0x08 /* Private */,
+       4,    0,  146,    2, 0x08 /* Private */,
+       5,    0,  147,    2, 0x08 /* Private */,
+       6,    0,  148,    2, 0x08 /* Private */,
+       7,    0,  149,    2, 0x08 /* Private */,
+       8,    0,  150,    2, 0x08 /* Private */,
+       9,    0,  151,    2, 0x08 /* Private */,
+      10,    0,  152,    2, 0x08 /* Private */,
+      11,    0,  153,    2, 0x08 /* Private */,
+      12,    0,  154,    2, 0x08 /* Private */,
+      13,    0,  155,    2, 0x08 /* Private */,
+      14,    0,  156,    2, 0x08 /* Private */,
+      15,    0,  157,    2, 0x08 /* Private */,
+      16,    0,  158,    2, 0x08 /* Private */,
+      17,    0,  159,    2, 0x08 /* Private */,
+      18,    0,  160,    2, 0x08 /* Private */,
+      19,    0,  161,    2, 0x08 /* Private */,
+      20,    0,  162,    2, 0x08 /* Private */,
+      21,    0,  163,    2, 0x08 /* Private */,
+      22,    0,  164,    2, 0x08 /* Private */,
+      23,    0,  165,    2, 0x08 /* Private */,
+      24,    0,  166,    2, 0x08 /* Private */,
+      25,    1,  167,    2, 0x08 /* Private */,
+      28,    0,  170,    2, 0x08 /* Private */,
+      29,    0,  171,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
@@ -145,6 +150,8 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 26,   27,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -179,6 +186,8 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 21: _t->on_reset_btn_clicked(); break;
         case 22: _t->on_tabWidget_currentChanged(); break;
         case 23: _t->closeEvent((*reinterpret_cast< QCloseEvent*(*)>(_a[1]))); break;
+        case 24: _t->on_zoom_in_btn_clicked(); break;
+        case 25: _t->on_zoom_out_btn_clicked(); break;
         default: ;
         }
     }
@@ -215,13 +224,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 24)
+        if (_id < 26)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 24;
+        _id -= 26;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 24)
+        if (_id < 26)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 24;
+        _id -= 26;
     }
     return _id;
 }

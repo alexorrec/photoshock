@@ -14,7 +14,8 @@ MainWindow::~MainWindow(){
 
 void MainWindow::closeEvent(QCloseEvent*  /*event*/){
 
-    if(ui->img_lbl->pixmap()){
+    if(ui->img_view->isEnabled())
+    {
     switch (QMessageBox(tr("Warning!"), tr("Save before Exit?"), QMessageBox::Warning, QMessageBox::Yes |
                         QMessageBox::Default, QMessageBox::No, QMessageBox::Escape).exec()){
         case 3:
@@ -22,6 +23,21 @@ void MainWindow::closeEvent(QCloseEvent*  /*event*/){
         }
     }
 }
+
+void MainWindow::on_zoom_in_btn_clicked(){
+    is_Scaling = true;
+    value = 1.25;
+    updateUi();
+    is_Scaling = false;
+}
+
+void MainWindow::on_zoom_out_btn_clicked(){
+    is_Scaling = true;
+    value = 0.8;
+    updateUi();
+    is_Scaling = false;
+}
+
 
 void MainWindow::updateUi(){
 
@@ -39,7 +55,12 @@ void MainWindow::updateUi(){
     ui->g_hist->setPixmap(QPixmap::fromImage(qHg).scaled(ui->g_hist->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     ui->b_hist->setPixmap(QPixmap::fromImage(qHb).scaled(ui->b_hist->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    ui->img_lbl->setPixmap(QPixmap::fromImage(qimg).scaled(ui->img_lbl->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    scene->clear();
+    scene->addPixmap(QPixmap::fromImage(qimg).scaled(ui->img_view->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    ui->img_view->setScene(scene);
+    ui->img_view->show();
+    if(is_Scaling)
+        ui->img_view->scale(value, value);
 
     if(controller->caretaker->listMementoRedo.empty())
         ui->redo_btn->setEnabled(false);
@@ -90,6 +111,11 @@ void MainWindow::on_open_btn_clicked(){
         ui->flipV_btn->setEnabled(true);
 
         ui->steps_spin->setEnabled(true);
+
+        ui->zoom_in_btn->setEnabled(true);
+        ui->zoom_out_btn->setEnabled(true);
+
+        ui->img_view->setEnabled(true);
     }
 }
 

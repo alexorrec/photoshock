@@ -61,9 +61,15 @@ private slots:
 
     void closeEvent(QCloseEvent* event) override;
 
-private:
+    void on_zoom_in_btn_clicked();
+    void on_zoom_out_btn_clicked();
 
+private:
+    QGraphicsScene* scene = new QGraphicsScene();
     Ui::MainWindow *ui;
+
+    double value = 1.0;
+    bool is_Scaling = false;
 
     Model* model;
     Controller* controller;

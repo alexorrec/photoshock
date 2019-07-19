@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -41,10 +42,12 @@ public:
     QPushButton *undo_btn;
     QPushButton *redo_btn;
     QSpacerItem *horizontalSpacer_3;
+    QPushButton *zoom_out_btn;
+    QPushButton *zoom_in_btn;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
     QGridLayout *gridLayout_9;
-    QLabel *img_lbl;
+    QGraphicsView *img_view;
     QVBoxLayout *verticalLayout_3;
     QVBoxLayout *verticalLayout;
     QLabel *r_hist;
@@ -187,6 +190,18 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer_3);
 
+        zoom_out_btn = new QPushButton(centralWidget);
+        zoom_out_btn->setObjectName(QString::fromUtf8("zoom_out_btn"));
+        zoom_out_btn->setEnabled(false);
+
+        horizontalLayout->addWidget(zoom_out_btn);
+
+        zoom_in_btn = new QPushButton(centralWidget);
+        zoom_in_btn->setObjectName(QString::fromUtf8("zoom_in_btn"));
+        zoom_in_btn->setEnabled(false);
+
+        horizontalLayout->addWidget(zoom_in_btn);
+
 
         verticalLayout_2->addLayout(horizontalLayout);
 
@@ -202,13 +217,11 @@ public:
         gridLayout_9->setSpacing(6);
         gridLayout_9->setContentsMargins(11, 11, 11, 11);
         gridLayout_9->setObjectName(QString::fromUtf8("gridLayout_9"));
-        img_lbl = new QLabel(scrollAreaWidgetContents);
-        img_lbl->setObjectName(QString::fromUtf8("img_lbl"));
-        sizePolicy.setHeightForWidth(img_lbl->sizePolicy().hasHeightForWidth());
-        img_lbl->setSizePolicy(sizePolicy);
-        img_lbl->setAlignment(Qt::AlignCenter);
+        img_view = new QGraphicsView(scrollAreaWidgetContents);
+        img_view->setObjectName(QString::fromUtf8("img_view"));
+        img_view->setEnabled(false);
 
-        gridLayout_9->addWidget(img_lbl, 0, 0, 1, 1);
+        gridLayout_9->addWidget(img_view, 0, 0, 1, 1);
 
         scrollArea->setWidget(scrollAreaWidgetContents);
 
@@ -676,7 +689,7 @@ public:
         QObject::connect(rotate_slider, SIGNAL(valueChanged(int)), rotate_spin, SLOT(setValue(int)));
         QObject::connect(rotate_spin, SIGNAL(valueChanged(int)), rotate_slider, SLOT(setValue(int)));
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -690,7 +703,8 @@ public:
         reset_btn->setText(QApplication::translate("MainWindow", "Revert all changes", nullptr));
         undo_btn->setText(QApplication::translate("MainWindow", "<--", nullptr));
         redo_btn->setText(QApplication::translate("MainWindow", "-->", nullptr));
-        img_lbl->setText(QString());
+        zoom_out_btn->setText(QApplication::translate("MainWindow", "-", nullptr));
+        zoom_in_btn->setText(QApplication::translate("MainWindow", "+", nullptr));
         r_hist->setText(QApplication::translate("MainWindow", "R", nullptr));
         g_hist->setText(QApplication::translate("MainWindow", "G", nullptr));
         b_hist->setText(QApplication::translate("MainWindow", "B", nullptr));
